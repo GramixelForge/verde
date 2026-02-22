@@ -828,7 +828,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN DE INSTRUCCIONES PARA CURA (ACTUALIZADA) -->
+            <!-- SECCIÓN DE INSTRUCCIONES PARA CURA -->
             <div class="tarjeta-instrucciones">
                 <h3>
                     <span>🔧</span>
@@ -912,14 +912,19 @@
                 </div>
             </div>
 
-            <!-- Formulario de cotización -->
+            <!-- Formulario de cotización - CON TODOS LOS CAMPOS CON NAME -->
             <section id="cotizar" class="seccion-cotizacion">
                 <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">Solicitud de cotización</h2>
                 
                 <div class="layout-formulario">
                     <div>
-                        <!-- IMPORTANTE: Reemplazar con tu endpoint de Formspree -->
-                        <form id="formularioCotizacion" action="https://formspree.io/f/xbdazzpp" method="POST">
+                        <!-- IMPORTANTE: Reemplaza con tu endpoint real de Formspree -->
+                        <form id="formularioCotizacion" action="https://formspree.io/f/xyzabcde" method="POST">
+                            <!-- CAMPO OCULTO PARA REDIRECCIÓN (opcional) -->
+                            <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D - Verde">
+                            <input type="hidden" name="_replyto" value="tu-email@ejemplo.com">
+                            
+                            <!-- Datos personales -->
                             <div class="grupo-formulario">
                                 <label>Nombre completo *</label>
                                 <input type="text" name="nombre" id="nombre" placeholder="Ej. María José González" required>
@@ -938,12 +943,13 @@
                                 </div>
                             </div>
                             
+                            <!-- Descripción del proyecto -->
                             <div class="grupo-formulario">
                                 <label>Descripción del proyecto *</label>
                                 <textarea name="descripcion" id="descripcion" rows="4" placeholder="Describa la pieza que necesita: dimensiones aproximadas, función deseada, acabados requeridos, cantidad de copias, referencias visuales, etc." required></textarea>
                             </div>
                             
-                            <!-- Campos de Cura -->
+                            <!-- Datos del slicer -->
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
                                     <label>Gramos de filamento (según Cura) *</label>
@@ -958,7 +964,7 @@
                                 </div>
                             </div>
 
-                            <!-- NUEVOS CAMPOS: Infill y Soportes -->
+                            <!-- Configuración de impresión -->
                             <div class="fila-tres-columnas">
                                 <div class="grupo-formulario">
                                     <label>Infill (densidad) *</label>
@@ -996,12 +1002,13 @@
                                 </div>
                             </div>
                             
+                            <!-- Archivos -->
                             <div class="grupo-formulario">
                                 <label>Archivo 3D (si está disponible)</label>
                                 <div class="area-archivo">
                                     <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">📦</span>
                                     <p style="font-size: 0.9rem;">STL, OBJ o 3MF (máx 25MB)</p>
-                                    <input type="file" name="archivo" accept=".stl,.obj,.3mf">
+                                    <input type="file" name="archivo_3d" accept=".stl,.obj,.3mf">
                                 </div>
                             </div>
 
@@ -1015,14 +1022,15 @@
                                 </div>
                             </div>
                             
+                            <!-- Material y color -->
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
                                     <label>Material preferido</label>
                                     <select name="material" id="material">
-                                        <option>PLA (estándar)</option>
-                                        <option>PETG (resistente)</option>
-                                        <option>TPU (flexible)</option>
-                                        <option>Otro</option>
+                                        <option value="PLA">PLA (estándar)</option>
+                                        <option value="PETG">PETG (resistente)</option>
+                                        <option value="TPU">TPU (flexible)</option>
+                                        <option value="otro">Otro</option>
                                     </select>
                                 </div>
                                 
@@ -1032,6 +1040,7 @@
                                 </div>
                             </div>
 
+                            <!-- Opciones adicionales -->
                             <div class="opcion-prioritaria">
                                 <label>
                                     <input type="checkbox" name="prioridad" id="prioridadExpress" value="si"> 
@@ -1052,10 +1061,10 @@
                                 </label>
                             </div>
 
-                            <!-- Acuerdo legal obligatorio -->
+                            <!-- Acuerdo legal -->
                             <div class="caja-acuerdo">
                                 <label class="checkbox-legal">
-                                    <input type="checkbox" name="acuerdo" id="acuerdoLegal" required value="si">
+                                    <input type="checkbox" name="acuerdo_legal" id="acuerdoLegal" required value="si">
                                     <div>
                                         <strong style="display: block; margin-bottom: 0.3rem;">Acepto los términos legales</strong>
                                         <span style="color: var(--gris-texto); font-size: 0.9rem;">He leído y acepto el descargo de responsabilidad, las condiciones de servicio y la política de tarifas adicionales. Entiendo que el presupuesto mostrado es un estimado y que la cotización final será enviada por correo después de evaluar su solicitud con los valores reales de mi slicer.</span>
@@ -1063,8 +1072,13 @@
                                 </label>
                             </div>
 
-                            <!-- Campo oculto para el estimado (opcional) -->
-                            <input type="hidden" name="estimado" id="estimadoHidden" value="Q180.00">
+                            <!-- Campo oculto con el estimado -->
+                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q180.00">
+
+                            <!-- Botón de envío -->
+                            <button type="submit" class="btn btn-primario" style="width: 100%; margin-top: 1rem; background: white; color: var(--verde-corporativo); border: none; font-weight: 600;">
+                                Enviar solicitud
+                            </button>
                         </form>
                     </div>
                     
@@ -1130,9 +1144,7 @@
                                 <div id="tiempoEntrega" style="margin-top: 0.5rem; color: #F4A261; font-weight: 500;">⏱️ Tiempo estándar: 3-5 días hábiles después de confirmar</div>
                             </div>
                             
-                            <button class="btn btn-primario" style="width: 100%; background: white; color: var(--verde-corporativo); border: none; font-weight: 600;" onclick="document.getElementById('formularioCotizacion').submit();">
-                                Enviar solicitud
-                            </button>
+                            <!-- Este botón es SOLO decorativo, el real está dentro del form -->
                             <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">Le responderemos en máximo 24 horas</p>
                         </div>
                     </div>
@@ -1222,16 +1234,16 @@
             if (gramos > 0) estimado += gramos * 0.5;
             if (horas > 0) estimado += horas * 15;
             
-            if (ayudaDiseno.checked) estimado += DISENO;
-            if (prioridadExpress.checked) estimado += PRIORIDAD;
+            if (ayudaDiseno && ayudaDiseno.checked) estimado += DISENO;
+            if (prioridadExpress && prioridadExpress.checked) estimado += PRIORIDAD;
             estimado += ENTREGA;
             
             const totalTexto = `Q${Math.round(estimado)}.00`;
             totalEstimado.textContent = totalTexto;
-            estimadoHidden.value = totalTexto;
+            if (estimadoHidden) estimadoHidden.value = totalTexto;
             
             // Tiempo de entrega
-            if (prioridadExpress.checked) {
+            if (prioridadExpress && prioridadExpress.checked) {
                 tiempoEntrega.textContent = '⏱️ Con prioridad expresa: 24-48 horas hábiles después de confirmar';
             } else {
                 tiempoEntrega.textContent = '⏱️ Tiempo estándar: 3-5 días hábiles después de confirmar';
@@ -1239,21 +1251,21 @@
         }
 
         // Event listeners
-        gramosInput.addEventListener('input', actualizarEstimado);
-        horasInput.addEventListener('input', actualizarEstimado);
-        infillSelect.addEventListener('change', actualizarEstimado);
-        soportesSelect.addEventListener('change', actualizarEstimado);
+        if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
+        if (horasInput) horasInput.addEventListener('input', actualizarEstimado);
+        if (infillSelect) infillSelect.addEventListener('change', actualizarEstimado);
+        if (soportesSelect) soportesSelect.addEventListener('change', actualizarEstimado);
 
         if (ayudaDiseno) {
             ayudaDiseno.addEventListener('change', function() {
-                filaDiseno.style.display = this.checked ? 'flex' : 'none';
+                if (filaDiseno) filaDiseno.style.display = this.checked ? 'flex' : 'none';
                 actualizarEstimado();
             });
         }
 
         if (prioridadExpress) {
             prioridadExpress.addEventListener('change', function() {
-                filaPrioridad.style.display = this.checked ? 'flex' : 'none';
+                if (filaPrioridad) filaPrioridad.style.display = this.checked ? 'flex' : 'none';
                 actualizarEstimado();
             });
         }
@@ -1272,59 +1284,33 @@
             return dominio.endsWith('.gt') || dominiosValidos.includes(dominio);
         }
 
-        emailInput.addEventListener('input', function() {
-            const email = this.value;
-            
-            if (email.length === 0) {
-                this.classList.remove('input-valido', 'input-invalido');
-                emailValidation.textContent = '';
-                return;
-            }
-            
-            if (validarEmail(email)) {
-                this.classList.add('input-valido');
-                this.classList.remove('input-invalido');
-                emailValidation.textContent = '✓ Correo válido';
-                emailValidation.className = 'mensaje-validacion valido';
-            } else {
-                this.classList.add('input-invalido');
-                this.classList.remove('input-valido');
-                emailValidation.textContent = '✗ Ingrese un correo válido (ej. nombre@dominio.com)';
-                emailValidation.className = 'mensaje-validacion invalido';
-            }
-        });
-
-        // ===== VALIDACIÓN ANTES DE ENVIAR =====
-        document.getElementById('formularioCotizacion').addEventListener('submit', function(e) {
-            const acuerdoLegal = document.getElementById('acuerdoLegal');
-            if (!acuerdoLegal.checked) {
-                e.preventDefault();
-                alert('Debe aceptar los términos legales para continuar.');
-                return false;
-            }
-            
-            const nombre = document.getElementById('nombre');
-            const telefono = document.getElementById('telefono');
-            const email = document.getElementById('email');
-            const descripcion = document.getElementById('descripcion');
-            
-            if (!nombre.value || !telefono.value || !email.value || !descripcion.value) {
-                e.preventDefault();
-                alert('Por favor, complete todos los campos obligatorios: nombre, teléfono, correo y descripción.');
-                return false;
-            }
-            
-            if (!validarEmail(email.value)) {
-                e.preventDefault();
-                alert('Por favor, ingrese un correo electrónico válido.');
-                email.focus();
-                return false;
-            }
-            
-            // Si todo está bien, el formulario se envía a Formspree
-            alert('✅ Enviando solicitud... Recibirá una cotización formal en máximo 24 horas.');
-            return true;
-        });
+        if (emailInput) {
+            emailInput.addEventListener('input', function() {
+                const email = this.value;
+                
+                if (email.length === 0) {
+                    this.classList.remove('input-valido', 'input-invalido');
+                    if (emailValidation) emailValidation.textContent = '';
+                    return;
+                }
+                
+                if (validarEmail(email)) {
+                    this.classList.add('input-valido');
+                    this.classList.remove('input-invalido');
+                    if (emailValidation) {
+                        emailValidation.textContent = '✓ Correo válido';
+                        emailValidation.className = 'mensaje-validacion valido';
+                    }
+                } else {
+                    this.classList.add('input-invalido');
+                    this.classList.remove('input-valido');
+                    if (emailValidation) {
+                        emailValidation.textContent = '✗ Ingrese un correo válido (ej. nombre@dominio.com)';
+                        emailValidation.className = 'mensaje-validacion invalido';
+                    }
+                }
+            });
+        }
 
         // ===== FEEDBACK ARCHIVOS =====
         document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
@@ -1336,7 +1322,7 @@
                     parent.style.background = 'var(--blanco)';
                     parent.style.borderColor = 'var(--verde-corporativo)';
                 } else {
-                    const defaultText = parent.querySelector('p:first-child').getAttribute('data-default');
+                    const defaultText = parent.querySelector('p:first-child')?.getAttribute('data-default');
                     if (defaultText) {
                         textElement.innerHTML = defaultText;
                     }
@@ -1344,8 +1330,10 @@
                 }
             });
             
-            const defaultText = input.closest('.area-archivo').querySelector('p').innerHTML;
-            input.closest('.area-archivo').querySelector('p').setAttribute('data-default', defaultText);
+            const defaultText = input.closest('.area-archivo')?.querySelector('p')?.innerHTML;
+            if (defaultText) {
+                input.closest('.area-archivo')?.querySelector('p')?.setAttribute('data-default', defaultText);
+            }
         });
 
         // ===== SCROLL SUAVE =====
