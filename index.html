@@ -98,16 +98,6 @@
             transform: scale(0.98);
         }
 
-        .btn-secundario {
-            background: transparent;
-            border: 1px solid var(--verde-corporativo);
-            color: var(--verde-corporativo);
-        }
-
-        .btn-secundario:active {
-            background: var(--verde-fondo);
-        }
-
         /* ===== HERO ===== */
         .hero {
             padding: 3rem 0;
@@ -191,17 +181,6 @@
             background: rgba(255,255,255,0.5);
             padding: 1rem;
             border-radius: 8px;
-        }
-
-        .comparacion-item .producto {
-            font-weight: 600;
-            color: var(--gris-oscuro);
-            font-size: 0.95rem;
-        }
-
-        .comparacion-item .precio {
-            font-size: 1rem;
-            font-weight: 700;
         }
 
         /* ===== BANNER LEGAL ===== */
@@ -304,10 +283,6 @@
             font-size: 0.9rem;
         }
 
-        .paso-slicer p {
-            font-size: 0.85rem;
-        }
-
         .slicer-destacado {
             background: var(--fondo-info);
             border-radius: 8px;
@@ -322,20 +297,6 @@
             color: var(--azul-info);
             font-weight: 600;
             text-decoration: none;
-            word-break: break-word;
-        }
-
-        .nota-importante {
-            background: var(--verde-fondo);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            border-left: 4px solid var(--verde-corporativo);
-        }
-
-        .nota-importante ul {
-            margin-left: 1.2rem;
         }
 
         /* ===== DESCARGO DE RESPONSABILIDAD ===== */
@@ -378,13 +339,94 @@
             font-size: 0.9rem;
         }
 
-        .destacado-legal {
-            background: var(--fondo-advertencia);
+        /* ===== NUEVO: TIME PICKER ===== */
+        .time-picker {
+            position: relative;
+            width: 100%;
+        }
+
+        .time-input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--gris-claro);
             border-radius: 8px;
+            font-size: 16px;
+            background: var(--blanco);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: var(--verde-corporativo);
+            box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
+        }
+
+        .time-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--blanco);
+            border: 1px solid var(--gris-claro);
+            border-radius: 8px;
+            box-shadow: var(--sombra-media);
+            margin-top: 0.5rem;
+            z-index: 1000;
+            display: none;
+        }
+
+        .time-dropdown.show {
+            display: block;
+        }
+
+        .time-picker-header {
             padding: 1rem;
-            margin-top: 1.5rem;
-            border: 1px solid var(--advertencia);
+            border-bottom: 1px solid var(--gris-claro);
+            text-align: center;
+            font-weight: 600;
+            color: var(--verde-corporativo);
+        }
+
+        .time-selectors {
+            display: flex;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .time-col {
+            flex: 1;
+            text-align: center;
+        }
+
+        .time-label {
+            font-weight: 600;
+            color: var(--gris-texto);
+            margin-bottom: 0.5rem;
             font-size: 0.9rem;
+        }
+
+        .time-scroll {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--gris-claro);
+            border-radius: 6px;
+        }
+
+        .time-option {
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .time-option:hover {
+            background: var(--verde-fondo);
+        }
+
+        .time-option.selected {
+            background: var(--verde-corporativo);
+            color: white;
         }
 
         /* ===== FORMULARIO ===== */
@@ -433,32 +475,9 @@
             padding: 0.9rem 1rem;
             border: 1px solid var(--gris-claro);
             border-radius: 8px;
-            font-size: 16px; /* Evita zoom en iOS */
+            font-size: 16px;
             transition: all 0.2s;
             background: var(--blanco);
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        /* Selector de horas en formato HH:MM */
-        .selector-horas {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .selector-horas select {
-            flex: 1;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
-        }
-
-        select {
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -467,11 +486,9 @@
             box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
         }
 
-        /* NUEVO: Selector numérico para infill */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
+        input[type=number]::-webkit-inner-spin-button { 
             opacity: 1;
-            height: 30px;
+            height: 24px;
         }
 
         .area-archivo {
@@ -482,15 +499,10 @@
             text-align: center;
             position: relative;
             cursor: pointer;
-            transition: all 0.2s;
             min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .area-archivo:active {
-            background: var(--blanco);
         }
 
         .area-archivo input {
@@ -517,7 +529,6 @@
             gap: 0.8rem;
             font-weight: 600;
             color: #C45D2C;
-            font-size: 1rem;
             cursor: pointer;
         }
 
@@ -528,7 +539,6 @@
             cursor: pointer;
         }
 
-        /* Estilo para checkboxes en general */
         input[type="checkbox"] {
             width: 20px;
             height: 20px;
@@ -543,7 +553,7 @@
             padding: 1.5rem;
             color: white;
             position: sticky;
-            top: 80px;
+            top: 20px;
         }
 
         .fila-calculo {
@@ -577,21 +587,6 @@
             padding: 1rem;
             margin: 1rem 0;
             font-size: 0.9rem;
-            line-height: 1.4;
-            border-left: 3px solid #F4A261;
-        }
-
-        .nota-calculadora ul {
-            margin-left: 1.2rem;
-            margin-top: 0.5rem;
-        }
-
-        .estimado-advertencia {
-            background: rgba(0,0,0,0.2);
-            border-radius: 6px;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-size: 0.9rem;
         }
 
         /* ===== CHECKBOX ACUERDO ===== */
@@ -612,12 +607,7 @@
         .checkbox-legal input {
             width: 24px;
             height: 24px;
-            margin-top: 0.1rem;
             flex-shrink: 0;
-            cursor: pointer;
-        }
-
-        .checkbox-legal div {
             cursor: pointer;
         }
 
@@ -638,9 +628,6 @@
         .footer a {
             color: #BDD3CE;
             text-decoration: none;
-            font-size: 0.95rem;
-            padding: 0.3rem 0;
-            display: inline-block;
         }
 
         .email-contacto {
@@ -667,40 +654,28 @@
         @media (max-width: 768px) {
             .hero-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
             
             .hero-imagen {
-                min-height: 150px;
                 order: -1;
+                min-height: 150px;
             }
 
             .grid-proceso {
                 grid-template-columns: 1fr;
-                gap: 1rem;
             }
 
             .pasos-slicer {
                 grid-template-columns: 1fr;
             }
 
-            .fila-formulario {
+            .fila-formulario, .fila-tres-columnas {
                 grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-
-            .fila-tres-columnas {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
             }
 
             .banner-valor {
                 grid-template-columns: 1fr;
                 text-align: center;
-            }
-
-            .banner-valor-icono {
-                margin-bottom: 0.5rem;
             }
 
             .comparacion-grid {
@@ -711,62 +686,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .seccion-titulo {
-                font-size: 1.6rem;
-                margin: 2rem 0 1rem;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
             .logo span {
                 display: block;
                 margin-left: 0;
-                font-size: 0.8rem;
             }
 
-            .selector-horas {
-                flex-direction: row;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            .hero-titulo {
-                font-size: 1.8rem;
-            }
-
-            .hero-descripcion {
-                font-size: 1rem;
-            }
-
-            .tarjeta-calculadora {
-                padding: 1.2rem;
-            }
-
-            .fila-calculo {
-                font-size: 0.9rem;
-            }
-
-            .fila-calculo.total {
-                font-size: 1.1rem;
-            }
-
-            .opcion-prioritaria label {
-                flex-wrap: wrap;
-            }
-
-            .checkbox-legal {
-                flex-wrap: wrap;
+            .time-selectors {
+                flex-direction: column;
             }
         }
     </style>
@@ -796,9 +722,7 @@
                         <a href="#cotizar" class="btn btn-primario">Obtener cotización</a>
                     </div>
                 </div>
-                <div class="hero-imagen">
-                    <!-- Solo gradiente verde, sin emoji -->
-                </div>
+                <div class="hero-imagen"></div>
             </div>
         </section>
 
@@ -815,13 +739,11 @@
                             <div class="producto">📦 Objeto comercial</div>
                             <div class="precio-store">Tienda: Q50</div>
                             <div class="precio">3D: Q180</div>
-                            <p style="font-size: 0.8rem;">✅ Mejor comprarlo</p>
                         </div>
                         <div class="comparacion-item">
                             <div class="producto">🔧 Repuesto único</div>
                             <div class="precio-store">Tienda: No hay</div>
                             <div class="precio">3D: Q180</div>
-                            <p style="font-size: 0.8rem;">✅ Única opción</p>
                         </div>
                     </div>
                 </div>
@@ -890,10 +812,6 @@
                         <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Descargar →</a>
                     </div>
                 </div>
-
-                <div class="nota-importante">
-                    <strong>📊 Importante:</strong> Use los mismos valores de infill y soportes en el formulario.
-                </div>
             </div>
 
             <!-- Descargo -->
@@ -919,13 +837,12 @@
                 </div>
             </div>
 
-            <!-- FORMULARIO CON FORSPREE ID -->
+            <!-- FORMULARIO -->
             <section id="cotizar" class="seccion-cotizacion">
                 <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Solicitud de cotización</h2>
                 
                 <div class="layout-formulario">
                     <div>
-                        <!-- TU FORSPREE ID: xbdazzpp -->
                         <form id="formularioCotizacion" action="https://formspree.io/f/xbdazzpp" method="POST">
                             <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D - Verde">
                             
@@ -942,7 +859,6 @@
                                 <div class="grupo-formulario">
                                     <label>Email *</label>
                                     <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" required>
-                                    <div id="email-validation" class="mensaje-validacion"></div>
                                 </div>
                             </div>
                             
@@ -958,42 +874,25 @@
                                 </div>
                                 <div class="grupo-formulario">
                                     <label>Tiempo de impresión *</label>
-                                    <div class="selector-horas">
-                                        <select name="horas" id="horas" required>
-                                            <option value="">Horas</option>
-                                            <option value="1">1 hora</option>
-                                            <option value="2">2 horas</option>
-                                            <option value="3">3 horas</option>
-                                            <option value="4">4 horas</option>
-                                            <option value="5">5 horas</option>
-                                            <option value="6">6 horas</option>
-                                            <option value="7">7 horas</option>
-                                            <option value="8">8 horas</option>
-                                            <option value="9">9 horas</option>
-                                            <option value="10">10 horas</option>
-                                            <option value="11">11 horas</option>
-                                            <option value="12">12 horas</option>
-                                            <option value="13">13 horas</option>
-                                            <option value="14">14 horas</option>
-                                            <option value="15">15 horas</option>
-                                            <option value="16">16 horas</option>
-                                            <option value="17">17 horas</option>
-                                            <option value="18">18 horas</option>
-                                            <option value="19">19 horas</option>
-                                            <option value="20">20 horas</option>
-                                            <option value="21">21 horas</option>
-                                            <option value="22">22 horas</option>
-                                            <option value="23">23 horas</option>
-                                            <option value="24">24 horas</option>
-                                        </select>
-                                        <select name="minutos" id="minutos" required>
-                                            <option value="0">0 min</option>
-                                            <option value="0.17">10 min</option>
-                                            <option value="0.33">20 min</option>
-                                            <option value="0.5">30 min</option>
-                                            <option value="0.67">40 min</option>
-                                            <option value="0.83">50 min</option>
-                                        </select>
+                                    <!-- NUEVO TIME PICKER -->
+                                    <div class="time-picker">
+                                        <input type="text" id="tiempoDisplay" class="time-input" placeholder="--:--" readonly required>
+                                        <input type="hidden" name="horas_decimal" id="horasDecimal" value="0">
+                                        <div class="time-dropdown" id="timeDropdown">
+                                            <div class="time-picker-header">
+                                                <span>Seleccione hora y minutos</span>
+                                            </div>
+                                            <div class="time-selectors">
+                                                <div class="time-col">
+                                                    <div class="time-label">Hora</div>
+                                                    <div class="time-scroll" id="hourScroll"></div>
+                                                </div>
+                                                <div class="time-col">
+                                                    <div class="time-label">Minutos</div>
+                                                    <div class="time-scroll" id="minuteScroll"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1023,28 +922,19 @@
                             <div class="grupo-formulario">
                                 <label>Archivo 3D (opcional)</label>
                                 <div class="area-archivo">
-                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">📦</span>
-                                    <p style="font-size: 0.9rem;">STL, OBJ o 3MF</p>
+                                    <span style="font-size: 1.5rem;">📦</span>
+                                    <p>STL, OBJ o 3MF</p>
                                     <input type="file" name="archivo_3d" accept=".stl,.obj,.3mf">
                                 </div>
                             </div>
 
-                            <div class="grupo-formulario">
-                                <label>Boceto o imagen (opcional)</label>
-                                <div class="area-archivo">
-                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">✏️</span>
-                                    <p style="font-size: 0.9rem;">JPG, PNG, PDF</p>
-                                    <input type="file" name="boceto" accept=".jpg,.jpeg,.png,.pdf">
-                                </div>
-                            </div>
-                            
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
                                     <label>Material</label>
                                     <select name="material" id="material">
-                                        <option value="PLA">PLA (estándar)</option>
-                                        <option value="PETG">PETG (resistente)</option>
-                                        <option value="TPU">TPU (flexible)</option>
+                                        <option value="PLA">PLA</option>
+                                        <option value="PETG">PETG</option>
+                                        <option value="TPU">TPU</option>
                                     </select>
                                 </div>
                                 <div class="grupo-formulario">
@@ -1067,20 +957,18 @@
                                 </label>
                             </div>
 
-                            <!-- Acuerdo legal con required -->
                             <div class="caja-acuerdo">
                                 <label class="checkbox-legal">
                                     <input type="checkbox" name="acuerdo_legal" id="acuerdoLegal" required value="si">
                                     <div>
                                         <strong>Acepto los términos legales *</strong>
-                                        <span style="color: var(--gris-texto); font-size: 0.9rem;">He leído y acepto el descargo de responsabilidad.</span>
                                     </div>
                                 </label>
                             </div>
 
-                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q0.00">
+                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q25.00">
 
-                            <button type="submit" class="btn btn-primario" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                            <button type="submit" class="btn btn-primario" style="width: 100%; padding: 1rem;">
                                 Enviar solicitud
                             </button>
                         </form>
@@ -1118,9 +1006,6 @@
                                 <span>Total</span>
                                 <span id="totalEstimado">Q25.00</span>
                             </div>
-                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
-                                📧 Cotización formal en 24h
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1128,8 +1013,8 @@
 
             <!-- Contacto -->
             <div style="background: var(--verde-fondo); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center;">
-                <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">📧 ¿Consultas?</p>
-                <a href="mailto:szjweiles@gmail.com" style="color: var(--verde-corporativo); font-size: 1.2rem; font-weight: 600; text-decoration: none; word-break: break-all;">szjweiles@gmail.com</a>
+                <p style="font-size: 1.2rem;">📧 ¿Consultas?</p>
+                <a href="mailto:szjweiles@gmail.com" style="color: var(--verde-corporativo); font-size: 1.2rem;">szjweiles@gmail.com</a>
             </div>
         </div>
     </main>
@@ -1138,29 +1023,96 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h4 style="color: white; margin-bottom: 1rem;">Verde</h4>
+                    <h4 style="color: white;">Verde</h4>
                     <p style="opacity: 0.7;">Impresión 3D Guatemala</p>
                     <div class="email-contacto">
                         📧 <a href="mailto:szjweiles@gmail.com">szjweiles@gmail.com</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: white; margin-bottom: 1rem;">Legal</h4>
+                    <h4 style="color: white;">Legal</h4>
                     <p><a href="#">Términos</a></p>
-                    <p><a href="#">Descargo legal</a></p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 2rem; opacity: 0.6; font-size: 0.85rem;">
+            <div style="text-align: center; margin-top: 2rem; opacity: 0.6;">
                 <p>© 2024 Verde · Guatemala</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Elementos del DOM
+        // ===== TIME PICKER =====
+        const tiempoDisplay = document.getElementById('tiempoDisplay');
+        const timeDropdown = document.getElementById('timeDropdown');
+        const hourScroll = document.getElementById('hourScroll');
+        const minuteScroll = document.getElementById('minuteScroll');
+        const horasDecimal = document.getElementById('horasDecimal');
+
+        let selectedHour = 0;
+        let selectedMinute = 0;
+
+        // Generar opciones de horas (0-24)
+        for (let i = 0; i <= 24; i++) {
+            const option = document.createElement('div');
+            option.className = 'time-option';
+            option.textContent = i.toString().padStart(2, '0');
+            option.dataset.value = i;
+            option.addEventListener('click', function() {
+                document.querySelectorAll('#hourScroll .time-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedHour = parseInt(this.dataset.value);
+                updateTimeDisplay();
+            });
+            hourScroll.appendChild(option);
+        }
+
+        // Generar opciones de minutos (0, 15, 30, 45)
+        [0, 15, 30, 45].forEach(min => {
+            const option = document.createElement('div');
+            option.className = 'time-option';
+            option.textContent = min.toString().padStart(2, '0');
+            option.dataset.value = min;
+            option.addEventListener('click', function() {
+                document.querySelectorAll('#minuteScroll .time-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedMinute = parseInt(this.dataset.value);
+                updateTimeDisplay();
+            });
+            minuteScroll.appendChild(option);
+        });
+
+        function updateTimeDisplay() {
+            if (selectedHour !== undefined && selectedMinute !== undefined) {
+                const hourStr = selectedHour.toString().padStart(2, '0');
+                const minuteStr = selectedMinute.toString().padStart(2, '0');
+                tiempoDisplay.value = `${hourStr}:${minuteStr}`;
+                
+                // Convertir a decimal (ej. 2:30 = 2.5)
+                const decimal = selectedHour + (selectedMinute / 60);
+                horasDecimal.value = decimal.toFixed(2);
+                
+                // Cerrar dropdown después de seleccionar
+                timeDropdown.classList.remove('show');
+                
+                // Disparar evento para actualizar estimado
+                actualizarEstimado();
+            }
+        }
+
+        // Abrir/cerrar dropdown
+        tiempoDisplay.addEventListener('click', () => {
+            timeDropdown.classList.toggle('show');
+        });
+
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!tiempoDisplay.contains(e.target) && !timeDropdown.contains(e.target)) {
+                timeDropdown.classList.remove('show');
+            }
+        });
+
+        // ===== ELEMENTOS DEL DOM =====
         const gramosInput = document.getElementById('gramos');
-        const horasSelect = document.getElementById('horas');
-        const minutosSelect = document.getElementById('minutos');
         const infillInput = document.getElementById('infill');
         
         const gramosDisplay = document.getElementById('gramosDisplay');
@@ -1178,33 +1130,21 @@
         const DISENO = 85;
         const PRIORIDAD = 45;
 
-        // Función para obtener horas totales en formato decimal
-        function getHorasDecimal() {
-            const horas = parseFloat(horasSelect.value) || 0;
-            const minutos = parseFloat(minutosSelect.value) || 0;
-            return horas + minutos;
-        }
-
-        // Actualizar estimado
+        // ===== ACTUALIZAR ESTIMADO =====
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
-            const horas = getHorasDecimal();
+            const horas = parseFloat(horasDecimal.value) || 0;
             const infill = parseFloat(infillInput.value) || 0;
             
             gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
             horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
             infillDisplay.textContent = infill ? `${infill}%` : '0%';
             
-            // Estimado base (simple para referencia)
-            let estimado = ENTREGA; // Base de entrega
+            let estimado = ENTREGA;
             
             if (gramos > 0) estimado += gramos * 0.5;
             if (horas > 0) estimado += horas * 15;
-            
-            // Factor de infill (más infill = más material/tiempo)
-            if (infill > 0) {
-                estimado = estimado * (1 + (infill / 200)); // Ajuste simple
-            }
+            if (infill > 0) estimado = estimado * (1 + (infill / 200));
             
             if (ayudaDiseno?.checked) {
                 estimado += DISENO;
@@ -1227,45 +1167,16 @@
 
         // Event listeners
         if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
-        if (horasSelect) horasSelect.addEventListener('change', actualizarEstimado);
-        if (minutosSelect) minutosSelect.addEventListener('change', actualizarEstimado);
         if (infillInput) infillInput.addEventListener('input', actualizarEstimado);
-
-        if (ayudaDiseno) {
-            ayudaDiseno.addEventListener('change', actualizarEstimado);
-        }
-
-        if (prioridadExpress) {
-            prioridadExpress.addEventListener('change', actualizarEstimado);
-        }
+        if (ayudaDiseno) ayudaDiseno.addEventListener('change', actualizarEstimado);
+        if (prioridadExpress) prioridadExpress.addEventListener('change', actualizarEstimado);
 
         // Validación de email
         const emailInput = document.getElementById('email');
-        const emailValidation = document.getElementById('email-validation');
-        
         if (emailInput) {
             emailInput.addEventListener('input', function() {
-                const email = this.value;
-                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-                
-                if (email.length === 0) {
-                    this.classList.remove('input-valido', 'input-invalido');
-                    if (emailValidation) emailValidation.textContent = '';
-                } else if (isValid) {
-                    this.classList.add('input-valido');
-                    this.classList.remove('input-invalido');
-                    if (emailValidation) {
-                        emailValidation.textContent = '✓ Válido';
-                        emailValidation.className = 'mensaje-validacion valido';
-                    }
-                } else {
-                    this.classList.add('input-invalido');
-                    this.classList.remove('input-valido');
-                    if (emailValidation) {
-                        emailValidation.textContent = '✗ Email inválido';
-                        emailValidation.className = 'mensaje-validacion invalido';
-                    }
-                }
+                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+                this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
             });
         }
 
@@ -1275,22 +1186,7 @@
                 const parent = this.closest('.area-archivo');
                 const textElement = parent.querySelector('p');
                 if (this.files.length > 0) {
-                    textElement.innerHTML = `📎 ${this.files[0].name}`;
-                    parent.style.background = 'var(--blanco)';
-                } else {
-                    textElement.innerHTML = this.accept.includes('image') ? 'JPG, PNG, PDF' : 'STL, OBJ o 3MF';
-                    parent.style.background = 'var(--verde-fondo)';
-                }
-            });
-        });
-
-        // Scroll suave
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    textElement.textContent = `📎 ${this.files[0].name}`;
                 }
             });
         });
