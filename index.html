@@ -102,7 +102,7 @@
             min-height: 250px;
         }
 
-        /* ===== TIME PICKER MEJORADO ===== */
+        /* ===== TIME PICKER ===== */
         .time-picker {
             position: relative;
         }
@@ -382,6 +382,7 @@
                     </h1>
                     <a href="#cotizar" class="btn" style="width: auto;">Obtener cotización</a>
                 </div>
+                <div class="hero-imagen"></div>
             </div>
         </section>
 
@@ -536,6 +537,9 @@
                                 <span>Total</span>
                                 <span id="totalEstimado">Q25.00</span>
                             </div>
+                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+                                ⚠️ El infill ya está incluido en los gramos de filamento
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -550,7 +554,7 @@
     </footer>
 
     <script>
-        // TIME PICKER CON MINUTOS DE 1 A 60
+        // TIME PICKER
         const tiempoDisplay = document.getElementById('tiempoDisplay');
         const timeDropdown = document.getElementById('timeDropdown');
         const hourScroll = document.getElementById('hourScroll');
@@ -576,7 +580,7 @@
             hourScroll.appendChild(option);
         }
 
-        // Generar minutos (1 a 60 para máxima precisión)
+        // Generar minutos (1 a 60)
         for (let i = 1; i <= 60; i++) {
             const option = document.createElement('div');
             option.className = 'time-option';
@@ -598,10 +602,7 @@
                 const minuteStr = selectedMinute.toString().padStart(2, '0');
                 tiempoDisplay.value = `${hourStr}:${minuteStr}`;
                 
-                // Convertir minutos a decimal (ej. 60 minutos = 1.0 hora)
-                // Si son 60 minutos, sumamos 1 hora y minutos = 0
                 if (selectedMinute === 60) {
-                    // 60 minutos = 1 hora adicional
                     horasDecimal.value = (selectedHour + 1).toFixed(2);
                 } else {
                     const decimal = selectedHour + (selectedMinute / 60);
@@ -624,7 +625,7 @@
             }
         });
 
-        // CÁLCULOS
+        // CÁLCULOS - SIN FACTOR DE INFILL
         const gramosInput = document.getElementById('gramos');
         const infillInput = document.getElementById('infill');
         const gramosDisplay = document.getElementById('gramosDisplay');
@@ -650,11 +651,11 @@
             horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
             infillDisplay.textContent = infill ? `${infill}%` : '0%';
             
+            // Cálculo simple: gramos + horas + extras
             let estimado = ENTREGA;
             
-            if (gramos > 0) estimado += gramos * 0.5;
-            if (horas > 0) estimado += horas * 15;
-            if (infill > 0) estimado = estimado * (1 + (infill / 200));
+            if (gramos > 0) estimado += gramos * 0.5;  // Q0.50 por gramo
+            if (horas > 0) estimado += horas * 15;     // Q15 por hora
             
             if (ayudaDiseno?.checked) {
                 estimado += DISENO;
