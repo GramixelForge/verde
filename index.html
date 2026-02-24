@@ -102,7 +102,7 @@
             min-height: 250px;
         }
 
-        /* ===== TIME PICKER ===== */
+        /* ===== TIME PICKER MEJORADO ===== */
         .time-picker {
             position: relative;
         }
@@ -130,6 +130,7 @@
             margin-top: 0.5rem;
             z-index: 1000;
             display: none;
+            max-height: 400px;
         }
 
         .time-dropdown.show {
@@ -140,23 +141,42 @@
             display: flex;
             padding: 1rem;
             gap: 1rem;
+            height: 300px;
         }
 
         .time-col {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .time-label {
+            text-align: center;
+            font-weight: 600;
+            color: var(--verde-corporativo);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .time-scroll {
-            max-height: 200px;
+            flex: 1;
             overflow-y: auto;
             border: 1px solid var(--gris-claro);
             border-radius: 6px;
+            background: var(--blanco);
         }
 
         .time-option {
-            padding: 0.5rem;
+            padding: 0.6rem 0.5rem;
             text-align: center;
             cursor: pointer;
+            border-bottom: 1px solid var(--gris-claro);
+            font-size: 0.95rem;
+        }
+
+        .time-option:last-child {
+            border-bottom: none;
         }
 
         .time-option:hover {
@@ -213,7 +233,7 @@
             font-size: 16px;
         }
 
-        /* ===== CHECKBOXES ARREGLADOS ===== */
+        /* ===== CHECKBOXES ===== */
         .checkbox-wrapper {
             display: flex;
             align-items: center;
@@ -334,6 +354,11 @@
             
             .time-selectors {
                 flex-direction: column;
+                height: auto;
+            }
+            
+            .time-col {
+                max-height: 200px;
             }
         }
     </style>
@@ -357,6 +382,7 @@
                     </h1>
                     <a href="#cotizar" class="btn" style="width: auto;">Obtener cotización</a>
                 </div>
+                <div class="hero-imagen"></div>
             </div>
         </section>
 
@@ -404,9 +430,11 @@
                                         <div class="time-dropdown" id="timeDropdown">
                                             <div class="time-selectors">
                                                 <div class="time-col">
+                                                    <div class="time-label">HORA</div>
                                                     <div class="time-scroll" id="hourScroll"></div>
                                                 </div>
                                                 <div class="time-col">
+                                                    <div class="time-label">MINUTOS</div>
                                                     <div class="time-scroll" id="minuteScroll"></div>
                                                 </div>
                                             </div>
@@ -446,13 +474,13 @@
                                 </div>
                             </div>
 
-                            <!-- CHECKBOX DE DISEÑO - FUNCIONA -->
+                            <!-- CHECKBOX DE DISEÑO -->
                             <div class="checkbox-wrapper">
                                 <input type="checkbox" name="diseno" id="ayudaDiseno" value="si">
                                 <label for="ayudaDiseno">Diseño/modelado 3D (+Q85)</label>
                             </div>
 
-                            <!-- CHECKBOX DE PRIORIDAD - FUNCIONA -->
+                            <!-- CHECKBOX DE PRIORIDAD -->
                             <div class="prioridad-wrapper">
                                 <div class="checkbox-wrapper">
                                     <input type="checkbox" name="prioridad" id="prioridadExpress" value="si">
@@ -460,7 +488,7 @@
                                 </div>
                             </div>
 
-                            <!-- CHECKBOX DE ACUERDO LEGAL - FUNCIONA -->
+                            <!-- CHECKBOX DE ACUERDO LEGAL -->
                             <div class="acuerdo-wrapper">
                                 <div class="checkbox-wrapper">
                                     <input type="checkbox" name="acuerdo_legal" id="acuerdoLegal" required value="si">
@@ -523,7 +551,7 @@
     </footer>
 
     <script>
-        // TIME PICKER
+        // TIME PICKER CON MINUTOS DE 1 A 60
         const tiempoDisplay = document.getElementById('tiempoDisplay');
         const timeDropdown = document.getElementById('timeDropdown');
         const hourScroll = document.getElementById('hourScroll');
@@ -549,12 +577,12 @@
             hourScroll.appendChild(option);
         }
 
-        // Generar minutos (0, 15, 30, 45)
-        [0, 15, 30, 45].forEach(min => {
+        // Generar minutos (1 a 60 para máxima precisión)
+        for (let i = 1; i <= 60; i++) {
             const option = document.createElement('div');
             option.className = 'time-option';
-            option.textContent = min.toString().padStart(2, '0');
-            option.dataset.value = min;
+            option.textContent = i.toString().padStart(2, '0');
+            option.dataset.value = i;
             option.addEventListener('click', function(e) {
                 e.stopPropagation();
                 document.querySelectorAll('#minuteScroll .time-option').forEach(opt => opt.classList.remove('selected'));
@@ -563,15 +591,24 @@
                 updateTimeDisplay();
             });
             minuteScroll.appendChild(option);
-        });
+        }
 
         function updateTimeDisplay() {
             if (selectedHour !== undefined && selectedMinute !== undefined) {
                 const hourStr = selectedHour.toString().padStart(2, '0');
                 const minuteStr = selectedMinute.toString().padStart(2, '0');
                 tiempoDisplay.value = `${hourStr}:${minuteStr}`;
-                const decimal = selectedHour + (selectedMinute / 60);
-                horasDecimal.value = decimal.toFixed(2);
+                
+                // Convertir minutos a decimal (ej. 60 minutos = 1.0 hora)
+                // Si son 60 minutos, sumamos 1 hora y minutos = 0
+                if (selectedMinute === 60) {
+                    // 60 minutos = 1 hora adicional
+                    horasDecimal.value = (selectedHour + 1).toFixed(2);
+                } else {
+                    const decimal = selectedHour + (selectedMinute / 60);
+                    horasDecimal.value = decimal.toFixed(2);
+                }
+                
                 timeDropdown.classList.remove('show');
                 actualizarEstimado();
             }
