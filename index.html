@@ -49,19 +49,10 @@
             padding: 0 1.5rem;
         }
 
-        /* ===== HEADER PROFESIONAL CON MENÚ HAMBURGUESA ===== */
+        /* ===== HEADER SIMPLE ===== */
         .header {
             background: var(--blanco);
             border-bottom: 1px solid var(--gris-claro);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem 0;
         }
 
@@ -70,6 +61,7 @@
             font-weight: 700;
             color: var(--verde-corporativo);
             line-height: 1.2;
+            text-align: center;
         }
 
         .logo span {
@@ -77,57 +69,6 @@
             font-weight: 400;
             color: var(--gris-texto);
             margin-left: 0.5rem;
-        }
-
-        /* Menú hamburguesa */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background: var(--verde-corporativo);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--gris-oscuro);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-            padding: 0.5rem 0;
-        }
-
-        .nav-link:hover {
-            color: var(--verde-corporativo);
         }
 
         .btn {
@@ -205,12 +146,8 @@
         .hero-imagen {
             background: linear-gradient(135deg, var(--verde-corporativo), var(--verde-secundario));
             border-radius: 12px;
-            padding: 2rem;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+            padding: 3rem;
+            min-height: 250px;
             box-shadow: var(--sombra-media);
         }
 
@@ -503,6 +440,20 @@
             appearance: none;
         }
 
+        /* Selector de horas en formato HH:MM */
+        .selector-horas {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .selector-horas select {
+            flex: 1;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
         select {
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
@@ -514,6 +465,13 @@
             outline: none;
             border-color: var(--verde-corporativo);
             box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
+        }
+
+        /* NUEVO: Selector numérico para infill */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            opacity: 1;
+            height: 30px;
         }
 
         .area-archivo {
@@ -560,12 +518,22 @@
             font-weight: 600;
             color: #C45D2C;
             font-size: 1rem;
+            cursor: pointer;
         }
 
         .opcion-prioritaria input[type="checkbox"] {
             width: 22px;
             height: 22px;
             flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        /* Estilo para checkboxes en general */
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--verde-corporativo);
         }
 
         /* ===== CALCULADORA ===== */
@@ -638,6 +606,7 @@
             display: flex;
             align-items: flex-start;
             gap: 1rem;
+            cursor: pointer;
         }
 
         .checkbox-legal input {
@@ -645,6 +614,11 @@
             height: 24px;
             margin-top: 0.1rem;
             flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-legal div {
+            cursor: pointer;
         }
 
         /* ===== FOOTER ===== */
@@ -678,7 +652,7 @@
             word-break: break-all;
         }
 
-        /* ===== RESPONSIVE DESIGN ===== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .layout-formulario {
                 grid-template-columns: 1fr;
@@ -691,44 +665,13 @@
         }
 
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--blanco);
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 5rem 2rem 2rem;
-                gap: 1.5rem;
-                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-                transition: right 0.3s ease;
-                z-index: 1000;
-            }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .nav-link {
-                font-size: 1.2rem;
-                width: 100%;
-                text-align: left;
-            }
-
             .hero-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             
             .hero-imagen {
-                min-height: 200px;
+                min-height: 150px;
                 order: -1;
             }
 
@@ -787,6 +730,10 @@
                 margin-left: 0;
                 font-size: 0.8rem;
             }
+
+            .selector-horas {
+                flex-direction: row;
+            }
         }
 
         @media (max-width: 480px) {
@@ -827,9 +774,9 @@
 </head>
 <body>
     <header class="header">
-        <div class="container nav-bar">
+        <div class="container">
             <div class="logo">
-                verde<span>impresión 3D profesional</span>
+                verde<span>impresión 3D profesional · Guatemala</span>
             </div>
         </div>
     </header>
@@ -850,9 +797,7 @@
                     </div>
                 </div>
                 <div class="hero-imagen">
-                    <div style="text-align: center;">
-                        <p style="font-size: 1.1rem;">Modelo 3D • Boceto • Idea</p>
-                    </div>
+                    <!-- Solo gradiente verde, sin emoji -->
                 </div>
             </div>
         </section>
@@ -974,13 +919,13 @@
                 </div>
             </div>
 
-            <!-- FORMULARIO CON FORSPREE ID INCLUIDO -->
+            <!-- FORMULARIO CON FORSPREE ID -->
             <section id="cotizar" class="seccion-cotizacion">
                 <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Solicitud de cotización</h2>
                 
                 <div class="layout-formulario">
                     <div>
-                        <!-- TU FORSPREE ID YA ESTÁ INCLUIDO: xbdazzpp -->
+                        <!-- TU FORSPREE ID: xbdazzpp -->
                         <form id="formularioCotizacion" action="https://formspree.io/f/xbdazzpp" method="POST">
                             <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D - Verde">
                             
@@ -1008,24 +953,55 @@
                             
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
-                                    <label>Gramos (Cura) *</label>
-                                    <input type="number" name="gramos" id="gramos" value="114.76" step="0.01" min="1" required>
+                                    <label>Gramos de filamento *</label>
+                                    <input type="number" name="gramos" id="gramos" step="0.01" min="1" placeholder="Ej. 114.76" required>
                                 </div>
                                 <div class="grupo-formulario">
-                                    <label>Horas (Cura) *</label>
-                                    <input type="number" name="horas" id="horas" value="4.87" step="0.01" min="0.1" required>
+                                    <label>Tiempo de impresión *</label>
+                                    <div class="selector-horas">
+                                        <select name="horas" id="horas" required>
+                                            <option value="">Horas</option>
+                                            <option value="1">1 hora</option>
+                                            <option value="2">2 horas</option>
+                                            <option value="3">3 horas</option>
+                                            <option value="4">4 horas</option>
+                                            <option value="5">5 horas</option>
+                                            <option value="6">6 horas</option>
+                                            <option value="7">7 horas</option>
+                                            <option value="8">8 horas</option>
+                                            <option value="9">9 horas</option>
+                                            <option value="10">10 horas</option>
+                                            <option value="11">11 horas</option>
+                                            <option value="12">12 horas</option>
+                                            <option value="13">13 horas</option>
+                                            <option value="14">14 horas</option>
+                                            <option value="15">15 horas</option>
+                                            <option value="16">16 horas</option>
+                                            <option value="17">17 horas</option>
+                                            <option value="18">18 horas</option>
+                                            <option value="19">19 horas</option>
+                                            <option value="20">20 horas</option>
+                                            <option value="21">21 horas</option>
+                                            <option value="22">22 horas</option>
+                                            <option value="23">23 horas</option>
+                                            <option value="24">24 horas</option>
+                                        </select>
+                                        <select name="minutos" id="minutos" required>
+                                            <option value="0">0 min</option>
+                                            <option value="0.17">10 min</option>
+                                            <option value="0.33">20 min</option>
+                                            <option value="0.5">30 min</option>
+                                            <option value="0.67">40 min</option>
+                                            <option value="0.83">50 min</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="fila-tres-columnas">
                                 <div class="grupo-formulario">
-                                    <label>Infill *</label>
-                                    <select name="infill" id="infill" required>
-                                        <option value="20%">20% (estándar)</option>
-                                        <option value="30%">30%</option>
-                                        <option value="50%">50%</option>
-                                        <option value="100%">100%</option>
-                                    </select>
+                                    <label>Infill % *</label>
+                                    <input type="number" name="infill" id="infill" min="0" max="100" step="1" placeholder="20" required>
                                 </div>
                                 <div class="grupo-formulario">
                                     <label>Soportes *</label>
@@ -1044,6 +1020,39 @@
                                 </div>
                             </div>
 
+                            <div class="grupo-formulario">
+                                <label>Archivo 3D (opcional)</label>
+                                <div class="area-archivo">
+                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">📦</span>
+                                    <p style="font-size: 0.9rem;">STL, OBJ o 3MF</p>
+                                    <input type="file" name="archivo_3d" accept=".stl,.obj,.3mf">
+                                </div>
+                            </div>
+
+                            <div class="grupo-formulario">
+                                <label>Boceto o imagen (opcional)</label>
+                                <div class="area-archivo">
+                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">✏️</span>
+                                    <p style="font-size: 0.9rem;">JPG, PNG, PDF</p>
+                                    <input type="file" name="boceto" accept=".jpg,.jpeg,.png,.pdf">
+                                </div>
+                            </div>
+                            
+                            <div class="fila-formulario">
+                                <div class="grupo-formulario">
+                                    <label>Material</label>
+                                    <select name="material" id="material">
+                                        <option value="PLA">PLA (estándar)</option>
+                                        <option value="PETG">PETG (resistente)</option>
+                                        <option value="TPU">TPU (flexible)</option>
+                                    </select>
+                                </div>
+                                <div class="grupo-formulario">
+                                    <label>Color</label>
+                                    <input type="text" name="color" id="color" placeholder="a criterio">
+                                </div>
+                            </div>
+
                             <div class="opcion-prioritaria">
                                 <label>
                                     <input type="checkbox" name="prioridad" id="prioridadExpress" value="si"> 
@@ -1052,7 +1061,7 @@
                             </div>
 
                             <div style="margin: 1rem 0;">
-                                <label style="display: flex; align-items: center; gap: 0.8rem;">
+                                <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
                                     <input type="checkbox" name="diseno" id="ayudaDiseno" value="si"> 
                                     Diseño/modelado 3D (+Q85)
                                 </label>
@@ -1069,7 +1078,7 @@
                                 </label>
                             </div>
 
-                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q180.00">
+                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q0.00">
 
                             <button type="submit" class="btn btn-primario" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
                                 Enviar solicitud
@@ -1083,11 +1092,15 @@
                             
                             <div class="fila-calculo">
                                 <span>Gramos</span>
-                                <span id="gramosDisplay">114.76g</span>
+                                <span id="gramosDisplay">0g</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Horas</span>
-                                <span id="horasDisplay">4.87h</span>
+                                <span id="horasDisplay">0h</span>
+                            </div>
+                            <div class="fila-calculo">
+                                <span>Infill</span>
+                                <span id="infillDisplay">0%</span>
                             </div>
                             <div class="fila-calculo" id="filaDiseno" style="display: none;">
                                 <span>Diseño</span>
@@ -1103,7 +1116,7 @@
                             </div>
                             <div class="fila-calculo total">
                                 <span>Total</span>
-                                <span id="totalEstimado">Q180.00</span>
+                                <span id="totalEstimado">Q25.00</span>
                             </div>
                             <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
                                 📧 Cotización formal en 24h
@@ -1146,11 +1159,16 @@
     <script>
         // Elementos del DOM
         const gramosInput = document.getElementById('gramos');
-        const horasInput = document.getElementById('horas');
+        const horasSelect = document.getElementById('horas');
+        const minutosSelect = document.getElementById('minutos');
+        const infillInput = document.getElementById('infill');
+        
         const gramosDisplay = document.getElementById('gramosDisplay');
         const horasDisplay = document.getElementById('horasDisplay');
+        const infillDisplay = document.getElementById('infillDisplay');
         const totalEstimado = document.getElementById('totalEstimado');
         const estimadoHidden = document.getElementById('estimadoHidden');
+        
         const ayudaDiseno = document.getElementById('ayudaDiseno');
         const filaDiseno = document.getElementById('filaDiseno');
         const prioridadExpress = document.getElementById('prioridadExpress');
@@ -1160,21 +1178,47 @@
         const DISENO = 85;
         const PRIORIDAD = 45;
 
+        // Función para obtener horas totales en formato decimal
+        function getHorasDecimal() {
+            const horas = parseFloat(horasSelect.value) || 0;
+            const minutos = parseFloat(minutosSelect.value) || 0;
+            return horas + minutos;
+        }
+
         // Actualizar estimado
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
-            const horas = parseFloat(horasInput.value) || 0;
+            const horas = getHorasDecimal();
+            const infill = parseFloat(infillInput.value) || 0;
             
-            gramosDisplay.textContent = `${gramos}g`;
-            horasDisplay.textContent = `${horas}h`;
+            gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
+            horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
+            infillDisplay.textContent = infill ? `${infill}%` : '0%';
             
-            let estimado = 0;
+            // Estimado base (simple para referencia)
+            let estimado = ENTREGA; // Base de entrega
+            
             if (gramos > 0) estimado += gramos * 0.5;
             if (horas > 0) estimado += horas * 15;
             
-            if (ayudaDiseno?.checked) estimado += DISENO;
-            if (prioridadExpress?.checked) estimado += PRIORIDAD;
-            estimado += ENTREGA;
+            // Factor de infill (más infill = más material/tiempo)
+            if (infill > 0) {
+                estimado = estimado * (1 + (infill / 200)); // Ajuste simple
+            }
+            
+            if (ayudaDiseno?.checked) {
+                estimado += DISENO;
+                filaDiseno.style.display = 'flex';
+            } else {
+                filaDiseno.style.display = 'none';
+            }
+            
+            if (prioridadExpress?.checked) {
+                estimado += PRIORIDAD;
+                filaPrioridad.style.display = 'flex';
+            } else {
+                filaPrioridad.style.display = 'none';
+            }
             
             const totalTexto = `Q${Math.round(estimado)}.00`;
             totalEstimado.textContent = totalTexto;
@@ -1183,20 +1227,16 @@
 
         // Event listeners
         if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
-        if (horasInput) horasInput.addEventListener('input', actualizarEstimado);
+        if (horasSelect) horasSelect.addEventListener('change', actualizarEstimado);
+        if (minutosSelect) minutosSelect.addEventListener('change', actualizarEstimado);
+        if (infillInput) infillInput.addEventListener('input', actualizarEstimado);
 
         if (ayudaDiseno) {
-            ayudaDiseno.addEventListener('change', function() {
-                if (filaDiseno) filaDiseno.style.display = this.checked ? 'flex' : 'none';
-                actualizarEstimado();
-            });
+            ayudaDiseno.addEventListener('change', actualizarEstimado);
         }
 
         if (prioridadExpress) {
-            prioridadExpress.addEventListener('change', function() {
-                if (filaPrioridad) filaPrioridad.style.display = this.checked ? 'flex' : 'none';
-                actualizarEstimado();
-            });
+            prioridadExpress.addEventListener('change', actualizarEstimado);
         }
 
         // Validación de email
@@ -1229,24 +1269,31 @@
             });
         }
 
-        // Menú hamburguesa
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
+        // Feedback archivos
+        document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const parent = this.closest('.area-archivo');
+                const textElement = parent.querySelector('p');
+                if (this.files.length > 0) {
+                    textElement.innerHTML = `📎 ${this.files[0].name}`;
+                    parent.style.background = 'var(--blanco)';
+                } else {
+                    textElement.innerHTML = this.accept.includes('image') ? 'JPG, PNG, PDF' : 'STL, OBJ o 3MF';
+                    parent.style.background = 'var(--verde-fondo)';
+                }
             });
+        });
 
-            // Cerrar menú al hacer clic en un enlace
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
+        // Scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
-        }
+        });
 
         // Inicializar
         actualizarEstimado();
