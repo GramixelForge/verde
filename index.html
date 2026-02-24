@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>verde · impresión 3D profesional</title>
     <style>
         /* ===== RESET ===== */
@@ -34,7 +34,8 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--blanco);
             color: var(--gris-oscuro);
-            line-height: 1.6;
+            line-height: 1.5;
+            -webkit-tap-highlight-color: transparent;
         }
 
         h1, h2, h3, h4 {
@@ -45,16 +46,16 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
-        /* ===== HEADER PROFESIONAL ===== */
+        /* ===== HEADER PROFESIONAL CON MENÚ HAMBURGUESA ===== */
         .header {
             background: var(--blanco);
             border-bottom: 1px solid var(--gris-claro);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .nav-bar {
@@ -68,6 +69,7 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--verde-corporativo);
+            line-height: 1.2;
         }
 
         .logo span {
@@ -77,9 +79,41 @@
             margin-left: 0.5rem;
         }
 
+        /* Menú hamburguesa */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--verde-corporativo);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
@@ -89,6 +123,7 @@
             font-weight: 500;
             font-size: 0.95rem;
             transition: color 0.2s;
+            padding: 0.5rem 0;
         }
 
         .nav-link:hover {
@@ -97,14 +132,16 @@
 
         .btn {
             display: inline-block;
-            padding: 0.7rem 1.8rem;
+            padding: 0.8rem 1.8rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: all 0.2s ease;
             border: none;
             cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .btn-primario {
@@ -116,19 +153,23 @@
             background: var(--verde-secundario);
         }
 
+        .btn-primario:active {
+            transform: scale(0.98);
+        }
+
         .btn-secundario {
             background: transparent;
             border: 1px solid var(--verde-corporativo);
             color: var(--verde-corporativo);
         }
 
-        .btn-secundario:hover {
+        .btn-secundario:active {
             background: var(--verde-fondo);
         }
 
         /* ===== HERO ===== */
         .hero {
-            padding: 5rem 0;
+            padding: 3rem 0;
             background: linear-gradient(135deg, var(--verde-fondo) 0%, var(--blanco) 100%);
             border-bottom: 1px solid var(--gris-claro);
         }
@@ -136,12 +177,12 @@
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 2rem;
             align-items: center;
         }
 
         .hero-titulo {
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 6vw, 3.5rem);
             line-height: 1.2;
             margin-bottom: 1.5rem;
             color: var(--gris-oscuro);
@@ -165,7 +206,7 @@
             background: linear-gradient(135deg, var(--verde-corporativo), var(--verde-secundario));
             border-radius: 12px;
             padding: 2rem;
-            min-height: 350px;
+            min-height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,37 +219,34 @@
             background: var(--fondo-info);
             border: 1px solid var(--azul-info);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             margin: 2rem 0;
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: start;
         }
 
         .banner-valor-icono {
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
 
         .banner-valor h3 {
             color: var(--azul-info);
             margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         .banner-valor p {
             color: var(--gris-oscuro);
             margin-bottom: 0.8rem;
-        }
-
-        .banner-valor strong {
-            color: var(--azul-info);
+            font-size: 0.95rem;
         }
 
         .comparacion-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
@@ -221,17 +259,12 @@
         .comparacion-item .producto {
             font-weight: 600;
             color: var(--gris-oscuro);
+            font-size: 0.95rem;
         }
 
         .comparacion-item .precio {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
-        }
-
-        .comparacion-item .precio-store {
-            color: var(--gris-texto);
-            text-decoration: line-through;
-            font-size: 0.9rem;
         }
 
         /* ===== BANNER LEGAL ===== */
@@ -239,35 +272,31 @@
             background: var(--fondo-advertencia);
             border: 1px solid var(--advertencia);
             border-radius: 8px;
-            padding: 1.25rem;
+            padding: 1rem;
             margin: 2rem 0;
             display: flex;
             gap: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .aviso-legal strong {
-            color: var(--advertencia);
+            font-size: 0.9rem;
         }
 
         /* ===== SECCIÓN DE PROCESO ===== */
         .seccion-titulo {
-            font-size: 2rem;
+            font-size: 1.8rem;
             text-align: center;
-            margin: 4rem 0 2rem;
+            margin: 3rem 0 1.5rem;
             color: var(--gris-oscuro);
         }
 
         .grid-proceso {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin: 3rem 0;
+            gap: 1rem;
+            margin: 2rem 0;
         }
 
         .tarjeta-proceso {
             background: var(--blanco);
-            padding: 2rem 1.5rem;
+            padding: 1.5rem 1rem;
             border-radius: 12px;
             box-shadow: var(--sombra-suave);
             border: 1px solid var(--gris-claro);
@@ -275,27 +304,27 @@
 
         .tarjeta-proceso .numero {
             color: var(--verde-corporativo);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             opacity: 0.3;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .tarjeta-proceso h3 {
             margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .tarjeta-proceso p {
             color: var(--gris-texto);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* ===== TARJETA DE INSTRUCCIONES ===== */
         .tarjeta-instrucciones {
             background: var(--blanco);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             margin: 2rem 0;
             border: 1px solid var(--gris-claro);
             box-shadow: var(--sombra-suave);
@@ -304,7 +333,7 @@
         .tarjeta-instrucciones h3 {
             color: var(--verde-corporativo);
             margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -313,13 +342,13 @@
         .pasos-slicer {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
+            gap: 0.8rem;
             margin: 1.5rem 0;
         }
 
         .paso-slicer {
             text-align: center;
-            padding: 1rem;
+            padding: 1rem 0.5rem;
             background: var(--verde-fondo);
             border-radius: 8px;
         }
@@ -327,14 +356,19 @@
         .paso-slicer .numero-paso {
             background: var(--verde-corporativo);
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 0.5rem;
             font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .paso-slicer p {
+            font-size: 0.85rem;
         }
 
         .slicer-destacado {
@@ -351,10 +385,7 @@
             color: var(--azul-info);
             font-weight: 600;
             text-decoration: none;
-        }
-
-        .slicer-destacado a:hover {
-            text-decoration: underline;
+            word-break: break-word;
         }
 
         .nota-importante {
@@ -362,36 +393,40 @@
             padding: 1rem;
             border-radius: 8px;
             margin-top: 1.5rem;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-left: 4px solid var(--verde-corporativo);
+        }
+
+        .nota-importante ul {
+            margin-left: 1.2rem;
         }
 
         /* ===== DESCARGO DE RESPONSABILIDAD ===== */
         .seccion-descargo {
             background: var(--blanco);
             border-radius: 12px;
-            padding: 2.5rem;
-            margin: 3rem 0;
+            padding: 1.5rem;
+            margin: 2rem 0;
             border: 1px solid var(--gris-claro);
         }
 
         .grid-descargo {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .item-descargo {
-            padding: 1.5rem;
+            padding: 1rem;
             background: var(--verde-fondo);
             border-radius: 8px;
         }
 
         .item-descargo h4 {
             color: var(--verde-corporativo);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
         }
 
         .item-descargo ul {
@@ -399,35 +434,28 @@
         }
 
         .item-descargo li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
             position: relative;
             color: var(--gris-texto);
-            font-size: 0.95rem;
-        }
-
-        .item-descargo li::before {
-            content: "—";
-            color: var(--verde-corporativo);
-            position: absolute;
-            left: 0;
+            font-size: 0.9rem;
         }
 
         .destacado-legal {
             background: var(--fondo-advertencia);
             border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 2rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
             border: 1px solid var(--advertencia);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* ===== FORMULARIO ===== */
         .seccion-cotizacion {
             background: var(--blanco);
             border-radius: 12px;
-            padding: 3rem;
-            margin: 4rem 0;
+            padding: 1.5rem;
+            margin: 2rem 0;
             border: 1px solid var(--gris-claro);
             box-shadow: var(--sombra-media);
         }
@@ -435,12 +463,12 @@
         .layout-formulario {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
-            gap: 3rem;
+            gap: 2rem;
             align-items: start;
         }
 
         .grupo-formulario {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .fila-formulario {
@@ -457,7 +485,7 @@
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 500;
             color: var(--gris-oscuro);
             font-size: 0.95rem;
@@ -465,12 +493,21 @@
 
         input, select, textarea {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.9rem 1rem;
             border: 1px solid var(--gris-claro);
-            border-radius: 6px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 16px; /* Evita zoom en iOS */
             transition: all 0.2s;
             background: var(--blanco);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
         }
 
         input:focus, select:focus, textarea:focus {
@@ -479,43 +516,23 @@
             box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
         }
 
-        .input-valido {
-            border-color: var(--verde-corporativo);
-            background-color: #f0fff4;
-        }
-
-        .input-invalido {
-            border-color: var(--advertencia);
-            background-color: #fff5f5;
-        }
-
-        .mensaje-validacion {
-            font-size: 0.8rem;
-            margin-top: 0.3rem;
-        }
-
-        .mensaje-validacion.valido {
-            color: var(--verde-corporativo);
-        }
-
-        .mensaje-validacion.invalido {
-            color: var(--advertencia);
-        }
-
         .area-archivo {
             border: 1px dashed var(--verde-corporativo);
             background: var(--verde-fondo);
             border-radius: 8px;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             position: relative;
             cursor: pointer;
             transition: all 0.2s;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .area-archivo:hover {
+        .area-archivo:active {
             background: var(--blanco);
-            border-color: var(--verde-secundario);
         }
 
         .area-archivo input {
@@ -539,26 +556,26 @@
         .opcion-prioritaria label {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             font-weight: 600;
             color: #C45D2C;
+            font-size: 1rem;
         }
 
-        .opcion-prioritaria small {
-            display: block;
-            margin-top: 0.5rem;
-            color: var(--gris-texto);
-            font-size: 0.85rem;
+        .opcion-prioritaria input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
         }
 
         /* ===== CALCULADORA ===== */
         .tarjeta-calculadora {
             background: var(--gris-oscuro);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 1.5rem;
             color: white;
             position: sticky;
-            top: 100px;
+            top: 80px;
         }
 
         .fila-calculo {
@@ -591,13 +608,14 @@
             border-radius: 6px;
             padding: 1rem;
             margin: 1rem 0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             line-height: 1.4;
             border-left: 3px solid #F4A261;
         }
 
-        .nota-calculadora strong {
-            color: #F4A261;
+        .nota-calculadora ul {
+            margin-left: 1.2rem;
+            margin-top: 0.5rem;
         }
 
         .estimado-advertencia {
@@ -605,15 +623,15 @@
             border-radius: 6px;
             padding: 1rem;
             margin: 1rem 0;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         /* ===== CHECKBOX ACUERDO ===== */
         .caja-acuerdo {
             background: var(--verde-fondo);
             border-radius: 8px;
-            padding: 1.5rem;
-            margin: 2rem 0;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
         }
 
         .checkbox-legal {
@@ -623,33 +641,32 @@
         }
 
         .checkbox-legal input {
-            width: 20px;
-            height: 20px;
-            margin-top: 0.2rem;
+            width: 24px;
+            height: 24px;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
         }
 
         /* ===== FOOTER ===== */
         .footer {
             background: var(--gris-oscuro);
             color: white;
-            padding: 4rem 0;
-            margin-top: 5rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .footer a {
             color: #BDD3CE;
             text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .footer a:hover {
-            color: white;
+            font-size: 0.95rem;
+            padding: 0.3rem 0;
+            display: inline-block;
         }
 
         .email-contacto {
@@ -658,24 +675,80 @@
             border-radius: 6px;
             display: inline-block;
             margin-top: 0.5rem;
+            word-break: break-all;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 900px) {
             .layout-formulario {
                 grid-template-columns: 1fr;
             }
             
             .tarjeta-calculadora {
                 position: static;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
             }
 
-            .grid-descargo {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--blanco);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 5rem 2rem 2rem;
+                gap: 1.5rem;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-link {
+                font-size: 1.2rem;
+                width: 100%;
+                text-align: left;
+            }
+
+            .hero-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .hero-imagen {
+                min-height: 200px;
+                order: -1;
             }
 
             .grid-proceso {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .pasos-slicer {
+                grid-template-columns: 1fr;
+            }
+
+            .fila-formulario {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .fila-tres-columnas {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
             }
 
             .banner-valor {
@@ -683,43 +756,70 @@
                 text-align: center;
             }
 
+            .banner-valor-icono {
+                margin-bottom: 0.5rem;
+            }
+
             .comparacion-grid {
                 grid-template-columns: 1fr;
             }
 
-            .pasos-slicer {
-                grid-template-columns: repeat(2, 1fr);
+            .grid-descargo {
+                grid-template-columns: 1fr;
             }
 
-            .fila-tres-columnas {
-                grid-template-columns: 1fr;
+            .seccion-titulo {
+                font-size: 1.6rem;
+                margin: 2rem 0 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo span {
+                display: block;
+                margin-left: 0;
+                font-size: 0.8rem;
             }
         }
 
-        @media (max-width: 768px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .fila-formulario {
-                grid-template-columns: 1fr;
-            }
-            
-            .grid-proceso {
-                grid-template-columns: 1fr;
-            }
-            
-            .seccion-cotizacion {
-                padding: 1.5rem;
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
             }
 
-            .pasos-slicer {
-                grid-template-columns: 1fr;
+            .hero-titulo {
+                font-size: 1.8rem;
+            }
+
+            .hero-descripcion {
+                font-size: 1rem;
+            }
+
+            .tarjeta-calculadora {
+                padding: 1.2rem;
+            }
+
+            .fila-calculo {
+                font-size: 0.9rem;
+            }
+
+            .fila-calculo.total {
+                font-size: 1.1rem;
+            }
+
+            .opcion-prioritaria label {
+                flex-wrap: wrap;
+            }
+
+            .checkbox-legal {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -730,6 +830,18 @@
         <div class="container nav-bar">
             <div class="logo">
                 verde<span>impresión 3D profesional</span>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="nav-link">Servicios</a>
+                <a href="#" class="nav-link">Materiales</a>
+                <a href="#" class="nav-link">Proceso</a>
+                <a href="#" class="nav-link">Contacto</a>
+                <a href="#cotizar" class="btn btn-primario">Solicitar cotización</a>
             </div>
         </div>
     </header>
@@ -743,331 +855,236 @@
                         <span>Sin importar la complejidad o el formato</span>
                     </h1>
                     <p class="hero-descripcion">
-                        Servicio profesional de impresión 3D en Guatemala. Entregamos sus piezas directamente en su ubicación. Aceptamos archivos STL, OBJ, 3MF, bocetos, fotografías o simplemente una descripción de lo que necesita.
+                        Servicio profesional de impresión 3D en Guatemala. Entregamos sus piezas directamente en su ubicación.
                     </p>
-                    <div style="display: flex; gap: 1rem;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <a href="#cotizar" class="btn btn-primario">Obtener cotización</a>
+                        <a href="#" class="btn btn-secundario">Ver trabajos</a>
                     </div>
                 </div>
                 <div class="hero-imagen">
                     <div style="text-align: center;">
-                        <p style="font-size: 1.1rem;">Modelo 3D • Boceto • Idea • Pieza funcional</p>
+                        <p style="font-size: 1.1rem;">Modelo 3D • Boceto • Idea</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <div class="container">
-            <!-- Banner explicando el valor real del servicio -->
+            <!-- Banner de valor -->
             <div class="banner-valor">
                 <div class="banner-valor-icono">🎯</div>
                 <div>
                     <h3>¿Vale la pena imprimir en 3D?</h3>
-                    <p><strong>Depende de lo que necesite.</strong> Nuestro servicio está diseñado para <strong>piezas personalizadas, repuestos inexistentes, prototipos y objetos únicos</strong>. No competimos con precios de tiendas comerciales.</p>
+                    <p><strong>Depende de lo que necesite.</strong> Servicio para piezas personalizadas, repuestos inexistentes y prototipos.</p>
                     
                     <div class="comparacion-grid">
                         <div class="comparacion-item">
-                            <div class="producto">📦 Objeto comercial (existe en tienda)</div>
-                            <div class="precio-store">Tienda: Q50.00</div>
-                            <div class="precio">Impresión 3D: Q180.00</div>
-                            <p style="font-size: 0.85rem; color: var(--gris-texto); margin-top: 0.3rem;">✅ Mejor comprarlo en tienda</p>
+                            <div class="producto">📦 Objeto comercial</div>
+                            <div class="precio-store">Tienda: Q50</div>
+                            <div class="precio">3D: Q180</div>
+                            <p style="font-size: 0.8rem;">✅ Mejor comprarlo</p>
                         </div>
                         <div class="comparacion-item">
-                            <div class="producto">🔧 Repuesto personalizado (no existe)</div>
-                            <div class="precio-store">Tienda: No disponible</div>
-                            <div class="precio">Impresión 3D: Q180.00</div>
-                            <p style="font-size: 0.85rem; color: var(--verde-corporativo); margin-top: 0.3rem;">✅ Única opción viable</p>
+                            <div class="producto">🔧 Repuesto único</div>
+                            <div class="precio-store">Tienda: No hay</div>
+                            <div class="precio">3D: Q180</div>
+                            <p style="font-size: 0.8rem;">✅ Única opción</p>
                         </div>
                     </div>
-
-                    <p style="margin-top: 1rem; background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--azul-info);">
-                        <strong>Importante:</strong> Si el objeto que necesita <strong>existe comercialmente en Guatemala</strong> (en tiendas físicas o en línea), probablemente le saldrá más económico comprarlo que imprimirlo. Nuestro servicio está orientado a piezas que <strong>no se consiguen</strong>, requieren personalización, o son prototipos.
-                    </p>
                 </div>
             </div>
 
-            <!-- Aviso legal importante -->
+            <!-- Aviso legal -->
             <div class="aviso-legal">
                 <div>⚠️</div>
                 <div>
-                    <strong>Términos y condiciones:</strong> Al solicitar nuestros servicios, usted acepta la totalidad de los términos legales establecidos en esta página. Verde no se responsabiliza por el uso posterior de las piezas impresas ni por daños derivados de su utilización.
+                    <strong>Términos:</strong> Al solicitar, acepta los términos legales. No nos responsabilizamos por uso posterior de las piezas.
                 </div>
             </div>
 
-            <!-- Proceso de trabajo -->
+            <!-- Proceso -->
             <h2 class="seccion-titulo">Nuestro proceso</h2>
             <div class="grid-proceso">
                 <div class="tarjeta-proceso">
                     <div class="numero">01</div>
                     <h3>Recepción</h3>
-                    <p>Recibimos su archivo 3D, boceto, fotografía o descripción del proyecto. Evaluamos requerimientos técnicos y materiales necesarios.</p>
+                    <p>Recibimos archivo, boceto o descripción.</p>
                 </div>
                 <div class="tarjeta-proceso">
                     <div class="numero">02</div>
                     <h3>Cotización</h3>
-                    <p>Le enviamos un presupuesto detallado con todos los costos involucrados: materiales, tiempo de impresión, diseño y entrega.</p>
+                    <p>Enviamos presupuesto detallado.</p>
                 </div>
                 <div class="tarjeta-proceso">
                     <div class="numero">03</div>
                     <h3>Producción</h3>
-                    <p>Una vez confirmada la cotización, procedemos con la impresión, modelado adicional y acabados solicitados.</p>
+                    <p>Impresión y acabados.</p>
                 </div>
                 <div class="tarjeta-proceso">
                     <div class="numero">04</div>
                     <h3>Entrega</h3>
-                    <p>Realizamos la entrega personalmente en su ubicación. Usted paga únicamente cuando recibe y verifica la pieza.</p>
+                    <p>Personalmente, paga al recibir.</p>
                 </div>
             </div>
 
-            <!-- SECCIÓN DE INSTRUCCIONES PARA CURA -->
+            <!-- Instrucciones Cura -->
             <div class="tarjeta-instrucciones">
-                <h3>
-                    <span>🔧</span>
-                    Cómo obtener una cotización precisa con Ultimaker Cura
-                </h3>
+                <h3>🔧 Cómo obtener una cotización precisa con Ultimaker Cura</h3>
                 
                 <div class="pasos-slicer">
                     <div class="paso-slicer">
                         <div class="numero-paso">1</div>
                         <p><strong>Descargue Cura</strong></p>
-                        <p>Slicer gratuito profesional</p>
                     </div>
                     <div class="paso-slicer">
                         <div class="numero-paso">2</div>
-                        <p><strong>Cargue su modelo</strong></p>
-                        <p>Arrastre su archivo STL/OBJ</p>
+                        <p><strong>Cargue modelo</strong></p>
                     </div>
                     <div class="paso-slicer">
                         <div class="numero-paso">3</div>
-                        <p><strong>Configure</strong></p>
-                        <p>Infill y soportes (según su preferencia)</p>
+                        <p><strong>Configure</strong> infill/soportes</p>
                     </div>
                     <div class="paso-slicer">
                         <div class="numero-paso">4</div>
-                        <p><strong>Tome nota</strong></p>
-                        <p>Gramos y tiempo estimado</p>
+                        <p><strong>Anote</strong> gramos y horas</p>
                     </div>
                 </div>
 
                 <div class="slicer-destacado">
                     <div>🖨️</div>
                     <div>
-                        <p><strong>Ultimaker Cura</strong> — gratuito, profesional y fácil de usar.</p>
-                        <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Descargar aquí →</a>
+                        <p><strong>Ultimaker Cura</strong> — gratuito</p>
+                        <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Descargar →</a>
                     </div>
                 </div>
 
                 <div class="nota-importante">
-                    <strong>📊 Para una cotización más precisa:</strong>
-                    <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                        <li>Seleccione en Cura el <strong>% de infill</strong> que desea (20%, 50%, 100%, etc.)</li>
-                        <li>Active o desactive los <strong>soportes</strong> según su modelo</li>
-                        <li>Utilice los mismos valores en el formulario abajo</li>
-                        <li>Anote los <strong>gramos</strong> y <strong>horas</strong> que Cura le indique</li>
-                    </ul>
-                    <p style="margin-top: 0.8rem;">✅ Esto permite que mi cotización final sea mucho más exacta.</p>
+                    <strong>📊 Importante:</strong> Use los mismos valores de infill y soportes en el formulario.
                 </div>
             </div>
 
-            <!-- Descargo de responsabilidad -->
+            <!-- Descargo -->
             <div class="seccion-descargo">
-                <h2 style="color: var(--verde-corporativo); margin-bottom: 1.5rem;">Términos legales y responsabilidades</h2>
-                
+                <h2 style="color: var(--verde-corporativo);">Términos legales</h2>
                 <div class="grid-descargo">
                     <div class="item-descargo">
                         <h4>Responsabilidades del cliente</h4>
                         <ul>
-                            <li>Poseer los derechos de autor o licencia de los archivos proporcionados</li>
-                            <li>Asumir toda responsabilidad por el uso posterior de las piezas impresas</li>
-                            <li>Comprender que las piezas 3D no tienen garantía para usos específicos</li>
-                            <li>No utilizar las impresiones para actividades ilícitas</li>
-                            <li>Aceptar que las imperfecciones menores (capas, líneas) son inherentes al proceso</li>
+                            <li>Poseer derechos de los archivos</li>
+                            <li>Responsable del uso de la pieza</li>
+                            <li>Aceptar imperfecciones normales</li>
                         </ul>
                     </div>
-                    
                     <div class="item-descargo">
-                        <h4>Límites de responsabilidad de Verde</h4>
+                        <h4>Límites de Verde</h4>
                         <ul>
-                            <li>Daños o lesiones causadas por el uso de las piezas impresas</li>
-                            <li>Fallas mecánicas, roturas o desgaste de los objetos</li>
-                            <li>El destino final que el cliente dé a los productos</li>
-                            <li>Consecuencias legales derivadas del uso de las impresiones</li>
-                            <li>Precisión dimensional en piezas basadas en diseños del cliente</li>
+                            <li>No responsable por daños o lesiones</li>
+                            <li>No garantía para usos específicos</li>
+                            <li>Piezas basadas en diseños del cliente</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="destacado-legal">
-                    <p style="font-weight: 600; margin-bottom: 0.8rem;">Al confirmar un pedido, usted declara que:</p>
-                    <p>Ha leído y comprendido este documento. Reconoce que las piezas impresas en 3D no son equivalentes a productos fabricados industrialmente y pueden presentar variaciones. Libera a Verde de toda responsabilidad relacionada con el uso, mal uso, instalación o aplicación de los objetos impresos. Es su responsabilidad determinar la idoneidad de la pieza para su propósito específico.</p>
                 </div>
             </div>
 
-            <!-- Formulario de cotización - CON TODOS LOS CAMPOS CON NAME -->
+            <!-- FORMULARIO CON FORSPREE ID INCLUIDO -->
             <section id="cotizar" class="seccion-cotizacion">
-                <h2 style="font-size: 1.8rem; margin-bottom: 2rem;">Solicitud de cotización</h2>
+                <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Solicitud de cotización</h2>
                 
                 <div class="layout-formulario">
                     <div>
-                        <!-- IMPORTANTE: Reemplaza con tu endpoint real de Formspree -->
+                        <!-- TU FORSPREE ID YA ESTÁ INCLUIDO: xbdazzpp -->
                         <form id="formularioCotizacion" action="https://formspree.io/f/xbdazzpp" method="POST">
-                            <!-- CAMPO OCULTO PARA REDIRECCIÓN (opcional) -->
                             <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D - Verde">
-                            <input type="hidden" name="_replyto" value="tu-email@ejemplo.com">
                             
-                            <!-- Datos personales -->
                             <div class="grupo-formulario">
                                 <label>Nombre completo *</label>
-                                <input type="text" name="nombre" id="nombre" placeholder="Ej. María José González" required>
+                                <input type="text" name="nombre" id="nombre" placeholder="Ej. María González" required>
                             </div>
                             
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
                                     <label>Teléfono *</label>
-                                    <input type="tel" name="telefono" id="telefono" placeholder="Ej. 1234-5678" required>
+                                    <input type="tel" name="telefono" id="telefono" placeholder="1234-5678" required>
                                 </div>
-                                
                                 <div class="grupo-formulario">
-                                    <label>Correo electrónico *</label>
-                                    <input type="email" name="email" id="email" placeholder="Ej. maria@ejemplo.com" required>
+                                    <label>Email *</label>
+                                    <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" required>
                                     <div id="email-validation" class="mensaje-validacion"></div>
                                 </div>
                             </div>
                             
-                            <!-- Descripción del proyecto -->
                             <div class="grupo-formulario">
                                 <label>Descripción del proyecto *</label>
-                                <textarea name="descripcion" id="descripcion" rows="4" placeholder="Describa la pieza que necesita: dimensiones aproximadas, función deseada, acabados requeridos, cantidad de copias, referencias visuales, etc." required></textarea>
+                                <textarea name="descripcion" id="descripcion" rows="3" placeholder="Describa lo que necesita..." required></textarea>
                             </div>
                             
-                            <!-- Datos del slicer -->
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
-                                    <label>Gramos de filamento (según Cura) *</label>
+                                    <label>Gramos (Cura) *</label>
                                     <input type="number" name="gramos" id="gramos" value="114.76" step="0.01" min="1" required>
-                                    <small style="color: var(--gris-texto);">Use Cura con su configuración</small>
                                 </div>
-                                
                                 <div class="grupo-formulario">
-                                    <label>Horas de impresión (según Cura) *</label>
+                                    <label>Horas (Cura) *</label>
                                     <input type="number" name="horas" id="horas" value="4.87" step="0.01" min="0.1" required>
-                                    <small style="color: var(--gris-texto);">Tiempo estimado por Cura</small>
                                 </div>
                             </div>
 
-                            <!-- Configuración de impresión -->
                             <div class="fila-tres-columnas">
                                 <div class="grupo-formulario">
-                                    <label>Infill (densidad) *</label>
+                                    <label>Infill *</label>
                                     <select name="infill" id="infill" required>
-                                        <option value="5%">5% (muy bajo - ahorro material)</option>
-                                        <option value="10%">10% (bajo)</option>
-                                        <option value="15%">15%</option>
-                                        <option value="20%" selected>20% (estándar - recomendado)</option>
-                                        <option value="25%">25%</option>
-                                        <option value="30%">30% (resistencia media)</option>
-                                        <option value="40%">40%</option>
-                                        <option value="50%">50% (alta resistencia)</option>
-                                        <option value="75%">75% (muy alta)</option>
-                                        <option value="100%">100% (sólido)</option>
+                                        <option value="20%">20% (estándar)</option>
+                                        <option value="30%">30%</option>
+                                        <option value="50%">50%</option>
+                                        <option value="100%">100%</option>
                                     </select>
                                 </div>
-                                
                                 <div class="grupo-formulario">
                                     <label>Soportes *</label>
                                     <select name="soportes" id="soportes" required>
-                                        <option value="ninguno">Sin soportes (si el modelo no lo requiere)</option>
-                                        <option value="normal" selected>Normal (estándar)</option>
-                                        <option value="arbol">Soportes tipo árbol (ahorran material)</option>
-                                        <option value="todo">Soportes en todas partes</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="arbol">Árbol</option>
+                                        <option value="ninguno">Sin soportes</option>
                                     </select>
                                 </div>
-
                                 <div class="grupo-formulario">
-                                    <label>Adhesión de cama</label>
+                                    <label>Adhesión</label>
                                     <select name="adhesion" id="adhesion">
+                                        <option value="falda">Falda</option>
                                         <option value="ninguna">Ninguna</option>
-                                        <option value="falda">Falda (recomendado)</option>
-                                        <option value="balsa">Balsa (para piezas grandes)</option>
                                     </select>
                                 </div>
                             </div>
-                            
-                            <!-- Archivos -->
-                            <div class="grupo-formulario">
-                                <label>Archivo 3D (si está disponible)</label>
-                                <div class="area-archivo">
-                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">📦</span>
-                                    <p style="font-size: 0.9rem;">STL, OBJ o 3MF (máx 25MB)</p>
-                                    <input type="file" name="archivo_3d" accept=".stl,.obj,.3mf">
-                                </div>
-                            </div>
 
-                            <div class="grupo-formulario">
-                                <label>Boceto o imagen de referencia (opcional)</label>
-                                <div class="area-archivo">
-                                    <span style="font-size: 1.5rem; display: block; margin-bottom: 0.5rem;">✏️</span>
-                                    <p style="font-size: 0.9rem;">Suba una foto, dibujo o referencia visual</p>
-                                    <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 0.5rem;">JPG, PNG, PDF (máx 10MB)</p>
-                                    <input type="file" name="boceto" accept=".jpg,.jpeg,.png,.pdf">
-                                </div>
-                            </div>
-                            
-                            <!-- Material y color -->
-                            <div class="fila-formulario">
-                                <div class="grupo-formulario">
-                                    <label>Material preferido</label>
-                                    <select name="material" id="material">
-                                        <option value="PLA">PLA (estándar)</option>
-                                        <option value="PETG">PETG (resistente)</option>
-                                        <option value="TPU">TPU (flexible)</option>
-                                        <option value="otro">Otro</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="grupo-formulario">
-                                    <label>Color deseado</label>
-                                    <input type="text" name="color" id="color" placeholder="Especifique o 'a criterio'">
-                                </div>
-                            </div>
-
-                            <!-- Opciones adicionales -->
                             <div class="opcion-prioritaria">
                                 <label>
                                     <input type="checkbox" name="prioridad" id="prioridadExpress" value="si"> 
-                                    ⚡ Prioridad expresa (+Q45.00)
-                                </label>
-                                <small>Si necesita su pedido con urgencia, esta opción lo coloca al inicio de la cola de producción. El tiempo estimado se reduce a 24-48 horas hábiles después de confirmar la cotización.</small>
-                            </div>
-                            
-                            <div class="grupo-formulario">
-                                <label>Requisitos adicionales</label>
-                                <textarea name="requisitos" id="requisitos" rows="2" placeholder="Post-procesado, ensamblaje, marca específica de filamento, fecha límite, etc."></textarea>
-                            </div>
-                            
-                            <div style="margin: 1rem 0;">
-                                <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: normal;">
-                                    <input type="checkbox" name="diseno" id="ayudaDiseno" value="si"> 
-                                    Requiero servicios de diseño/modelado 3D (+Q85.00)
+                                    ⚡ Prioridad expresa (+Q45)
                                 </label>
                             </div>
 
-                            <!-- Acuerdo legal -->
+                            <div style="margin: 1rem 0;">
+                                <label style="display: flex; align-items: center; gap: 0.8rem;">
+                                    <input type="checkbox" name="diseno" id="ayudaDiseno" value="si"> 
+                                    Diseño/modelado 3D (+Q85)
+                                </label>
+                            </div>
+
+                            <!-- Acuerdo legal con required -->
                             <div class="caja-acuerdo">
                                 <label class="checkbox-legal">
                                     <input type="checkbox" name="acuerdo_legal" id="acuerdoLegal" required value="si">
                                     <div>
-                                        <strong style="display: block; margin-bottom: 0.3rem;">Acepto los términos legales</strong>
-                                        <span style="color: var(--gris-texto); font-size: 0.9rem;">He leído y acepto el descargo de responsabilidad, las condiciones de servicio y la política de tarifas adicionales. Entiendo que el presupuesto mostrado es un estimado y que la cotización final será enviada por correo después de evaluar su solicitud con los valores reales de mi slicer.</span>
+                                        <strong>Acepto los términos legales *</strong>
+                                        <span style="color: var(--gris-texto); font-size: 0.9rem;">He leído y acepto el descargo de responsabilidad.</span>
                                     </div>
                                 </label>
                             </div>
 
-                            <!-- Campo oculto con el estimado -->
                             <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q180.00">
 
-                            <!-- Botón de envío -->
-                            <button type="submit" class="btn btn-primario" style="width: 100%; margin-top: 1rem; background: white; color: var(--verde-corporativo); border: none; font-weight: 600;">
+                            <button type="submit" class="btn btn-primario" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
                                 Enviar solicitud
                             </button>
                         </form>
@@ -1075,79 +1092,44 @@
                     
                     <div>
                         <div class="tarjeta-calculadora">
-                            <h3 style="color: white; margin-bottom: 1.5rem;">💰 Estimado preliminar</h3>
+                            <h3 style="margin-bottom: 1rem;">💰 Estimado</h3>
                             
                             <div class="fila-calculo">
-                                <span>Gramos (Cura)</span>
+                                <span>Gramos</span>
                                 <span id="gramosDisplay">114.76g</span>
                             </div>
-                            
                             <div class="fila-calculo">
-                                <span>Horas (Cura)</span>
+                                <span>Horas</span>
                                 <span id="horasDisplay">4.87h</span>
                             </div>
-
-                            <div class="fila-calculo">
-                                <span>Infill seleccionado</span>
-                                <span id="infillDisplay">20%</span>
-                            </div>
-
-                            <div class="fila-calculo">
-                                <span>Soportes: </span>
-                                <span id="soportesDisplay">Normal</span>
-                            </div>
-                            
                             <div class="fila-calculo" id="filaDiseno" style="display: none;">
-                                <span>Diseño adicional</span>
-                                <span>Q85.00</span>
+                                <span>Diseño</span>
+                                <span>+Q85</span>
                             </div>
-
                             <div class="fila-calculo prioridad" id="filaPrioridad" style="display: none;">
-                                <span>⚡ Prioridad expresa</span>
-                                <span>Q45.00</span>
+                                <span>⚡ Prioridad</span>
+                                <span>+Q45</span>
                             </div>
-
                             <div class="fila-calculo">
-                                <span><strong>Entrega</strong></span>
-                                <span><strong>Q25.00</strong></span>
+                                <span>Entrega</span>
+                                <span>Q25</span>
                             </div>
-                            
                             <div class="fila-calculo total">
-                                <span>Total estimado</span>
+                                <span>Total</span>
                                 <span id="totalEstimado">Q180.00</span>
                             </div>
-
-                            <div class="nota-calculadora">
-                                <strong>📌 IMPORTANTE:</strong> 
-                                <ul style="margin-top: 0.5rem; margin-left: 1rem;">
-                                    <li>Este es un cálculo PRELIMINAR</li>
-                                    <li>Mi cotización final usará los valores REALES de mi slicer profesional</li>
-                                    <li>Consideraré su configuración de infill y soportes</li>
-                                </ul>
+                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+                                📧 Cotización formal en 24h
                             </div>
-
-                            <div class="estimado-advertencia">
-                                <p style="color: #F4A261;">⏱️ Los números (114.76g, 4.87h) son solo un ejemplo. Ajuste según los datos de CURA con SU configuración.</p>
-                            </div>
-                            
-                            <div style="margin: 1.5rem 0; padding: 0.8rem; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 0.85rem;">
-                                📧 Recibirá una cotización formal con los valores reales en su correo electrónico dentro de 24 horas hábiles.
-                                <div id="tiempoEntrega" style="margin-top: 0.5rem; color: #F4A261; font-weight: 500;">⏱️ Tiempo estándar: 3-5 días hábiles después de confirmar</div>
-                            </div>
-                            
-                            <!-- Este botón es SOLO decorativo, el real está dentro del form -->
-                            <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">Le responderemos en máximo 24 horas</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Contacto directo -->
-            <div style="background: var(--verde-fondo); border-radius: 12px; padding: 2rem; margin: 3rem 0; text-align: center;">
-                <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">📧 ¿Consultas profesionales?</p>
-                <p style="color: var(--gris-texto); margin-bottom: 1rem;">Para información adicional o proyectos especiales:</p>
-                <a href="mailto:szjweiles@gmail.com" style="color: var(--verde-corporativo); font-size: 1.3rem; font-weight: 600; text-decoration: none;">szjweiles@gmail.com</a>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gris-texto);">Tiempo de respuesta: 24 horas hábiles</p>
+            <!-- Contacto -->
+            <div style="background: var(--verde-fondo); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 0.5rem;">📧 ¿Consultas?</p>
+                <a href="mailto:szjweiles@gmail.com" style="color: var(--verde-corporativo); font-size: 1.2rem; font-weight: 600; text-decoration: none; word-break: break-all;">szjweiles@gmail.com</a>
             </div>
         </div>
     </main>
@@ -1157,28 +1139,19 @@
             <div class="footer-grid">
                 <div>
                     <h4 style="color: white; margin-bottom: 1rem;">Verde</h4>
-                    <p style="opacity: 0.7; font-size: 0.9rem;">Impresión 3D profesional en Guatemala</p>
+                    <p style="opacity: 0.7;">Impresión 3D Guatemala</p>
                     <div class="email-contacto">
                         📧 <a href="mailto:szjweiles@gmail.com">szjweiles@gmail.com</a>
                     </div>
                 </div>
                 <div>
-                    <h4 style="color: white; margin-bottom: 1rem;">Servicios</h4>
-                    <p><a href="#">Impresión 3D</a></p>
-                    <p><a href="#">Diseño y modelado</a></p>
-                    <p><a href="#">Post-procesado</a></p>
-                    <p><a href="#">Entrega a domicilio</a></p>
-                </div>
-                <div>
                     <h4 style="color: white; margin-bottom: 1rem;">Legal</h4>
-                    <p><a href="#">Términos y condiciones</a></p>
+                    <p><a href="#">Términos</a></p>
                     <p><a href="#">Descargo legal</a></p>
-                    <p><a href="#">Política de privacidad</a></p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 4rem; opacity: 0.6; font-size: 0.85rem;">
-                <p>© 2024 Verde Impresión 3D. Guatemala. Todos los derechos reservados.</p>
-                <p style="margin-top: 0.5rem;">Al utilizar nuestros servicios, acepta la totalidad de nuestros términos legales.</p>
+            <div style="text-align: center; margin-top: 2rem; opacity: 0.6; font-size: 0.85rem;">
+                <p>© 2024 Verde · Guatemala</p>
             </div>
         </div>
     </footer>
@@ -1187,28 +1160,20 @@
         // Elementos del DOM
         const gramosInput = document.getElementById('gramos');
         const horasInput = document.getElementById('horas');
-        const infillSelect = document.getElementById('infill');
-        const soportesSelect = document.getElementById('soportes');
-        
         const gramosDisplay = document.getElementById('gramosDisplay');
         const horasDisplay = document.getElementById('horasDisplay');
-        const infillDisplay = document.getElementById('infillDisplay');
-        const soportesDisplay = document.getElementById('soportesDisplay');
         const totalEstimado = document.getElementById('totalEstimado');
         const estimadoHidden = document.getElementById('estimadoHidden');
-        
         const ayudaDiseno = document.getElementById('ayudaDiseno');
         const filaDiseno = document.getElementById('filaDiseno');
         const prioridadExpress = document.getElementById('prioridadExpress');
         const filaPrioridad = document.getElementById('filaPrioridad');
-        const tiempoEntrega = document.getElementById('tiempoEntrega');
 
-        // Constantes de extras
         const ENTREGA = 25;
         const DISENO = 85;
         const PRIORIDAD = 45;
 
-        // ===== ACTUALIZAR ESTIMADO =====
+        // Actualizar estimado
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
             const horas = parseFloat(horasInput.value) || 0;
@@ -1216,36 +1181,22 @@
             gramosDisplay.textContent = `${gramos}g`;
             horasDisplay.textContent = `${horas}h`;
             
-            // Mostrar infill y soportes seleccionados
-            infillDisplay.textContent = infillSelect.options[infillSelect.selectedIndex].text.split(' ')[0];
-            soportesDisplay.textContent = soportesSelect.options[soportesSelect.selectedIndex].text;
-            
-            // Estimado base (solo referencia visual)
             let estimado = 0;
             if (gramos > 0) estimado += gramos * 0.5;
             if (horas > 0) estimado += horas * 15;
             
-            if (ayudaDiseno && ayudaDiseno.checked) estimado += DISENO;
-            if (prioridadExpress && prioridadExpress.checked) estimado += PRIORIDAD;
+            if (ayudaDiseno?.checked) estimado += DISENO;
+            if (prioridadExpress?.checked) estimado += PRIORIDAD;
             estimado += ENTREGA;
             
             const totalTexto = `Q${Math.round(estimado)}.00`;
             totalEstimado.textContent = totalTexto;
             if (estimadoHidden) estimadoHidden.value = totalTexto;
-            
-            // Tiempo de entrega
-            if (prioridadExpress && prioridadExpress.checked) {
-                tiempoEntrega.textContent = '⏱️ Con prioridad expresa: 24-48 horas hábiles después de confirmar';
-            } else {
-                tiempoEntrega.textContent = '⏱️ Tiempo estándar: 3-5 días hábiles después de confirmar';
-            }
         }
 
         // Event listeners
         if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
         if (horasInput) horasInput.addEventListener('input', actualizarEstimado);
-        if (infillSelect) infillSelect.addEventListener('change', actualizarEstimado);
-        if (soportesSelect) soportesSelect.addEventListener('change', actualizarEstimado);
 
         if (ayudaDiseno) {
             ayudaDiseno.addEventListener('change', function() {
@@ -1261,84 +1212,56 @@
             });
         }
 
-        // ===== VALIDACIÓN DE EMAIL =====
+        // Validación de email
         const emailInput = document.getElementById('email');
         const emailValidation = document.getElementById('email-validation');
         
-        function validarEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) return false;
-            
-            const dominio = email.split('@')[1].toLowerCase();
-            const dominiosValidos = ['gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'icloud.com', 'protonmail.com', 'gmail.com.gt', 'yahoo.es', 'hotmail.es'];
-            
-            return dominio.endsWith('.gt') || dominiosValidos.includes(dominio);
-        }
-
         if (emailInput) {
             emailInput.addEventListener('input', function() {
                 const email = this.value;
+                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 
                 if (email.length === 0) {
                     this.classList.remove('input-valido', 'input-invalido');
                     if (emailValidation) emailValidation.textContent = '';
-                    return;
-                }
-                
-                if (validarEmail(email)) {
+                } else if (isValid) {
                     this.classList.add('input-valido');
                     this.classList.remove('input-invalido');
                     if (emailValidation) {
-                        emailValidation.textContent = '✓ Correo válido';
+                        emailValidation.textContent = '✓ Válido';
                         emailValidation.className = 'mensaje-validacion valido';
                     }
                 } else {
                     this.classList.add('input-invalido');
                     this.classList.remove('input-valido');
                     if (emailValidation) {
-                        emailValidation.textContent = '✗ Ingrese un correo válido (ej. nombre@dominio.com)';
+                        emailValidation.textContent = '✗ Email inválido';
                         emailValidation.className = 'mensaje-validacion invalido';
                     }
                 }
             });
         }
 
-        // ===== FEEDBACK ARCHIVOS =====
-        document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
-            input.addEventListener('change', function() {
-                const parent = this.closest('.area-archivo');
-                const textElement = parent.querySelector('p');
-                if (this.files.length > 0) {
-                    textElement.innerHTML = `📎 ${this.files[0].name}`;
-                    parent.style.background = 'var(--blanco)';
-                    parent.style.borderColor = 'var(--verde-corporativo)';
-                } else {
-                    const defaultText = parent.querySelector('p:first-child')?.getAttribute('data-default');
-                    if (defaultText) {
-                        textElement.innerHTML = defaultText;
-                    }
-                    parent.style.background = 'var(--verde-fondo)';
-                }
+        // Menú hamburguesa
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
-            
-            const defaultText = input.closest('.area-archivo')?.querySelector('p')?.innerHTML;
-            if (defaultText) {
-                input.closest('.area-archivo')?.querySelector('p')?.setAttribute('data-default', defaultText);
-            }
-        });
 
-        // ===== SCROLL SUAVE =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+            // Cerrar menú al hacer clic en un enlace
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
             });
-        });
+        }
 
-        // ===== INICIALIZAR =====
+        // Inicializar
         actualizarEstimado();
     </script>
 </body>
