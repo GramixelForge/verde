@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* ===== VERDE INSTITUCIONAL ===== */
         :root {
             --verde-corporativo: #0A5C3B;
             --verde-secundario: #1E7B52;
@@ -21,26 +20,15 @@
             --gris-texto: #4A5B6B;
             --gris-claro: #E9EEF2;
             --advertencia: #B22222;
-            --fondo-advertencia: #FEF2F2;
-            --azul-info: #1E4B6E;
-            --fondo-info: #E8F0FE;
             --blanco: #FFFFFF;
-            --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.05);
             --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.08);
-            --borde-redondo: 16px;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--blanco);
             color: var(--gris-oscuro);
             line-height: 1.5;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        h1, h2, h3, h4 {
-            font-weight: 600;
-            letter-spacing: -0.02em;
         }
 
         .container {
@@ -49,7 +37,7 @@
             padding: 0 1.5rem;
         }
 
-        /* ===== HEADER SIMPLE ===== */
+        /* ===== HEADER ===== */
         .header {
             background: var(--blanco);
             border-bottom: 1px solid var(--gris-claro);
@@ -60,7 +48,6 @@
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--verde-corporativo);
-            line-height: 1.2;
             text-align: center;
         }
 
@@ -68,41 +55,26 @@
             font-size: 0.9rem;
             font-weight: 400;
             color: var(--gris-texto);
-            margin-left: 0.5rem;
+            display: block;
         }
 
         .btn {
             display: inline-block;
             padding: 0.8rem 1.8rem;
             border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-            border: none;
-            cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        .btn-primario {
             background: var(--verde-corporativo);
             color: white;
-        }
-
-        .btn-primario:hover {
-            background: var(--verde-secundario);
-        }
-
-        .btn-primario:active {
-            transform: scale(0.98);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
         }
 
         /* ===== HERO ===== */
         .hero {
             padding: 3rem 0;
             background: linear-gradient(135deg, var(--verde-fondo) 0%, var(--blanco) 100%);
-            border-bottom: 1px solid var(--gris-claro);
         }
 
         .hero-grid {
@@ -114,9 +86,7 @@
 
         .hero-titulo {
             font-size: clamp(2rem, 6vw, 3.5rem);
-            line-height: 1.2;
             margin-bottom: 1.5rem;
-            color: var(--gris-oscuro);
         }
 
         .hero-titulo span {
@@ -124,225 +94,17 @@
             display: block;
             font-size: 0.8em;
             font-weight: 400;
-            margin-top: 0.5rem;
-        }
-
-        .hero-descripcion {
-            font-size: 1.1rem;
-            color: var(--gris-texto);
-            margin-bottom: 2rem;
         }
 
         .hero-imagen {
             background: linear-gradient(135deg, var(--verde-corporativo), var(--verde-secundario));
             border-radius: 12px;
-            padding: 3rem;
             min-height: 250px;
-            box-shadow: var(--sombra-media);
         }
 
-        /* ===== BANNER DE VALOR ===== */
-        .banner-valor {
-            background: var(--fondo-info);
-            border: 1px solid var(--azul-info);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1rem;
-            align-items: start;
-        }
-
-        .banner-valor-icono {
-            font-size: 2rem;
-        }
-
-        .banner-valor h3 {
-            color: var(--azul-info);
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .banner-valor p {
-            color: var(--gris-oscuro);
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-
-        .comparacion-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .comparacion-item {
-            background: rgba(255,255,255,0.5);
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        /* ===== BANNER LEGAL ===== */
-        .aviso-legal {
-            background: var(--fondo-advertencia);
-            border: 1px solid var(--advertencia);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 2rem 0;
-            display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
-        }
-
-        /* ===== SECCIÓN DE PROCESO ===== */
-        .seccion-titulo {
-            font-size: 1.8rem;
-            text-align: center;
-            margin: 3rem 0 1.5rem;
-            color: var(--gris-oscuro);
-        }
-
-        .grid-proceso {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .tarjeta-proceso {
-            background: var(--blanco);
-            padding: 1.5rem 1rem;
-            border-radius: 12px;
-            box-shadow: var(--sombra-suave);
-            border: 1px solid var(--gris-claro);
-        }
-
-        .tarjeta-proceso .numero {
-            color: var(--verde-corporativo);
-            font-size: 1.8rem;
-            font-weight: 700;
-            opacity: 0.3;
-            margin-bottom: 0.5rem;
-        }
-
-        .tarjeta-proceso h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .tarjeta-proceso p {
-            color: var(--gris-texto);
-            font-size: 0.9rem;
-        }
-
-        /* ===== TARJETA DE INSTRUCCIONES ===== */
-        .tarjeta-instrucciones {
-            background: var(--blanco);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 1px solid var(--gris-claro);
-            box-shadow: var(--sombra-suave);
-        }
-
-        .tarjeta-instrucciones h3 {
-            color: var(--verde-corporativo);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pasos-slicer {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-        }
-
-        .paso-slicer {
-            text-align: center;
-            padding: 1rem 0.5rem;
-            background: var(--verde-fondo);
-            border-radius: 8px;
-        }
-
-        .paso-slicer .numero-paso {
-            background: var(--verde-corporativo);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .slicer-destacado {
-            background: var(--fondo-info);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .slicer-destacado a {
-            color: var(--azul-info);
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        /* ===== DESCARGO DE RESPONSABILIDAD ===== */
-        .seccion-descargo {
-            background: var(--blanco);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 1px solid var(--gris-claro);
-        }
-
-        .grid-descargo {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .item-descargo {
-            padding: 1rem;
-            background: var(--verde-fondo);
-            border-radius: 8px;
-        }
-
-        .item-descargo h4 {
-            color: var(--verde-corporativo);
-            margin-bottom: 0.8rem;
-            font-size: 1rem;
-        }
-
-        .item-descargo ul {
-            list-style-type: none;
-        }
-
-        .item-descargo li {
-            margin-bottom: 0.6rem;
-            padding-left: 1.2rem;
-            position: relative;
-            color: var(--gris-texto);
-            font-size: 0.9rem;
-        }
-
-        /* ===== NUEVO: TIME PICKER ===== */
+        /* ===== TIME PICKER ===== */
         .time-picker {
             position: relative;
-            width: 100%;
         }
 
         .time-input {
@@ -354,12 +116,6 @@
             background: var(--blanco);
             cursor: pointer;
             text-align: center;
-        }
-
-        .time-input:focus {
-            outline: none;
-            border-color: var(--verde-corporativo);
-            box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
         }
 
         .time-dropdown {
@@ -380,14 +136,6 @@
             display: block;
         }
 
-        .time-picker-header {
-            padding: 1rem;
-            border-bottom: 1px solid var(--gris-claro);
-            text-align: center;
-            font-weight: 600;
-            color: var(--verde-corporativo);
-        }
-
         .time-selectors {
             display: flex;
             padding: 1rem;
@@ -396,14 +144,6 @@
 
         .time-col {
             flex: 1;
-            text-align: center;
-        }
-
-        .time-label {
-            font-weight: 600;
-            color: var(--gris-texto);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
         }
 
         .time-scroll {
@@ -415,9 +155,8 @@
 
         .time-option {
             padding: 0.5rem;
+            text-align: center;
             cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.95rem;
         }
 
         .time-option:hover {
@@ -436,14 +175,12 @@
             padding: 1.5rem;
             margin: 2rem 0;
             border: 1px solid var(--gris-claro);
-            box-shadow: var(--sombra-media);
         }
 
         .layout-formulario {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
             gap: 2rem;
-            align-items: start;
         }
 
         .grupo-formulario {
@@ -466,8 +203,6 @@
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 500;
-            color: var(--gris-oscuro);
-            font-size: 0.95rem;
         }
 
         input, select, textarea {
@@ -476,74 +211,59 @@
             border: 1px solid var(--gris-claro);
             border-radius: 8px;
             font-size: 16px;
-            transition: all 0.2s;
-            background: var(--blanco);
         }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--verde-corporativo);
-            box-shadow: 0 0 0 3px rgba(10, 92, 59, 0.1);
-        }
-
-        input[type=number]::-webkit-inner-spin-button { 
-            opacity: 1;
-            height: 24px;
-        }
-
-        .area-archivo {
-            border: 1px dashed var(--verde-corporativo);
-            background: var(--verde-fondo);
-            border-radius: 8px;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            position: relative;
-            cursor: pointer;
-            min-height: 120px;
+        /* ===== CHECKBOXES ARREGLADOS ===== */
+        .checkbox-wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 1rem 0;
+            padding: 0.5rem 0;
         }
 
-        .area-archivo input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            margin: 0;
+            flex-shrink: 0;
             cursor: pointer;
+            accent-color: var(--verde-corporativo);
         }
 
-        .opcion-prioritaria {
+        .checkbox-wrapper label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+            font-weight: normal;
+        }
+
+        .prioridad-wrapper {
             background: linear-gradient(135deg, #fff9e6, #fff);
             border: 2px solid #F4A261;
             border-radius: 8px;
             padding: 1rem;
-            margin: 1rem 0;
         }
 
-        .opcion-prioritaria label {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+        .prioridad-wrapper .checkbox-wrapper label {
             font-weight: 600;
             color: #C45D2C;
-            cursor: pointer;
         }
 
-        .opcion-prioritaria input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            flex-shrink: 0;
-            cursor: pointer;
+        .acuerdo-wrapper {
+            background: var(--verde-fondo);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
         }
 
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--verde-corporativo);
+        .acuerdo-wrapper .checkbox-wrapper {
+            margin: 0;
+        }
+
+        .acuerdo-wrapper .checkbox-wrapper label strong {
+            display: block;
+            margin-bottom: 0.3rem;
         }
 
         /* ===== CALCULADORA ===== */
@@ -561,19 +281,9 @@
             justify-content: space-between;
             padding: 0.8rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.95rem;
-        }
-
-        .fila-calculo.prioridad {
-            background: rgba(244, 162, 97, 0.2);
-            padding: 0.8rem;
-            border-radius: 4px;
-            margin: 0.5rem 0;
-            border-bottom: none;
         }
 
         .fila-calculo.total {
-            border-bottom: none;
             border-top: 1px solid rgba(255,255,255,0.3);
             margin-top: 0.5rem;
             padding-top: 1.2rem;
@@ -581,33 +291,22 @@
             font-weight: 600;
         }
 
-        .nota-calculadora {
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
-
-        /* ===== CHECKBOX ACUERDO ===== */
-        .caja-acuerdo {
+        .area-archivo {
+            border: 1px dashed var(--verde-corporativo);
             background: var(--verde-fondo);
             border-radius: 8px;
-            padding: 1.2rem;
-            margin: 1.5rem 0;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
         }
 
-        .checkbox-legal {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            cursor: pointer;
-        }
-
-        .checkbox-legal input {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
+        .area-archivo input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
             cursor: pointer;
         }
 
@@ -619,84 +318,25 @@
             margin-top: 4rem;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer a {
-            color: #BDD3CE;
-            text-decoration: none;
-        }
-
-        .email-contacto {
-            background: rgba(255,255,255,0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            display: inline-block;
-            margin-top: 0.5rem;
-            word-break: break-all;
-        }
-
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 900px) {
-            .layout-formulario {
-                grid-template-columns: 1fr;
-            }
-            
-            .tarjeta-calculadora {
-                position: static;
-                margin-bottom: 2rem;
-            }
-        }
-
         @media (max-width: 768px) {
             .hero-grid {
                 grid-template-columns: 1fr;
             }
             
-            .hero-imagen {
-                order: -1;
-                min-height: 150px;
-            }
-
-            .grid-proceso {
+            .layout-formulario {
                 grid-template-columns: 1fr;
             }
-
-            .pasos-slicer {
-                grid-template-columns: 1fr;
-            }
-
+            
             .fila-formulario, .fila-tres-columnas {
                 grid-template-columns: 1fr;
             }
-
-            .banner-valor {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .comparacion-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .grid-descargo {
-                grid-template-columns: 1fr;
-            }
-
-            .logo span {
-                display: block;
-                margin-left: 0;
-            }
-
+            
             .time-selectors {
                 flex-direction: column;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -715,128 +355,13 @@
                         Transformamos sus ideas en objetos reales
                         <span>Sin importar la complejidad o el formato</span>
                     </h1>
-                    <p class="hero-descripcion">
-                        Servicio profesional de impresión 3D en Guatemala. Entregamos sus piezas directamente en su ubicación.
-                    </p>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="#cotizar" class="btn btn-primario">Obtener cotización</a>
-                    </div>
+                    <a href="#cotizar" class="btn" style="width: auto;">Obtener cotización</a>
                 </div>
                 <div class="hero-imagen"></div>
             </div>
         </section>
 
         <div class="container">
-            <!-- Banner de valor -->
-            <div class="banner-valor">
-                <div class="banner-valor-icono">🎯</div>
-                <div>
-                    <h3>¿Vale la pena imprimir en 3D?</h3>
-                    <p><strong>Depende de lo que necesite.</strong> Servicio para piezas personalizadas, repuestos inexistentes y prototipos.</p>
-                    
-                    <div class="comparacion-grid">
-                        <div class="comparacion-item">
-                            <div class="producto">📦 Objeto comercial</div>
-                            <div class="precio-store">Tienda: Q50</div>
-                            <div class="precio">3D: Q180</div>
-                        </div>
-                        <div class="comparacion-item">
-                            <div class="producto">🔧 Repuesto único</div>
-                            <div class="precio-store">Tienda: No hay</div>
-                            <div class="precio">3D: Q180</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Aviso legal -->
-            <div class="aviso-legal">
-                <div>⚠️</div>
-                <div>
-                    <strong>Términos:</strong> Al solicitar, acepta los términos legales. No nos responsabilizamos por uso posterior de las piezas.
-                </div>
-            </div>
-
-            <!-- Proceso -->
-            <h2 class="seccion-titulo">Nuestro proceso</h2>
-            <div class="grid-proceso">
-                <div class="tarjeta-proceso">
-                    <div class="numero">01</div>
-                    <h3>Recepción</h3>
-                    <p>Recibimos archivo, boceto o descripción.</p>
-                </div>
-                <div class="tarjeta-proceso">
-                    <div class="numero">02</div>
-                    <h3>Cotización</h3>
-                    <p>Enviamos presupuesto detallado.</p>
-                </div>
-                <div class="tarjeta-proceso">
-                    <div class="numero">03</div>
-                    <h3>Producción</h3>
-                    <p>Impresión y acabados.</p>
-                </div>
-                <div class="tarjeta-proceso">
-                    <div class="numero">04</div>
-                    <h3>Entrega</h3>
-                    <p>Personalmente, paga al recibir.</p>
-                </div>
-            </div>
-
-            <!-- Instrucciones Cura -->
-            <div class="tarjeta-instrucciones">
-                <h3>🔧 Cómo obtener una cotización precisa con Ultimaker Cura</h3>
-                
-                <div class="pasos-slicer">
-                    <div class="paso-slicer">
-                        <div class="numero-paso">1</div>
-                        <p><strong>Descargue Cura</strong></p>
-                    </div>
-                    <div class="paso-slicer">
-                        <div class="numero-paso">2</div>
-                        <p><strong>Cargue modelo</strong></p>
-                    </div>
-                    <div class="paso-slicer">
-                        <div class="numero-paso">3</div>
-                        <p><strong>Configure</strong> infill/soportes</p>
-                    </div>
-                    <div class="paso-slicer">
-                        <div class="numero-paso">4</div>
-                        <p><strong>Anote</strong> gramos y horas</p>
-                    </div>
-                </div>
-
-                <div class="slicer-destacado">
-                    <div>🖨️</div>
-                    <div>
-                        <p><strong>Ultimaker Cura</strong> — gratuito</p>
-                        <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank">Descargar →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Descargo -->
-            <div class="seccion-descargo">
-                <h2 style="color: var(--verde-corporativo);">Términos legales</h2>
-                <div class="grid-descargo">
-                    <div class="item-descargo">
-                        <h4>Responsabilidades del cliente</h4>
-                        <ul>
-                            <li>Poseer derechos de los archivos</li>
-                            <li>Responsable del uso de la pieza</li>
-                            <li>Aceptar imperfecciones normales</li>
-                        </ul>
-                    </div>
-                    <div class="item-descargo">
-                        <h4>Límites de Verde</h4>
-                        <ul>
-                            <li>No responsable por daños o lesiones</li>
-                            <li>No garantía para usos específicos</li>
-                            <li>Piezas basadas en diseños del cliente</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <!-- FORMULARIO -->
             <section id="cotizar" class="seccion-cotizacion">
                 <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Solicitud de cotización</h2>
@@ -844,7 +369,7 @@
                 <div class="layout-formulario">
                     <div>
                         <form id="formularioCotizacion" action="https://formspree.io/f/xbdazzpp" method="POST">
-                            <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D - Verde">
+                            <input type="hidden" name="_subject" value="Nueva solicitud de impresión 3D">
                             
                             <div class="grupo-formulario">
                                 <label>Nombre completo *</label>
@@ -874,21 +399,15 @@
                                 </div>
                                 <div class="grupo-formulario">
                                     <label>Tiempo de impresión *</label>
-                                    <!-- NUEVO TIME PICKER -->
                                     <div class="time-picker">
                                         <input type="text" id="tiempoDisplay" class="time-input" placeholder="--:--" readonly required>
                                         <input type="hidden" name="horas_decimal" id="horasDecimal" value="0">
                                         <div class="time-dropdown" id="timeDropdown">
-                                            <div class="time-picker-header">
-                                                <span>Seleccione hora y minutos</span>
-                                            </div>
                                             <div class="time-selectors">
                                                 <div class="time-col">
-                                                    <div class="time-label">Hora</div>
                                                     <div class="time-scroll" id="hourScroll"></div>
                                                 </div>
                                                 <div class="time-col">
-                                                    <div class="time-label">Minutos</div>
                                                     <div class="time-scroll" id="minuteScroll"></div>
                                                 </div>
                                             </div>
@@ -928,49 +447,34 @@
                                 </div>
                             </div>
 
-                            <div class="fila-formulario">
-                                <div class="grupo-formulario">
-                                    <label>Material</label>
-                                    <select name="material" id="material">
-                                        <option value="PLA">PLA</option>
-                                        <option value="PETG">PETG</option>
-                                        <option value="TPU">TPU</option>
-                                    </select>
+                            <!-- CHECKBOX DE DISEÑO - FUNCIONA -->
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" name="diseno" id="ayudaDiseno" value="si">
+                                <label for="ayudaDiseno">Diseño/modelado 3D (+Q85)</label>
+                            </div>
+
+                            <!-- CHECKBOX DE PRIORIDAD - FUNCIONA -->
+                            <div class="prioridad-wrapper">
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" name="prioridad" id="prioridadExpress" value="si">
+                                    <label for="prioridadExpress">⚡ Prioridad expresa (+Q45)</label>
                                 </div>
-                                <div class="grupo-formulario">
-                                    <label>Color</label>
-                                    <input type="text" name="color" id="color" placeholder="a criterio">
-                                </div>
                             </div>
 
-                            <div class="opcion-prioritaria">
-                                <label>
-                                    <input type="checkbox" name="prioridad" id="prioridadExpress" value="si"> 
-                                    ⚡ Prioridad expresa (+Q45)
-                                </label>
-                            </div>
-
-                            <div style="margin: 1rem 0;">
-                                <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
-                                    <input type="checkbox" name="diseno" id="ayudaDiseno" value="si"> 
-                                    Diseño/modelado 3D (+Q85)
-                                </label>
-                            </div>
-
-                            <div class="caja-acuerdo">
-                                <label class="checkbox-legal">
+                            <!-- CHECKBOX DE ACUERDO LEGAL - FUNCIONA -->
+                            <div class="acuerdo-wrapper">
+                                <div class="checkbox-wrapper">
                                     <input type="checkbox" name="acuerdo_legal" id="acuerdoLegal" required value="si">
-                                    <div>
+                                    <label for="acuerdoLegal">
                                         <strong>Acepto los términos legales *</strong>
-                                    </div>
-                                </label>
+                                        <span style="color: var(--gris-texto); font-size: 0.9rem; display: block;">He leído y acepto el descargo de responsabilidad.</span>
+                                    </label>
+                                </div>
                             </div>
 
                             <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q25.00">
 
-                            <button type="submit" class="btn btn-primario" style="width: 100%; padding: 1rem;">
-                                Enviar solicitud
-                            </button>
+                            <button type="submit" class="btn">Enviar solicitud</button>
                         </form>
                     </div>
                     
@@ -994,7 +498,7 @@
                                 <span>Diseño</span>
                                 <span>+Q85</span>
                             </div>
-                            <div class="fila-calculo prioridad" id="filaPrioridad" style="display: none;">
+                            <div class="fila-calculo" id="filaPrioridad" style="display: none;">
                                 <span>⚡ Prioridad</span>
                                 <span>+Q45</span>
                             </div>
@@ -1010,38 +514,17 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Contacto -->
-            <div style="background: var(--verde-fondo); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; text-align: center;">
-                <p style="font-size: 1.2rem;">📧 ¿Consultas?</p>
-                <a href="mailto:szjweiles@gmail.com" style="color: var(--verde-corporativo); font-size: 1.2rem;">szjweiles@gmail.com</a>
-            </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4 style="color: white;">Verde</h4>
-                    <p style="opacity: 0.7;">Impresión 3D Guatemala</p>
-                    <div class="email-contacto">
-                        📧 <a href="mailto:szjweiles@gmail.com">szjweiles@gmail.com</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 style="color: white;">Legal</h4>
-                    <p><a href="#">Términos</a></p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem; opacity: 0.6;">
-                <p>© 2024 Verde · Guatemala</p>
-            </div>
+            <p style="text-align: center;">© 2024 Verde · Guatemala</p>
         </div>
     </footer>
 
     <script>
-        // ===== TIME PICKER =====
+        // TIME PICKER
         const tiempoDisplay = document.getElementById('tiempoDisplay');
         const timeDropdown = document.getElementById('timeDropdown');
         const hourScroll = document.getElementById('hourScroll');
@@ -1051,13 +534,14 @@
         let selectedHour = 0;
         let selectedMinute = 0;
 
-        // Generar opciones de horas (0-24)
+        // Generar horas (0-24)
         for (let i = 0; i <= 24; i++) {
             const option = document.createElement('div');
             option.className = 'time-option';
             option.textContent = i.toString().padStart(2, '0');
             option.dataset.value = i;
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
                 document.querySelectorAll('#hourScroll .time-option').forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
                 selectedHour = parseInt(this.dataset.value);
@@ -1066,13 +550,14 @@
             hourScroll.appendChild(option);
         }
 
-        // Generar opciones de minutos (0, 15, 30, 45)
+        // Generar minutos (0, 15, 30, 45)
         [0, 15, 30, 45].forEach(min => {
             const option = document.createElement('div');
             option.className = 'time-option';
             option.textContent = min.toString().padStart(2, '0');
             option.dataset.value = min;
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
                 document.querySelectorAll('#minuteScroll .time-option').forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
                 selectedMinute = parseInt(this.dataset.value);
@@ -1086,41 +571,32 @@
                 const hourStr = selectedHour.toString().padStart(2, '0');
                 const minuteStr = selectedMinute.toString().padStart(2, '0');
                 tiempoDisplay.value = `${hourStr}:${minuteStr}`;
-                
-                // Convertir a decimal (ej. 2:30 = 2.5)
                 const decimal = selectedHour + (selectedMinute / 60);
                 horasDecimal.value = decimal.toFixed(2);
-                
-                // Cerrar dropdown después de seleccionar
                 timeDropdown.classList.remove('show');
-                
-                // Disparar evento para actualizar estimado
                 actualizarEstimado();
             }
         }
 
-        // Abrir/cerrar dropdown
-        tiempoDisplay.addEventListener('click', () => {
+        tiempoDisplay.addEventListener('click', (e) => {
+            e.stopPropagation();
             timeDropdown.classList.toggle('show');
         });
 
-        // Cerrar al hacer clic fuera
         document.addEventListener('click', (e) => {
             if (!tiempoDisplay.contains(e.target) && !timeDropdown.contains(e.target)) {
                 timeDropdown.classList.remove('show');
             }
         });
 
-        // ===== ELEMENTOS DEL DOM =====
+        // CÁLCULOS
         const gramosInput = document.getElementById('gramos');
         const infillInput = document.getElementById('infill');
-        
         const gramosDisplay = document.getElementById('gramosDisplay');
         const horasDisplay = document.getElementById('horasDisplay');
         const infillDisplay = document.getElementById('infillDisplay');
         const totalEstimado = document.getElementById('totalEstimado');
         const estimadoHidden = document.getElementById('estimadoHidden');
-        
         const ayudaDiseno = document.getElementById('ayudaDiseno');
         const filaDiseno = document.getElementById('filaDiseno');
         const prioridadExpress = document.getElementById('prioridadExpress');
@@ -1130,7 +606,6 @@
         const DISENO = 85;
         const PRIORIDAD = 45;
 
-        // ===== ACTUALIZAR ESTIMADO =====
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
             const horas = parseFloat(horasDecimal.value) || 0;
@@ -1160,38 +635,29 @@
                 filaPrioridad.style.display = 'none';
             }
             
-            const totalTexto = `Q${Math.round(estimado)}.00`;
-            totalEstimado.textContent = totalTexto;
-            if (estimadoHidden) estimadoHidden.value = totalTexto;
+            totalEstimado.textContent = `Q${Math.round(estimado)}.00`;
+            if (estimadoHidden) estimadoHidden.value = `Q${Math.round(estimado)}.00`;
         }
 
-        // Event listeners
-        if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
-        if (infillInput) infillInput.addEventListener('input', actualizarEstimado);
-        if (ayudaDiseno) ayudaDiseno.addEventListener('change', actualizarEstimado);
-        if (prioridadExpress) prioridadExpress.addEventListener('change', actualizarEstimado);
+        gramosInput.addEventListener('input', actualizarEstimado);
+        infillInput.addEventListener('input', actualizarEstimado);
+        ayudaDiseno.addEventListener('change', actualizarEstimado);
+        prioridadExpress.addEventListener('change', actualizarEstimado);
 
-        // Validación de email
-        const emailInput = document.getElementById('email');
-        if (emailInput) {
-            emailInput.addEventListener('input', function() {
-                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
-                this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
-            });
-        }
+        // VALIDACIÓN EMAIL
+        document.getElementById('email').addEventListener('input', function() {
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+            this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
+        });
 
-        // Feedback archivos
+        // ARCHIVOS
         document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
             input.addEventListener('change', function() {
-                const parent = this.closest('.area-archivo');
-                const textElement = parent.querySelector('p');
-                if (this.files.length > 0) {
-                    textElement.textContent = `📎 ${this.files[0].name}`;
-                }
+                const textElement = this.closest('.area-archivo').querySelector('p');
+                textElement.textContent = this.files.length ? `📎 ${this.files[0].name}` : 'STL, OBJ o 3MF';
             });
         });
 
-        // Inicializar
         actualizarEstimado();
     </script>
 </body>
