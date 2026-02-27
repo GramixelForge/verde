@@ -20,6 +20,8 @@
             --gris-texto: #4A5B6B;
             --gris-claro: #E9EEF2;
             --advertencia: #B22222;
+            --disponible: #0A5C3B;
+            --bajo-pedido: #F4A261;
             --blanco: #FFFFFF;
             --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
@@ -100,6 +102,274 @@
             background: linear-gradient(135deg, var(--verde-corporativo), var(--verde-secundario));
             border-radius: 12px;
             min-height: 250px;
+        }
+
+        /* ===== TABLA DE MATERIALES ===== */
+        .materiales-tabla {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--gris-claro);
+        }
+
+        .tabla-header {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1.5fr;
+            background: var(--verde-corporativo);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .tabla-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1.5fr;
+            padding: 1rem;
+            border-bottom: 1px solid var(--gris-claro);
+            align-items: center;
+        }
+
+        .tabla-row:last-child {
+            border-bottom: none;
+        }
+
+        .tabla-row.disponible {
+            background: rgba(10, 92, 59, 0.05);
+        }
+
+        .tabla-row.bajo-pedido {
+            background: rgba(244, 162, 97, 0.05);
+        }
+
+        .material-nombre {
+            font-weight: 600;
+        }
+
+        .material-desc {
+            font-size: 0.9rem;
+            color: var(--gris-texto);
+        }
+
+        .material-precio {
+            font-weight: 700;
+            color: var(--verde-corporativo);
+        }
+
+        .material-disponibilidad {
+            font-size: 0.85rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .disponible .material-disponibilidad {
+            background: var(--verde-corporativo);
+            color: white;
+        }
+
+        .bajo-pedido .material-disponibilidad {
+            background: var(--bajo-pedido);
+            color: white;
+        }
+
+        .notas-materiales {
+            background: var(--verde-fondo);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .notas-materiales h4 {
+            color: var(--verde-corporativo);
+            margin-bottom: 1rem;
+        }
+
+        .notas-materiales ul {
+            list-style: none;
+        }
+
+        .notas-materiales li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .notas-materiales li::before {
+            content: "📌";
+            position: absolute;
+            left: 0;
+            color: var(--verde-corporativo);
+        }
+
+        /* ===== DROPDOWNS ===== */
+        .dropdown-section {
+            margin: 2rem 0;
+            border: 1px solid var(--gris-claro);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .dropdown-header {
+            background: var(--verde-fondo);
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .dropdown-header:hover {
+            background: #e0f0e0;
+        }
+
+        .dropdown-header .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-header.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: var(--blanco);
+        }
+
+        .dropdown-content.show {
+            max-height: 800px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .dropdown-inner {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gris-claro);
+        }
+
+        /* Estilo para términos legales */
+        .terminos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .terminos-col h4 {
+            color: var(--verde-corporativo);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .terminos-col ul {
+            list-style: none;
+        }
+
+        .terminos-col li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gris-texto);
+        }
+
+        .terminos-col li::before {
+            content: "•";
+            color: var(--verde-corporativo);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .destacado-advertencia {
+            background: #FEF2F2;
+            border-left: 4px solid var(--advertencia);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* Estilo para guía de compra */
+        .comparacion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparacion-card {
+            background: var(--verde-fondo);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .comparacion-card.cuando-si {
+            border-left-color: var(--verde-corporativo);
+        }
+
+        .comparacion-card.cuando-no {
+            border-left-color: var(--advertencia);
+        }
+
+        .comparacion-card h4 {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparacion-card ul {
+            list-style: none;
+        }
+
+        .comparacion-card li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .comparacion-card li::before {
+            content: "✓";
+            color: var(--verde-corporativo);
+            position: absolute;
+            left: 0;
+        }
+
+        .comparacion-card.cuando-no li::before {
+            content: "✗";
+            color: var(--advertencia);
+        }
+
+        .ejemplo-precios {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--gris-claro);
+        }
+
+        .ejemplo-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .ejemplo-item .precio {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .ejemplo-item .precio-tienda {
+            color: var(--gris-texto);
+            text-decoration: line-through;
+            font-size: 0.9rem;
         }
 
         /* ===== TIME PICKER ===== */
@@ -233,6 +503,69 @@
             font-size: 16px;
         }
 
+        /* Selector de materiales mejorado */
+        .material-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .material-option {
+            padding: 0.8rem;
+            border: 1px solid var(--gris-claro);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .material-option:hover {
+            border-color: var(--verde-corporativo);
+            background: var(--verde-fondo);
+        }
+
+        .material-option.selected {
+            border-color: var(--verde-corporativo);
+            background: var(--verde-fondo);
+            border-width: 2px;
+        }
+
+        .material-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .material-option-nombre {
+            font-weight: 600;
+        }
+
+        .material-option-precio {
+            font-weight: 700;
+            color: var(--verde-corporativo);
+        }
+
+        .material-option-desc {
+            font-size: 0.85rem;
+            color: var(--gris-texto);
+            margin-top: 0.3rem;
+        }
+
+        .material-option-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .badge-disponible {
+            background: var(--verde-corporativo);
+            color: white;
+        }
+
+        .badge-pedido {
+            background: var(--bajo-pedido);
+            color: white;
+        }
+
         /* ===== CHECKBOXES ===== */
         .checkbox-wrapper {
             display: flex;
@@ -303,6 +636,13 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
+        .fila-calculo.material-seleccionado {
+            background: rgba(255,255,255,0.1);
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+
         .fila-calculo.total {
             border-top: 1px solid rgba(255,255,255,0.3);
             margin-top: 0.5rem;
@@ -338,6 +678,11 @@
             margin-top: 4rem;
         }
 
+        .footer a {
+            color: #BDD3CE;
+            text-decoration: none;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero-grid {
@@ -359,6 +704,23 @@
             
             .time-col {
                 max-height: 200px;
+            }
+
+            .terminos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparacion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ejemplo-precios {
+                flex-direction: column;
+            }
+
+            .tabla-header, .tabla-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
             }
         }
     </style>
@@ -386,6 +748,195 @@
         </section>
 
         <div class="container">
+            <!-- TABLA DE MATERIALES -->
+            <div class="materiales-tabla">
+                <div class="tabla-header">
+                    <span>Material</span>
+                    <span>Características</span>
+                    <span>Precio/gramo</span>
+                    <span>Disponibilidad</span>
+                </div>
+                
+                <!-- ✅ DISPONIBLES INMEDIATAMENTE -->
+                <div class="tabla-row disponible">
+                    <span class="material-nombre">PLA de colores</span>
+                    <span class="material-desc">Amplia variedad, acabado mate</span>
+                    <span class="material-precio">Q0.15</span>
+                    <span class="material-disponibilidad">✅ Inmediato</span>
+                </div>
+
+                <!-- 📦 BAJO PEDIDO (3-5 días) -->
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">Wood PLA</span>
+                    <span class="material-desc">Acabado y textura similar a madera</span>
+                    <span class="material-precio">Q0.28</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">Glow in the Dark PLA</span>
+                    <span class="material-desc">Fotoluminiscente</span>
+                    <span class="material-precio">Q0.28</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">PLA Magic Silk</span>
+                    <span class="material-desc">Efecto seda brillante</span>
+                    <span class="material-precio">Q0.28</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">PLA Metal Silk</span>
+                    <span class="material-desc">Acabado metálico</span>
+                    <span class="material-precio">Q0.28</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">TPU 95A</span>
+                    <span class="material-desc">Flexible, resistente</span>
+                    <span class="material-precio">Q0.19</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">TPE 83A</span>
+                    <span class="material-desc">Alta flexibilidad, similar a goma</span>
+                    <span class="material-precio">Q0.40</span>
+                    <span class="material-disponibilidad">📦 3-5 días</span>
+                </div>
+
+                <!-- 📦 BAJO PEDIDO (5-7 días) -->
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">PETG-CF</span>
+                    <span class="material-desc">Fibra de carbono, alta rigidez</span>
+                    <span class="material-precio">Q0.38</span>
+                    <span class="material-disponibilidad">📦 5-7 días</span>
+                </div>
+
+                <div class="tabla-row bajo-pedido">
+                    <span class="material-nombre">Nylon6-CF</span>
+                    <span class="material-desc">Fibra de carbono, máxima resistencia</span>
+                    <span class="material-precio">Q0.56</span>
+                    <span class="material-disponibilidad">📦 5-7 días</span>
+                </div>
+            </div>
+
+            <!-- NOTAS IMPORTANTES DE MATERIALES -->
+            <div class="notas-materiales">
+                <h4>📌 Notas importantes sobre materiales</h4>
+                <ul>
+                    <li><strong>PLA de colores:</strong> Es el único material que mantenemos en stock permanente. Puede iniciar su impresión inmediatamente después de aprobar la cotización.</li>
+                    <li><strong>Materiales bajo pedido:</strong> Al no mantenerlos en stock regularmente, se solicitan a nuestro proveedor especialmente para su proyecto. Esto agrega de 3 a 7 días hábiles al tiempo de entrega.</li>
+                    <li><strong>Cálculo de costo:</strong> El precio final se calcula multiplicando el peso real de su modelo (en gramos) por la tarifa del material seleccionado.</li>
+                    <li><strong>Mínimo de compra:</strong> Para materiales especiales, el proveedor puede requerir un mínimo de 1KG. En ese caso, le informaremos antes de proceder.</li>
+                    <li><strong>Confirmación:</strong> Siempre confirmamos el costo final antes de realizar el pedido o iniciar la impresión.</li>
+                </ul>
+            </div>
+
+            <!-- DROPDOWN: ¿Por qué imprimir en 3D? -->
+            <div class="dropdown-section">
+                <div class="dropdown-header" id="dropdownWhy">
+                    <span>📋 ¿Por qué imprimir en 3D? (y cuándo NO es buena idea)</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="dropdown-content" id="dropdownWhyContent">
+                    <div class="dropdown-inner">
+                        <p style="margin-bottom: 1.5rem; font-weight: 500;">La impresión 3D es una herramienta increíble, pero no siempre es la mejor opción. Aquí le ayudamos a decidir:</p>
+                        
+                        <div class="comparacion-grid">
+                            <div class="comparacion-card cuando-si">
+                                <h4>✅ CUANDO SÍ VALE LA PENA</h4>
+                                <ul>
+                                    <li><strong>Piezas personalizadas</strong> que no existen comercialmente</li>
+                                    <li><strong>Repuestos</strong> para objetos que ya no se fabrican</li>
+                                    <li><strong>Prototipos</strong> y pruebas de concepto</li>
+                                    <li><strong>Objetos únicos</strong> (regalos personalizados, arte, etc.)</li>
+                                    <li><strong>Producción de bajo volumen</strong> (1-10 unidades)</li>
+                                    <li><strong>Geometrías complejas</strong> imposibles de fabricar tradicionalmente</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="comparacion-card cuando-no">
+                                <h4>❌ CUANDO NO ES RECOMENDABLE</h4>
+                                <ul>
+                                    <li><strong>Objetos comerciales</strong> que existen en tiendas (más baratos)</li>
+                                    <li><strong>Producción en masa</strong> (más económico por inyección)</li>
+                                    <li><strong>Piezas que requieren certificación</strong> (uso médico, estructural)</li>
+                                    <li><strong>Cuando necesita el objeto inmediatamente</strong> (la impresión toma horas)</li>
+                                    <li><strong>Acabados superficiales perfectos</strong> (requieren post-procesado)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="ejemplo-precios">
+                            <div class="ejemplo-item">
+                                <div class="producto">📦 Taza comercial</div>
+                                <div class="precio-tienda">Tienda: Q35</div>
+                                <div class="precio">3D: Q45-60</div>
+                                <p style="font-size: 0.85rem; color: var(--advertencia);">⚠️ Mejor comprarla</p>
+                            </div>
+                            <div class="ejemplo-item">
+                                <div class="producto">🔧 Repuesto único</div>
+                                <div class="precio-tienda">Tienda: No existe</div>
+                                <div class="precio">3D: Q45-60</div>
+                                <p style="font-size: 0.85rem; color: var(--verde-corporativo);">✅ Única opción</p>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 1.5rem; padding: 1rem; background: var(--verde-fondo); border-radius: 8px;">
+                            <strong>💰 Conclusión:</strong> Si el objeto que necesita se consigue en una tienda comercial, 
+                            <strong>probablemente le saldrá más económico comprarlo</strong> que imprimirlo. Nuestro servicio 
+                            está orientado a piezas que <strong>no existen comercialmente</strong> o requieren personalización, 
+                            a precios accesibles para quienes no pueden o no quieren invertir en una impresora propia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DROPDOWN: Términos y condiciones legales -->
+            <div class="dropdown-section">
+                <div class="dropdown-header" id="dropdownTerms">
+                    <span>⚖️ Términos y condiciones legales</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="dropdown-content" id="dropdownTermsContent">
+                    <div class="dropdown-inner">
+                        <div class="terminos-grid">
+                            <div class="terminos-col">
+                                <h4>Responsabilidades del cliente</h4>
+                                <ul>
+                                    <li>Poseer los derechos de autor o licencia de los archivos proporcionados</li>
+                                    <li>Asumir toda responsabilidad por el uso posterior de las piezas impresas</li>
+                                    <li>Comprender que las piezas 3D no tienen garantía para usos específicos</li>
+                                    <li>No utilizar las impresiones para actividades ilícitas</li>
+                                    <li>Aceptar que las imperfecciones menores (capas, líneas) son inherentes al proceso</li>
+                                    <li>Verificar que el diseño es funcional antes de la impresión</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="terminos-col">
+                                <h4>Límites de responsabilidad de Verde</h4>
+                                <ul>
+                                    <li>No nos responsabilizamos por daños o lesiones causadas por el uso de las piezas</li>
+                                    <li>No garantizamos la precisión dimensional en piezas basadas en diseños del cliente</li>
+                                    <li>No asumimos responsabilidad por fallas mecánicas o desgaste de los objetos</li>
+                                    <li>El cliente es responsable del destino final de los productos</li>
+                                    <li>Las piezas pueden requerir post-procesado (lijado, pintura) no incluido</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="destacado-advertencia">
+                            <strong>🚨 Al confirmar un pedido, usted declara que:</strong>
+                            <p style="margin-top: 0.5rem;">Ha leído y comprendido estos términos. Reconoce que las piezas impresas en 3D no son equivalentes a productos fabricados industrialmente y pueden presentar variaciones. Libera a Verde de toda responsabilidad relacionada con el uso, mal uso, instalación o aplicación de los objetos impresos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- FORMULARIO -->
             <section id="cotizar" class="seccion-cotizacion">
                 <h2 style="font-size: 1.6rem; margin-bottom: 1.5rem;">Solicitud de cotización</h2>
@@ -415,6 +966,11 @@
                                 <label>Descripción del proyecto *</label>
                                 <textarea name="descripcion" id="descripcion" rows="3" placeholder="Describa lo que necesita..." required></textarea>
                             </div>
+                            
+                            <!-- SELECTOR DE MATERIAL (OCULTO) -->
+                            <input type="hidden" name="material" id="materialSeleccionado" value="PLA de colores">
+                            <input type="hidden" name="precio_gramo" id="precioGramo" value="0.15">
+                            <input type="hidden" name="disponibilidad" id="disponibilidadMaterial" value="inmediato">
                             
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
@@ -509,16 +1065,28 @@
                             <h3 style="margin-bottom: 1rem;">💰 Estimado</h3>
                             
                             <div class="fila-calculo">
+                                <span>Material</span>
+                                <span id="materialDisplay">PLA</span>
+                            </div>
+                            <div class="fila-calculo">
                                 <span>Gramos</span>
                                 <span id="gramosDisplay">0g</span>
+                            </div>
+                            <div class="fila-calculo">
+                                <span>Precio material</span>
+                                <span id="precioMaterialDisplay">Q0.15/g</span>
+                            </div>
+                            <div class="fila-calculo material-seleccionado">
+                                <span>Costo material</span>
+                                <span id="costoMaterial">Q0.00</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Horas</span>
                                 <span id="horasDisplay">0h</span>
                             </div>
                             <div class="fila-calculo">
-                                <span>Infill</span>
-                                <span id="infillDisplay">0%</span>
+                                <span>Costo tiempo (Q15/h)</span>
+                                <span id="costoTiempo">Q0.00</span>
                             </div>
                             <div class="fila-calculo" id="filaDiseno" style="display: none;">
                                 <span>Diseño</span>
@@ -536,8 +1104,8 @@
                                 <span>Total</span>
                                 <span id="totalEstimado">Q25.00</span>
                             </div>
-                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
-                                ⚠️ El infill ya está incluido en los gramos de filamento
+                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;" id="disponibilidadNota">
+                                ✅ PLA disponible inmediatamente
                             </div>
                         </div>
                     </div>
@@ -548,11 +1116,85 @@
 
     <footer class="footer">
         <div class="container">
-            <p style="text-align: center;">© 2024 Verde · Guatemala</p>
+            <p style="text-align: center;">© 2024 Verde · Guatemala · <a href="mailto:szjweiles@gmail.com">szjweiles@gmail.com</a></p>
         </div>
     </footer>
 
     <script>
+        // MATERIALES - Base de datos de precios
+        const materiales = {
+            "PLA de colores": { precio: 0.15, disponibilidad: "inmediato", tiempo: "Inmediato", nombre: "PLA" },
+            "Wood PLA": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Wood" },
+            "Glow in the Dark PLA": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Glow" },
+            "PLA Magic Silk": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Magic Silk" },
+            "PLA Metal Silk": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Metal Silk" },
+            "TPU 95A": { precio: 0.19, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "TPU 95A" },
+            "TPE 83A": { precio: 0.40, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "TPE 83A" },
+            "PETG-CF": { precio: 0.38, disponibilidad: "5-7 días", tiempo: "5-7 días", nombre: "PETG-CF" },
+            "Nylon6-CF": { precio: 0.56, disponibilidad: "5-7 días", tiempo: "5-7 días", nombre: "Nylon6-CF" }
+        };
+
+        // Crear selector de materiales interactivo
+        const materialSelector = document.createElement('div');
+        materialSelector.className = 'material-selector';
+        materialSelector.innerHTML = '<label>Seleccione material *</label>';
+        
+        Object.keys(materiales).forEach(key => {
+            const material = materiales[key];
+            const disponibilidadClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
+            const disponibilidadText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
+            
+            const option = document.createElement('div');
+            option.className = `material-option ${key === 'PLA de colores' ? 'selected' : ''}`;
+            option.dataset.material = key;
+            option.dataset.precio = material.precio;
+            option.dataset.disponibilidad = material.disponibilidad;
+            option.innerHTML = `
+                <div class="material-option-header">
+                    <span class="material-option-nombre">${key}</span>
+                    <span class="material-option-precio">Q${material.precio.toFixed(2)}/g</span>
+                    <span class="material-option-badge ${disponibilidadClass}">${disponibilidadText}</span>
+                </div>
+                <div class="material-option-desc">${material.descripcion || ''}</div>
+            `;
+            
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.material-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                const materialKey = this.dataset.material;
+                const materialData = materiales[materialKey];
+                
+                document.getElementById('materialSeleccionado').value = materialKey;
+                document.getElementById('precioGramo').value = materialData.precio;
+                document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
+                
+                actualizarEstimado();
+            });
+            
+            materialSelector.appendChild(option);
+        });
+
+        // Insertar el selector después del campo de descripción
+        const descripcionGroup = document.getElementById('descripcion').parentNode;
+        descripcionGroup.parentNode.insertBefore(materialSelector, descripcionGroup.nextSibling);
+
+        // DROPDOWNS
+        function setupDropdown(headerId, contentId) {
+            const header = document.getElementById(headerId);
+            const content = document.getElementById(contentId);
+            
+            if (header && content) {
+                header.addEventListener('click', () => {
+                    header.classList.toggle('active');
+                    content.classList.toggle('show');
+                });
+            }
+        }
+
+        setupDropdown('dropdownWhy', 'dropdownWhyContent');
+        setupDropdown('dropdownTerms', 'dropdownTermsContent');
+
         // TIME PICKER
         const tiempoDisplay = document.getElementById('tiempoDisplay');
         const timeDropdown = document.getElementById('timeDropdown');
@@ -624,37 +1266,60 @@
             }
         });
 
-        // CÁLCULOS - SIN FACTOR DE INFILL
+        // CÁLCULOS
         const gramosInput = document.getElementById('gramos');
         const infillInput = document.getElementById('infill');
         const gramosDisplay = document.getElementById('gramosDisplay');
         const horasDisplay = document.getElementById('horasDisplay');
         const infillDisplay = document.getElementById('infillDisplay');
+        const materialDisplay = document.getElementById('materialDisplay');
+        const precioMaterialDisplay = document.getElementById('precioMaterialDisplay');
+        const costoMaterial = document.getElementById('costoMaterial');
+        const costoTiempo = document.getElementById('costoTiempo');
         const totalEstimado = document.getElementById('totalEstimado');
         const estimadoHidden = document.getElementById('estimadoHidden');
+        const disponibilidadNota = document.getElementById('disponibilidadNota');
+        
         const ayudaDiseno = document.getElementById('ayudaDiseno');
         const filaDiseno = document.getElementById('filaDiseno');
         const prioridadExpress = document.getElementById('prioridadExpress');
         const filaPrioridad = document.getElementById('filaPrioridad');
 
+        const materialSeleccionado = document.getElementById('materialSeleccionado');
+        const precioGramo = document.getElementById('precioGramo');
+        const disponibilidadMaterial = document.getElementById('disponibilidadMaterial');
+
         const ENTREGA = 25;
         const DISENO = 85;
         const PRIORIDAD = 45;
+        const COSTO_HORA = 15;
 
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
             const horas = parseFloat(horasDecimal.value) || 0;
             const infill = parseFloat(infillInput.value) || 0;
             
+            // Obtener material seleccionado
+            const material = materialSeleccionado.value;
+            const precio = parseFloat(precioGramo.value) || 0.15;
+            const disponibilidad = disponibilidadMaterial.value;
+            
+            // Actualizar displays
             gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
             horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
             infillDisplay.textContent = infill ? `${infill}%` : '0%';
+            materialDisplay.textContent = material.split(' ')[0];
+            precioMaterialDisplay.textContent = `Q${precio.toFixed(2)}/g`;
             
-            // Cálculo simple: gramos + horas + extras
-            let estimado = ENTREGA;
+            // Calcular costos
+            const costoMat = gramos * precio;
+            const costoT = horas * COSTO_HORA;
             
-            if (gramos > 0) estimado += gramos * 0.5;  // Q0.50 por gramo
-            if (horas > 0) estimado += horas * 15;     // Q15 por hora
+            costoMaterial.textContent = `Q${costoMat.toFixed(2)}`;
+            costoTiempo.textContent = `Q${costoT.toFixed(2)}`;
+            
+            // Calcular total
+            let estimado = ENTREGA + costoMat + costoT;
             
             if (ayudaDiseno?.checked) {
                 estimado += DISENO;
@@ -672,6 +1337,15 @@
             
             totalEstimado.textContent = `Q${Math.round(estimado)}.00`;
             if (estimadoHidden) estimadoHidden.value = `Q${Math.round(estimado)}.00`;
+            
+            // Actualizar nota de disponibilidad
+            if (disponibilidad === 'inmediato') {
+                disponibilidadNota.innerHTML = '✅ PLA disponible inmediatamente';
+                disponibilidadNota.style.color = '#4CAF50';
+            } else {
+                disponibilidadNota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
+                disponibilidadNota.style.color = '#F4A261';
+            }
         }
 
         gramosInput.addEventListener('input', actualizarEstimado);
