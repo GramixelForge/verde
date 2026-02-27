@@ -1215,244 +1215,264 @@
             }
         };
 
-        // ===== LLENAR SELECTOR DE MATERIALES =====
-        const materialGrid = document.getElementById('materialGrid');
-        
-        Object.keys(materiales).forEach(key => {
-            const material = materiales[key];
-            const badgeClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
-            const badgeText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
+        // ===== ESPERAR A QUE EL DOM ESTÉ LISTO =====
+        document.addEventListener('DOMContentLoaded', function() {
             
-            const card = document.createElement('div');
-            card.className = `material-card ${key === 'PLA de colores' ? 'selected' : ''}`;
-            card.dataset.material = key;
-            card.dataset.precio = material.precio;
-            card.dataset.disponibilidad = material.disponibilidad;
+            // ===== LLENAR SELECTOR DE MATERIALES =====
+            const materialGrid = document.getElementById('materialGrid');
             
-            card.innerHTML = `
-                <div class="material-card-header">
-                    <span class="material-card-nombre">${key}</span>
-                    <span class="material-card-precio">Q${material.precio.toFixed(2)}/g</span>
-                </div>
-                <div class="material-card-desc" style="font-size: 0.85rem; color: var(--gris-texto); margin-bottom: 0.5rem;">${material.descripcion}</div>
-                <span class="material-card-badge ${badgeClass}">${badgeText}</span>
-            `;
-            
-            card.addEventListener('click', function() {
-                // Quitar selección anterior
-                document.querySelectorAll('.material-card').forEach(c => c.classList.remove('selected'));
-                this.classList.add('selected');
-                
-                // Actualizar campos ocultos
-                const materialKey = this.dataset.material;
-                const materialData = materiales[materialKey];
-                
-                document.getElementById('materialSeleccionado').value = materialKey;
-                document.getElementById('precioGramo').value = materialData.precio;
-                document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
-                
-                // Actualizar cálculo
-                actualizarEstimado();
-            });
-            
-            materialGrid.appendChild(card);
-        });
-
-        // ===== DROPDOWNS =====
-        function setupDropdown(headerId, contentId) {
-            const header = document.getElementById(headerId);
-            const content = document.getElementById(contentId);
-            
-            if (header && content) {
-                header.addEventListener('click', () => {
-                    header.classList.toggle('active');
-                    content.classList.toggle('show');
+            if (materialGrid) {
+                Object.keys(materiales).forEach(key => {
+                    const material = materiales[key];
+                    const badgeClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
+                    const badgeText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
+                    
+                    const card = document.createElement('div');
+                    card.className = `material-card ${key === 'PLA de colores' ? 'selected' : ''}`;
+                    card.dataset.material = key;
+                    card.dataset.precio = material.precio;
+                    card.dataset.disponibilidad = material.disponibilidad;
+                    
+                    card.innerHTML = `
+                        <div class="material-card-header">
+                            <span class="material-card-nombre">${key}</span>
+                            <span class="material-card-precio">Q${material.precio.toFixed(2)}/g</span>
+                        </div>
+                        <div class="material-card-desc" style="font-size: 0.85rem; color: var(--gris-texto); margin-bottom: 0.5rem;">${material.descripcion}</div>
+                        <span class="material-card-badge ${badgeClass}">${badgeText}</span>
+                    `;
+                    
+                    card.addEventListener('click', function() {
+                        // Quitar selección anterior
+                        document.querySelectorAll('.material-card').forEach(c => c.classList.remove('selected'));
+                        this.classList.add('selected');
+                        
+                        // Actualizar campos ocultos
+                        const materialKey = this.dataset.material;
+                        const materialData = materiales[materialKey];
+                        
+                        document.getElementById('materialSeleccionado').value = materialKey;
+                        document.getElementById('precioGramo').value = materialData.precio;
+                        document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
+                        
+                        // Actualizar cálculo
+                        actualizarEstimado();
+                    });
+                    
+                    materialGrid.appendChild(card);
                 });
             }
-        }
 
-        setupDropdown('dropdownWhy', 'dropdownWhyContent');
-        setupDropdown('dropdownTerms', 'dropdownTermsContent');
-
-        // ===== TIME PICKER =====
-        const tiempoDisplay = document.getElementById('tiempoDisplay');
-        const timeDropdown = document.getElementById('timeDropdown');
-        const hourScroll = document.getElementById('hourScroll');
-        const minuteScroll = document.getElementById('minuteScroll');
-        const horasDecimal = document.getElementById('horasDecimal');
-
-        let selectedHour = 2; // Valor por defecto
-        let selectedMinute = 30; // Valor por defecto
-
-        // Generar horas (0-24)
-        for (let i = 0; i <= 24; i++) {
-            const option = document.createElement('div');
-            option.className = 'time-option';
-            option.textContent = i.toString().padStart(2, '0');
-            option.dataset.value = i;
-            if (i === 2) option.classList.add('selected'); // Seleccionar 2 por defecto
-            
-            option.addEventListener('click', function(e) {
-                e.stopPropagation();
-                document.querySelectorAll('#hourScroll .time-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedHour = parseInt(this.dataset.value);
-                updateTimeDisplay();
-            });
-            hourScroll.appendChild(option);
-        }
-
-        // Generar minutos (1 a 60)
-        for (let i = 1; i <= 60; i++) {
-            const option = document.createElement('div');
-            option.className = 'time-option';
-            option.textContent = i.toString().padStart(2, '0');
-            option.dataset.value = i;
-            if (i === 30) option.classList.add('selected'); // Seleccionar 30 por defecto
-            
-            option.addEventListener('click', function(e) {
-                e.stopPropagation();
-                document.querySelectorAll('#minuteScroll .time-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedMinute = parseInt(this.dataset.value);
-                updateTimeDisplay();
-            });
-            minuteScroll.appendChild(option);
-        }
-
-        function updateTimeDisplay() {
-            const hourStr = selectedHour.toString().padStart(2, '0');
-            const minuteStr = selectedMinute.toString().padStart(2, '0');
-            tiempoDisplay.value = `${hourStr}:${minuteStr}`;
-            
-            if (selectedMinute === 60) {
-                horasDecimal.value = (selectedHour + 1).toFixed(2);
-            } else {
-                const decimal = selectedHour + (selectedMinute / 60);
-                horasDecimal.value = decimal.toFixed(2);
+            // ===== DROPDOWNS =====
+            function setupDropdown(headerId, contentId) {
+                const header = document.getElementById(headerId);
+                const content = document.getElementById(contentId);
+                
+                if (header && content) {
+                    header.addEventListener('click', () => {
+                        header.classList.toggle('active');
+                        content.classList.toggle('show');
+                    });
+                }
             }
+
+            setupDropdown('dropdownWhy', 'dropdownWhyContent');
+            setupDropdown('dropdownTerms', 'dropdownTermsContent');
+
+            // ===== TIME PICKER =====
+            const tiempoDisplay = document.getElementById('tiempoDisplay');
+            const timeDropdown = document.getElementById('timeDropdown');
+            const hourScroll = document.getElementById('hourScroll');
+            const minuteScroll = document.getElementById('minuteScroll');
+            const horasDecimal = document.getElementById('horasDecimal');
+
+            let selectedHour = 2;
+            let selectedMinute = 30;
+
+            // Limpiar contenido existente
+            if (hourScroll) hourScroll.innerHTML = '';
+            if (minuteScroll) minuteScroll.innerHTML = '';
+
+            // Generar horas (0-24)
+            for (let i = 0; i <= 24; i++) {
+                const option = document.createElement('div');
+                option.className = 'time-option';
+                option.textContent = i.toString().padStart(2, '0');
+                option.dataset.value = i;
+                if (i === 2) option.classList.add('selected');
+                
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('#hourScroll .time-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedHour = parseInt(this.dataset.value);
+                    updateTimeDisplay();
+                });
+                hourScroll.appendChild(option);
+            }
+
+            // Generar minutos (1 a 60)
+            for (let i = 1; i <= 60; i++) {
+                const option = document.createElement('div');
+                option.className = 'time-option';
+                option.textContent = i.toString().padStart(2, '0');
+                option.dataset.value = i;
+                if (i === 30) option.classList.add('selected');
+                
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('#minuteScroll .time-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedMinute = parseInt(this.dataset.value);
+                    updateTimeDisplay();
+                });
+                minuteScroll.appendChild(option);
+            }
+
+            function updateTimeDisplay() {
+                const hourStr = selectedHour.toString().padStart(2, '0');
+                const minuteStr = selectedMinute.toString().padStart(2, '0');
+                if (tiempoDisplay) tiempoDisplay.value = `${hourStr}:${minuteStr}`;
+                
+                if (selectedMinute === 60) {
+                    horasDecimal.value = (selectedHour + 1).toFixed(2);
+                } else {
+                    const decimal = selectedHour + (selectedMinute / 60);
+                    horasDecimal.value = decimal.toFixed(2);
+                }
+                
+                if (timeDropdown) timeDropdown.classList.remove('show');
+                actualizarEstimado();
+            }
+
+            // Inicializar tiempo display
+            updateTimeDisplay();
+
+            if (tiempoDisplay) {
+                tiempoDisplay.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    timeDropdown.classList.toggle('show');
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (timeDropdown && !tiempoDisplay?.contains(e.target) && !timeDropdown.contains(e.target)) {
+                    timeDropdown.classList.remove('show');
+                }
+            });
+
+            // ===== CÁLCULOS =====
+            const gramosInput = document.getElementById('gramos');
+            const infillInput = document.getElementById('infill');
+            const gramosDisplay = document.getElementById('gramosDisplay');
+            const horasDisplay = document.getElementById('horasDisplay');
+            const infillDisplay = document.getElementById('infillDisplay');
+            const materialDisplay = document.getElementById('materialDisplay');
+            const precioMaterialDisplay = document.getElementById('precioMaterialDisplay');
+            const costoMaterial = document.getElementById('costoMaterial');
+            const costoTiempo = document.getElementById('costoTiempo');
+            const totalEstimado = document.getElementById('totalEstimado');
+            const estimadoHidden = document.getElementById('estimadoHidden');
+            const disponibilidadNota = document.getElementById('disponibilidadNota');
             
-            timeDropdown.classList.remove('show');
+            const ayudaDiseno = document.getElementById('ayudaDiseno');
+            const filaDiseno = document.getElementById('filaDiseno');
+            const prioridadExpress = document.getElementById('prioridadExpress');
+            const filaPrioridad = document.getElementById('filaPrioridad');
+
+            const materialSeleccionado = document.getElementById('materialSeleccionado');
+            const precioGramo = document.getElementById('precioGramo');
+            const disponibilidadMaterial = document.getElementById('disponibilidadMaterial');
+
+            const ENTREGA = 25;
+            const DISENO = 85;
+            const PRIORIDAD = 45;
+            const COSTO_HORA = 15;
+
+            function actualizarEstimado() {
+                const gramos = parseFloat(gramosInput?.value) || 0;
+                const horas = parseFloat(horasDecimal?.value) || 0;
+                const infill = parseFloat(infillInput?.value) || 0;
+                
+                // Obtener material seleccionado
+                const material = materialSeleccionado?.value || 'PLA de colores';
+                const precio = parseFloat(precioGramo?.value) || 0.15;
+                const disponibilidad = disponibilidadMaterial?.value || 'inmediato';
+                
+                // Actualizar displays
+                if (gramosDisplay) gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
+                if (horasDisplay) horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
+                if (infillDisplay) infillDisplay.textContent = infill ? `${infill}%` : '0%';
+                if (materialDisplay) materialDisplay.textContent = material.split(' ')[0];
+                if (precioMaterialDisplay) precioMaterialDisplay.textContent = `Q${precio.toFixed(2)}/g`;
+                
+                // Calcular costos
+                const costoMat = gramos * precio;
+                const costoT = horas * COSTO_HORA;
+                
+                if (costoMaterial) costoMaterial.textContent = `Q${costoMat.toFixed(2)}`;
+                if (costoTiempo) costoTiempo.textContent = `Q${costoT.toFixed(2)}`;
+                
+                // Calcular total
+                let estimado = ENTREGA + costoMat + costoT;
+                
+                if (ayudaDiseno?.checked) {
+                    estimado += DISENO;
+                    if (filaDiseno) filaDiseno.style.display = 'flex';
+                } else {
+                    if (filaDiseno) filaDiseno.style.display = 'none';
+                }
+                
+                if (prioridadExpress?.checked) {
+                    estimado += PRIORIDAD;
+                    if (filaPrioridad) filaPrioridad.style.display = 'flex';
+                } else {
+                    if (filaPrioridad) filaPrioridad.style.display = 'none';
+                }
+                
+                if (totalEstimado) totalEstimado.textContent = `Q${Math.round(estimado)}.00`;
+                if (estimadoHidden) estimadoHidden.value = `Q${Math.round(estimado)}.00`;
+                
+                // Actualizar nota de disponibilidad
+                if (disponibilidadNota) {
+                    if (disponibilidad === 'inmediato') {
+                        disponibilidadNota.innerHTML = '✅ PLA disponible inmediatamente';
+                        disponibilidadNota.style.color = '#4CAF50';
+                    } else {
+                        disponibilidadNota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
+                        disponibilidadNota.style.color = '#F4A261';
+                    }
+                }
+            }
+
+            // Agregar event listeners
+            if (gramosInput) gramosInput.addEventListener('input', actualizarEstimado);
+            if (infillInput) infillInput.addEventListener('input', actualizarEstimado);
+            if (ayudaDiseno) ayudaDiseno.addEventListener('change', actualizarEstimado);
+            if (prioridadExpress) prioridadExpress.addEventListener('change', actualizarEstimado);
+
+            // VALIDACIÓN EMAIL
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.addEventListener('input', function() {
+                    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+                    this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
+                });
+            }
+
+            // ARCHIVOS
+            document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    const textElement = this.closest('.area-archivo').querySelector('p');
+                    if (textElement) {
+                        textElement.textContent = this.files.length ? `📎 ${this.files[0].name}` : 'STL, OBJ o 3MF';
+                    }
+                });
+            });
+
+            // Inicializar cálculos
             actualizarEstimado();
-        }
-
-        // Inicializar tiempo display
-        updateTimeDisplay();
-
-        tiempoDisplay.addEventListener('click', (e) => {
-            e.stopPropagation();
-            timeDropdown.classList.toggle('show');
         });
-
-        document.addEventListener('click', (e) => {
-            if (!tiempoDisplay.contains(e.target) && !timeDropdown.contains(e.target)) {
-                timeDropdown.classList.remove('show');
-            }
-        });
-
-        // ===== CÁLCULOS =====
-        const gramosInput = document.getElementById('gramos');
-        const infillInput = document.getElementById('infill');
-        const gramosDisplay = document.getElementById('gramosDisplay');
-        const horasDisplay = document.getElementById('horasDisplay');
-        const infillDisplay = document.getElementById('infillDisplay');
-        const materialDisplay = document.getElementById('materialDisplay');
-        const precioMaterialDisplay = document.getElementById('precioMaterialDisplay');
-        const costoMaterial = document.getElementById('costoMaterial');
-        const costoTiempo = document.getElementById('costoTiempo');
-        const totalEstimado = document.getElementById('totalEstimado');
-        const estimadoHidden = document.getElementById('estimadoHidden');
-        const disponibilidadNota = document.getElementById('disponibilidadNota');
-        
-        const ayudaDiseno = document.getElementById('ayudaDiseno');
-        const filaDiseno = document.getElementById('filaDiseno');
-        const prioridadExpress = document.getElementById('prioridadExpress');
-        const filaPrioridad = document.getElementById('filaPrioridad');
-
-        const materialSeleccionado = document.getElementById('materialSeleccionado');
-        const precioGramo = document.getElementById('precioGramo');
-        const disponibilidadMaterial = document.getElementById('disponibilidadMaterial');
-
-        const ENTREGA = 25;
-        const DISENO = 85;
-        const PRIORIDAD = 45;
-        const COSTO_HORA = 15;
-
-        function actualizarEstimado() {
-            const gramos = parseFloat(gramosInput.value) || 0;
-            const horas = parseFloat(horasDecimal.value) || 0;
-            const infill = parseFloat(infillInput.value) || 0;
-            
-            // Obtener material seleccionado
-            const material = materialSeleccionado.value;
-            const precio = parseFloat(precioGramo.value) || 0.15;
-            const disponibilidad = disponibilidadMaterial.value;
-            
-            // Actualizar displays
-            gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
-            horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
-            infillDisplay.textContent = infill ? `${infill}%` : '0%';
-            materialDisplay.textContent = material.split(' ')[0];
-            precioMaterialDisplay.textContent = `Q${precio.toFixed(2)}/g`;
-            
-            // Calcular costos
-            const costoMat = gramos * precio;
-            const costoT = horas * COSTO_HORA;
-            
-            costoMaterial.textContent = `Q${costoMat.toFixed(2)}`;
-            costoTiempo.textContent = `Q${costoT.toFixed(2)}`;
-            
-            // Calcular total
-            let estimado = ENTREGA + costoMat + costoT;
-            
-            if (ayudaDiseno?.checked) {
-                estimado += DISENO;
-                filaDiseno.style.display = 'flex';
-            } else {
-                filaDiseno.style.display = 'none';
-            }
-            
-            if (prioridadExpress?.checked) {
-                estimado += PRIORIDAD;
-                filaPrioridad.style.display = 'flex';
-            } else {
-                filaPrioridad.style.display = 'none';
-            }
-            
-            totalEstimado.textContent = `Q${Math.round(estimado)}.00`;
-            if (estimadoHidden) estimadoHidden.value = `Q${Math.round(estimado)}.00`;
-            
-            // Actualizar nota de disponibilidad
-            if (disponibilidad === 'inmediato') {
-                disponibilidadNota.innerHTML = '✅ PLA disponible inmediatamente';
-                disponibilidadNota.style.color = '#4CAF50';
-            } else {
-                disponibilidadNota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
-                disponibilidadNota.style.color = '#F4A261';
-            }
-        }
-
-        gramosInput.addEventListener('input', actualizarEstimado);
-        infillInput.addEventListener('input', actualizarEstimado);
-        ayudaDiseno.addEventListener('change', actualizarEstimado);
-        prioridadExpress.addEventListener('change', actualizarEstimado);
-
-        // VALIDACIÓN EMAIL
-        document.getElementById('email').addEventListener('input', function() {
-            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
-            this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
-        });
-
-        // ARCHIVOS
-        document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
-            input.addEventListener('change', function() {
-                const textElement = this.closest('.area-archivo').querySelector('p');
-                textElement.textContent = this.files.length ? `📎 ${this.files[0].name}` : 'STL, OBJ o 3MF';
-            });
-        });
-
-        // Inicializar cálculos
-        actualizarEstimado();
     </script>
 </body>
 </html>
