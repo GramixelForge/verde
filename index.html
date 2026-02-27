@@ -22,6 +22,8 @@
             --advertencia: #B22222;
             --blanco: #FFFFFF;
             --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --azul-info: #1E4B6E;
+            --fondo-info: #E8F0FE;
         }
 
         body {
@@ -150,6 +152,68 @@
         .dropdown-inner {
             padding: 1.5rem;
             border-top: 1px solid var(--gris-claro);
+        }
+
+        /* Estilo especial para el dropdown de Cura */
+        .cura-card {
+            background: var(--fondo-info);
+            border: 1px solid var(--azul-info);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .cura-card h4 {
+            color: var(--azul-info);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .pasos-cura {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .paso-cura {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--sombra-media);
+        }
+
+        .paso-cura .numero {
+            background: var(--azul-info);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 600;
+        }
+
+        .paso-cura p {
+            font-size: 0.9rem;
+        }
+
+        .btn-cura {
+            display: inline-block;
+            background: var(--azul-info);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .btn-cura:hover {
+            background: #0d3a5c;
         }
 
         /* Estilo para términos legales */
@@ -542,6 +606,10 @@
             .ejemplo-precios {
                 flex-direction: column;
             }
+
+            .pasos-cura {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -568,7 +636,60 @@
         </section>
 
         <div class="container">
-            <!-- DROPDOWN: ¿Por qué imprimir en 3D? (CUANDO SÍ Y CUANDO NO) -->
+            <!-- NUEVO DROPDOWN: Cómo obtener los datos con Cura -->
+            <div class="dropdown-section">
+                <div class="dropdown-header" id="dropdownCura">
+                    <span>🖨️ ¿Cómo obtener los datos que solicita el formulario? (Guía de Ultimaker Cura)</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="dropdown-content" id="dropdownCuraContent">
+                    <div class="dropdown-inner">
+                        <div class="cura-card">
+                            <h4>📊 Para obtener una cotización precisa, necesitamos dos datos de su modelo 3D:</h4>
+                            <ul style="margin: 1rem 0 1rem 2rem;">
+                                <li><strong>Gramos de filamento</strong> - El peso estimado que usará su pieza</li>
+                                <li><strong>Tiempo de impresión</strong> - Cuántas horas tomará imprimirla</li>
+                            </ul>
+                            <p>Estos datos los puede obtener fácilmente con <strong>Ultimaker Cura</strong>, un software gratuito y profesional. Siga estos pasos:</p>
+                        </div>
+
+                        <div class="pasos-cura">
+                            <div class="paso-cura">
+                                <div class="numero">1</div>
+                                <p><strong>Descargue Cura</strong><br>Gratuito para Windows, Mac y Linux</p>
+                            </div>
+                            <div class="paso-cura">
+                                <div class="numero">2</div>
+                                <p><strong>Instale y abra</strong><br>Siga las instrucciones de instalación</p>
+                            </div>
+                            <div class="paso-cura">
+                                <div class="numero">3</div>
+                                <p><strong>Cargue su modelo</strong><br>Arrastre su archivo STL/OBJ a Cura</p>
+                            </div>
+                            <div class="paso-cura">
+                                <div class="numero">4</div>
+                                <p><strong>Configure y anote</strong><br>Seleccione infill y soportes, luego anote gramos y tiempo</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <a href="https://ultimaker.com/software/ultimaker-cura" target="_blank" class="btn-cura">
+                                ⬇️ Descargar Ultimaker Cura gratis
+                            </a>
+                            <p style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gris-texto);">
+                                Una vez que tenga los datos, complete el formulario con los valores que Cura le muestre.
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid var(--gris-claro);">
+                            <p style="font-weight: 600;">📌 Ejemplo:</p>
+                            <p>Si Cura le muestra: <strong>114.76 gramos</strong> y <strong>4.87 horas</strong> (4 horas con 52 minutos), ingrese esos valores en el formulario.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DROPDOWN: ¿Por qué imprimir en 3D? -->
             <div class="dropdown-section">
                 <div class="dropdown-header" id="dropdownWhy">
                     <span>📋 ¿Por qué imprimir en 3D? (y cuándo NO es buena idea)</span>
@@ -849,6 +970,7 @@
             }
         }
 
+        setupDropdown('dropdownCura', 'dropdownCuraContent');
         setupDropdown('dropdownWhy', 'dropdownWhyContent');
         setupDropdown('dropdownTerms', 'dropdownTermsContent');
 
