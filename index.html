@@ -20,8 +20,6 @@
             --gris-texto: #4A5B6B;
             --gris-claro: #E9EEF2;
             --advertencia: #B22222;
-            --disponible: #0A5C3B;
-            --bajo-pedido: #F4A261;
             --blanco: #FFFFFF;
             --sombra-media: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
@@ -102,104 +100,6 @@
             background: linear-gradient(135deg, var(--verde-corporativo), var(--verde-secundario));
             border-radius: 12px;
             min-height: 250px;
-        }
-
-        /* ===== TABLA DE MATERIALES ===== */
-        .materiales-tabla {
-            margin: 2rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--gris-claro);
-        }
-
-        .tabla-header {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1fr 1.5fr;
-            background: var(--verde-corporativo);
-            color: white;
-            padding: 1rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .tabla-row {
-            display: grid;
-            grid-template-columns: 2fr 2fr 1fr 1.5fr;
-            padding: 1rem;
-            border-bottom: 1px solid var(--gris-claro);
-            align-items: center;
-        }
-
-        .tabla-row:last-child {
-            border-bottom: none;
-        }
-
-        .tabla-row.disponible {
-            background: rgba(10, 92, 59, 0.05);
-        }
-
-        .tabla-row.bajo-pedido {
-            background: rgba(244, 162, 97, 0.05);
-        }
-
-        .material-nombre {
-            font-weight: 600;
-        }
-
-        .material-desc {
-            font-size: 0.9rem;
-            color: var(--gris-texto);
-        }
-
-        .material-precio {
-            font-weight: 700;
-            color: var(--verde-corporativo);
-        }
-
-        .material-disponibilidad {
-            font-size: 0.85rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .disponible .material-disponibilidad {
-            background: var(--verde-corporativo);
-            color: white;
-        }
-
-        .bajo-pedido .material-disponibilidad {
-            background: var(--bajo-pedido);
-            color: white;
-        }
-
-        .notas-materiales {
-            background: var(--verde-fondo);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
-        }
-
-        .notas-materiales h4 {
-            color: var(--verde-corporativo);
-            margin-bottom: 1rem;
-        }
-
-        .notas-materiales ul {
-            list-style: none;
-        }
-
-        .notas-materiales li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .notas-materiales li::before {
-            content: "📌";
-            position: absolute;
-            left: 0;
-            color: var(--verde-corporativo);
         }
 
         /* ===== DROPDOWNS ===== */
@@ -503,69 +403,6 @@
             font-size: 16px;
         }
 
-        /* Selector de materiales mejorado */
-        .material-selector {
-            margin-bottom: 1.5rem;
-        }
-
-        .material-option {
-            padding: 0.8rem;
-            border: 1px solid var(--gris-claro);
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .material-option:hover {
-            border-color: var(--verde-corporativo);
-            background: var(--verde-fondo);
-        }
-
-        .material-option.selected {
-            border-color: var(--verde-corporativo);
-            background: var(--verde-fondo);
-            border-width: 2px;
-        }
-
-        .material-option-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .material-option-nombre {
-            font-weight: 600;
-        }
-
-        .material-option-precio {
-            font-weight: 700;
-            color: var(--verde-corporativo);
-        }
-
-        .material-option-desc {
-            font-size: 0.85rem;
-            color: var(--gris-texto);
-            margin-top: 0.3rem;
-        }
-
-        .material-option-badge {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            margin-left: 0.5rem;
-        }
-
-        .badge-disponible {
-            background: var(--verde-corporativo);
-            color: white;
-        }
-
-        .badge-pedido {
-            background: var(--bajo-pedido);
-            color: white;
-        }
-
         /* ===== CHECKBOXES ===== */
         .checkbox-wrapper {
             display: flex;
@@ -636,13 +473,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .fila-calculo.material-seleccionado {
-            background: rgba(255,255,255,0.1);
-            padding: 0.8rem;
-            border-radius: 4px;
-            margin: 0.5rem 0;
-        }
-
         .fila-calculo.total {
             border-top: 1px solid rgba(255,255,255,0.3);
             margin-top: 0.5rem;
@@ -676,11 +506,6 @@
             color: white;
             padding: 3rem 0;
             margin-top: 4rem;
-        }
-
-        .footer a {
-            color: #BDD3CE;
-            text-decoration: none;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -717,11 +542,6 @@
             .ejemplo-precios {
                 flex-direction: column;
             }
-
-            .tabla-header, .tabla-row {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -748,95 +568,7 @@
         </section>
 
         <div class="container">
-            <!-- TABLA DE MATERIALES -->
-            <div class="materiales-tabla">
-                <div class="tabla-header">
-                    <span>Material</span>
-                    <span>Características</span>
-                    <span>Precio/gramo</span>
-                    <span>Disponibilidad</span>
-                </div>
-                
-                <!-- ✅ DISPONIBLES INMEDIATAMENTE -->
-                <div class="tabla-row disponible">
-                    <span class="material-nombre">PLA de colores</span>
-                    <span class="material-desc">Amplia variedad, acabado mate</span>
-                    <span class="material-precio">Q0.15</span>
-                    <span class="material-disponibilidad">✅ Inmediato</span>
-                </div>
-
-                <!-- 📦 BAJO PEDIDO (3-5 días) -->
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">Wood PLA</span>
-                    <span class="material-desc">Acabado y textura similar a madera</span>
-                    <span class="material-precio">Q0.28</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">Glow in the Dark PLA</span>
-                    <span class="material-desc">Fotoluminiscente</span>
-                    <span class="material-precio">Q0.28</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">PLA Magic Silk</span>
-                    <span class="material-desc">Efecto seda brillante</span>
-                    <span class="material-precio">Q0.28</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">PLA Metal Silk</span>
-                    <span class="material-desc">Acabado metálico</span>
-                    <span class="material-precio">Q0.28</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">TPU 95A</span>
-                    <span class="material-desc">Flexible, resistente</span>
-                    <span class="material-precio">Q0.19</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">TPE 83A</span>
-                    <span class="material-desc">Alta flexibilidad, similar a goma</span>
-                    <span class="material-precio">Q0.40</span>
-                    <span class="material-disponibilidad">📦 3-5 días</span>
-                </div>
-
-                <!-- 📦 BAJO PEDIDO (5-7 días) -->
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">PETG-CF</span>
-                    <span class="material-desc">Fibra de carbono, alta rigidez</span>
-                    <span class="material-precio">Q0.38</span>
-                    <span class="material-disponibilidad">📦 5-7 días</span>
-                </div>
-
-                <div class="tabla-row bajo-pedido">
-                    <span class="material-nombre">Nylon6-CF</span>
-                    <span class="material-desc">Fibra de carbono, máxima resistencia</span>
-                    <span class="material-precio">Q0.56</span>
-                    <span class="material-disponibilidad">📦 5-7 días</span>
-                </div>
-            </div>
-
-            <!-- NOTAS IMPORTANTES DE MATERIALES -->
-            <div class="notas-materiales">
-                <h4>📌 Notas importantes sobre materiales</h4>
-                <ul>
-                    <li><strong>PLA de colores:</strong> Es el único material que mantenemos en stock permanente. Puede iniciar su impresión inmediatamente después de aprobar la cotización.</li>
-                    <li><strong>Materiales bajo pedido:</strong> Al no mantenerlos en stock regularmente, se solicitan a nuestro proveedor especialmente para su proyecto. Esto agrega de 3 a 7 días hábiles al tiempo de entrega.</li>
-                    <li><strong>Cálculo de costo:</strong> El precio final se calcula multiplicando el peso real de su modelo (en gramos) por la tarifa del material seleccionado.</li>
-                    <li><strong>Mínimo de compra:</strong> Para materiales especiales, el proveedor puede requerir un mínimo de 1KG. En ese caso, le informaremos antes de proceder.</li>
-                    <li><strong>Confirmación:</strong> Siempre confirmamos el costo final antes de realizar el pedido o iniciar la impresión.</li>
-                </ul>
-            </div>
-
-            <!-- DROPDOWN: ¿Por qué imprimir en 3D? -->
+            <!-- DROPDOWN: ¿Por qué imprimir en 3D? (CUANDO SÍ Y CUANDO NO) -->
             <div class="dropdown-section">
                 <div class="dropdown-header" id="dropdownWhy">
                     <span>📋 ¿Por qué imprimir en 3D? (y cuándo NO es buena idea)</span>
@@ -967,11 +699,6 @@
                                 <textarea name="descripcion" id="descripcion" rows="3" placeholder="Describa lo que necesita..." required></textarea>
                             </div>
                             
-                            <!-- SELECTOR DE MATERIAL (OCULTO) -->
-                            <input type="hidden" name="material" id="materialSeleccionado" value="PLA de colores">
-                            <input type="hidden" name="precio_gramo" id="precioGramo" value="0.15">
-                            <input type="hidden" name="disponibilidad" id="disponibilidadMaterial" value="inmediato">
-                            
                             <div class="fila-formulario">
                                 <div class="grupo-formulario">
                                     <label>Gramos de filamento *</label>
@@ -1065,28 +792,16 @@
                             <h3 style="margin-bottom: 1rem;">💰 Estimado</h3>
                             
                             <div class="fila-calculo">
-                                <span>Material</span>
-                                <span id="materialDisplay">PLA</span>
-                            </div>
-                            <div class="fila-calculo">
                                 <span>Gramos</span>
                                 <span id="gramosDisplay">0g</span>
-                            </div>
-                            <div class="fila-calculo">
-                                <span>Precio material</span>
-                                <span id="precioMaterialDisplay">Q0.15/g</span>
-                            </div>
-                            <div class="fila-calculo material-seleccionado">
-                                <span>Costo material</span>
-                                <span id="costoMaterial">Q0.00</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Horas</span>
                                 <span id="horasDisplay">0h</span>
                             </div>
                             <div class="fila-calculo">
-                                <span>Costo tiempo (Q15/h)</span>
-                                <span id="costoTiempo">Q0.00</span>
+                                <span>Infill</span>
+                                <span id="infillDisplay">0%</span>
                             </div>
                             <div class="fila-calculo" id="filaDiseno" style="display: none;">
                                 <span>Diseño</span>
@@ -1104,8 +819,8 @@
                                 <span>Total</span>
                                 <span id="totalEstimado">Q25.00</span>
                             </div>
-                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;" id="disponibilidadNota">
-                                ✅ PLA disponible inmediatamente
+                            <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+                                ⚠️ El infill ya está incluido en los gramos de filamento
                             </div>
                         </div>
                     </div>
@@ -1116,69 +831,11 @@
 
     <footer class="footer">
         <div class="container">
-            <p style="text-align: center;">© 2024 Verde · Guatemala · <a href="mailto:szjweiles@gmail.com">szjweiles@gmail.com</a></p>
+            <p style="text-align: center;">© 2024 Verde · Guatemala</p>
         </div>
     </footer>
 
     <script>
-        // MATERIALES - Base de datos de precios
-        const materiales = {
-            "PLA de colores": { precio: 0.15, disponibilidad: "inmediato", tiempo: "Inmediato", nombre: "PLA" },
-            "Wood PLA": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Wood" },
-            "Glow in the Dark PLA": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Glow" },
-            "PLA Magic Silk": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Magic Silk" },
-            "PLA Metal Silk": { precio: 0.28, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "Metal Silk" },
-            "TPU 95A": { precio: 0.19, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "TPU 95A" },
-            "TPE 83A": { precio: 0.40, disponibilidad: "3-5 días", tiempo: "3-5 días", nombre: "TPE 83A" },
-            "PETG-CF": { precio: 0.38, disponibilidad: "5-7 días", tiempo: "5-7 días", nombre: "PETG-CF" },
-            "Nylon6-CF": { precio: 0.56, disponibilidad: "5-7 días", tiempo: "5-7 días", nombre: "Nylon6-CF" }
-        };
-
-        // Crear selector de materiales interactivo
-        const materialSelector = document.createElement('div');
-        materialSelector.className = 'material-selector';
-        materialSelector.innerHTML = '<label>Seleccione material *</label>';
-        
-        Object.keys(materiales).forEach(key => {
-            const material = materiales[key];
-            const disponibilidadClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
-            const disponibilidadText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
-            
-            const option = document.createElement('div');
-            option.className = `material-option ${key === 'PLA de colores' ? 'selected' : ''}`;
-            option.dataset.material = key;
-            option.dataset.precio = material.precio;
-            option.dataset.disponibilidad = material.disponibilidad;
-            option.innerHTML = `
-                <div class="material-option-header">
-                    <span class="material-option-nombre">${key}</span>
-                    <span class="material-option-precio">Q${material.precio.toFixed(2)}/g</span>
-                    <span class="material-option-badge ${disponibilidadClass}">${disponibilidadText}</span>
-                </div>
-                <div class="material-option-desc">${material.descripcion || ''}</div>
-            `;
-            
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.material-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                
-                const materialKey = this.dataset.material;
-                const materialData = materiales[materialKey];
-                
-                document.getElementById('materialSeleccionado').value = materialKey;
-                document.getElementById('precioGramo').value = materialData.precio;
-                document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
-                
-                actualizarEstimado();
-            });
-            
-            materialSelector.appendChild(option);
-        });
-
-        // Insertar el selector después del campo de descripción
-        const descripcionGroup = document.getElementById('descripcion').parentNode;
-        descripcionGroup.parentNode.insertBefore(materialSelector, descripcionGroup.nextSibling);
-
         // DROPDOWNS
         function setupDropdown(headerId, contentId) {
             const header = document.getElementById(headerId);
@@ -1266,60 +923,37 @@
             }
         });
 
-        // CÁLCULOS
+        // CÁLCULOS - SIN FACTOR DE INFILL
         const gramosInput = document.getElementById('gramos');
         const infillInput = document.getElementById('infill');
         const gramosDisplay = document.getElementById('gramosDisplay');
         const horasDisplay = document.getElementById('horasDisplay');
         const infillDisplay = document.getElementById('infillDisplay');
-        const materialDisplay = document.getElementById('materialDisplay');
-        const precioMaterialDisplay = document.getElementById('precioMaterialDisplay');
-        const costoMaterial = document.getElementById('costoMaterial');
-        const costoTiempo = document.getElementById('costoTiempo');
         const totalEstimado = document.getElementById('totalEstimado');
         const estimadoHidden = document.getElementById('estimadoHidden');
-        const disponibilidadNota = document.getElementById('disponibilidadNota');
-        
         const ayudaDiseno = document.getElementById('ayudaDiseno');
         const filaDiseno = document.getElementById('filaDiseno');
         const prioridadExpress = document.getElementById('prioridadExpress');
         const filaPrioridad = document.getElementById('filaPrioridad');
 
-        const materialSeleccionado = document.getElementById('materialSeleccionado');
-        const precioGramo = document.getElementById('precioGramo');
-        const disponibilidadMaterial = document.getElementById('disponibilidadMaterial');
-
         const ENTREGA = 25;
         const DISENO = 85;
         const PRIORIDAD = 45;
-        const COSTO_HORA = 15;
 
         function actualizarEstimado() {
             const gramos = parseFloat(gramosInput.value) || 0;
             const horas = parseFloat(horasDecimal.value) || 0;
             const infill = parseFloat(infillInput.value) || 0;
             
-            // Obtener material seleccionado
-            const material = materialSeleccionado.value;
-            const precio = parseFloat(precioGramo.value) || 0.15;
-            const disponibilidad = disponibilidadMaterial.value;
-            
-            // Actualizar displays
             gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
             horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
             infillDisplay.textContent = infill ? `${infill}%` : '0%';
-            materialDisplay.textContent = material.split(' ')[0];
-            precioMaterialDisplay.textContent = `Q${precio.toFixed(2)}/g`;
             
-            // Calcular costos
-            const costoMat = gramos * precio;
-            const costoT = horas * COSTO_HORA;
+            // Cálculo simple: gramos + horas + extras
+            let estimado = ENTREGA;
             
-            costoMaterial.textContent = `Q${costoMat.toFixed(2)}`;
-            costoTiempo.textContent = `Q${costoT.toFixed(2)}`;
-            
-            // Calcular total
-            let estimado = ENTREGA + costoMat + costoT;
+            if (gramos > 0) estimado += gramos * 0.5;  // Q0.50 por gramo
+            if (horas > 0) estimado += horas * 15;     // Q15 por hora
             
             if (ayudaDiseno?.checked) {
                 estimado += DISENO;
@@ -1337,15 +971,6 @@
             
             totalEstimado.textContent = `Q${Math.round(estimado)}.00`;
             if (estimadoHidden) estimadoHidden.value = `Q${Math.round(estimado)}.00`;
-            
-            // Actualizar nota de disponibilidad
-            if (disponibilidad === 'inmediato') {
-                disponibilidadNota.innerHTML = '✅ PLA disponible inmediatamente';
-                disponibilidadNota.style.color = '#4CAF50';
-            } else {
-                disponibilidadNota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
-                disponibilidadNota.style.color = '#F4A261';
-            }
         }
 
         gramosInput.addEventListener('input', actualizarEstimado);
