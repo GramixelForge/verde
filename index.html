@@ -755,6 +755,7 @@
                     </h1>
                     <a href="#cotizar" class="btn" style="width: auto;">Obtener cotización</a>
                 </div>
+                <div class="hero-imagen"></div>
             </div>
         </section>
 
@@ -1052,7 +1053,7 @@
                                 </div>
                             </div>
 
-                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q25.00">
+                            <input type="hidden" name="estimado_preliminar" id="estimadoHidden" value="Q77.00">
 
                             <button type="submit" class="btn">Enviar solicitud</button>
                         </form>
@@ -1068,7 +1069,7 @@
                             </div>
                             <div class="fila-calculo">
                                 <span>Gramos</span>
-                                <span id="gramosDisplay">100g</span>
+                                <span id="gramosDisplay">0g</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Precio material</span>
@@ -1076,15 +1077,15 @@
                             </div>
                             <div class="fila-calculo material-seleccionado">
                                 <span>Costo material</span>
-                                <span id="costoMaterial">Q15.00</span>
+                                <span id="costoMaterial">Q0.00</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Horas</span>
-                                <span id="horasDisplay">2.50h</span>
+                                <span id="horasDisplay">0h</span>
                             </div>
                             <div class="fila-calculo">
                                 <span>Costo tiempo (Q15/h)</span>
-                                <span id="costoTiempo">Q37.50</span>
+                                <span id="costoTiempo">Q0.00</span>
                             </div>
                             <div class="fila-calculo" id="filaDiseno" style="display: none;">
                                 <span>Diseño</span>
@@ -1100,7 +1101,7 @@
                             </div>
                             <div class="fila-calculo total">
                                 <span>Total</span>
-                                <span id="totalEstimado">Q77.00</span>
+                                <span id="totalEstimado">Q25.00</span>
                             </div>
                             <div style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;" id="disponibilidadNota">
                                 ✅ PLA disponible inmediatamente
@@ -1186,68 +1187,71 @@
             }
         };
 
-        // ===== FUNCIÓN PRINCIPAL QUE SE EJECUTA AL CARGAR LA PÁGINA =====
-        document.addEventListener('DOMContentLoaded', function() {
+        // ===== FUNCIÓN PARA ACTUALIZAR LA CALCULADORA =====
+        function actualizarCalculadora() {
+            console.log("Actualizando calculadora...");
             
-            // ===== 1. LLENAR SELECTOR DE MATERIALES =====
-            const materialGrid = document.getElementById('materialGrid');
+            // Obtener valores actuales
+            const gramos = parseFloat(document.getElementById('gramos')?.value) || 0;
+            const horas = parseFloat(document.getElementById('horasDecimal')?.value) || 0;
+            const precio = parseFloat(document.getElementById('precioGramo')?.value) || 0.15;
+            const disponibilidad = document.getElementById('disponibilidadMaterial')?.value || 'inmediato';
+            const materialNombre = document.getElementById('materialSeleccionado')?.value || 'PLA de colores';
             
-            if (materialGrid) {
-                Object.keys(materiales).forEach(key => {
-                    const material = materiales[key];
-                    const badgeClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
-                    const badgeText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
-                    
-                    const card = document.createElement('div');
-                    card.className = `material-card ${key === 'PLA de colores' ? 'selected' : ''}`;
-                    card.dataset.material = key;
-                    card.dataset.precio = material.precio;
-                    card.dataset.disponibilidad = material.disponibilidad;
-                    
-                    card.innerHTML = `
-                        <div class="material-card-header">
-                            <span class="material-card-nombre">${key}</span>
-                            <span class="material-card-precio">Q${material.precio.toFixed(2)}/g</span>
-                        </div>
-                        <div class="material-card-desc" style="font-size: 0.85rem; color: var(--gris-texto); margin-bottom: 0.5rem;">${material.descripcion}</div>
-                        <span class="material-card-badge ${badgeClass}">${badgeText}</span>
-                    `;
-                    
-                    card.addEventListener('click', function() {
-                        document.querySelectorAll('.material-card').forEach(c => c.classList.remove('selected'));
-                        this.classList.add('selected');
-                        
-                        const materialKey = this.dataset.material;
-                        const materialData = materiales[materialKey];
-                        
-                        document.getElementById('materialSeleccionado').value = materialKey;
-                        document.getElementById('precioGramo').value = materialData.precio;
-                        document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
-                        
-                        actualizarCalculadora();
-                    });
-                    
-                    materialGrid.appendChild(card);
-                });
+            // Calcular costos
+            const costoMat = gramos * precio;
+            const costoT = horas * 15; // Q15 por hora
+            
+            // Verificar checkboxes
+            const tieneDiseno = document.getElementById('ayudaDiseno')?.checked || false;
+            const tienePrioridad = document.getElementById('prioridadExpress')?.checked || false;
+            
+            // Calcular total
+            let total = 25 + costoMat + costoT; // Entrega base Q25
+            if (tieneDiseno) total += 85;
+            if (tienePrioridad) total += 45;
+            
+            // Actualizar todos los elementos de la calculadora
+            const elementos = {
+                materialDisplay: materialNombre.split(' ')[0],
+                gramosDisplay: gramos + 'g',
+                precioMaterialDisplay: 'Q' + precio.toFixed(2) + '/g',
+                costoMaterial: 'Q' + costoMat.toFixed(2),
+                horasDisplay: horas.toFixed(2) + 'h',
+                costoTiempo: 'Q' + costo
+                                costoTiempo: 'Q' + costoT.toFixed(2),
+                totalEstimado: 'Q' + Math.round(total) + '.00'
+            };
+            
+            // Aplicar los cambios a cada elemento
+            document.getElementById('materialDisplay').textContent = elementos.materialDisplay;
+            document.getElementById('gramosDisplay').textContent = elementos.gramosDisplay;
+            document.getElementById('precioMaterialDisplay').textContent = elementos.precioMaterialDisplay;
+            document.getElementById('costoMaterial').textContent = elementos.costoMaterial;
+            document.getElementById('horasDisplay').textContent = elementos.horasDisplay;
+            document.getElementById('costoTiempo').textContent = elementos.costoTiempo;
+            document.getElementById('totalEstimado').textContent = elementos.totalEstimado;
+            document.getElementById('estimadoHidden').value = elementos.totalEstimado;
+            
+            // Mostrar/ocultar filas de extras
+            document.getElementById('filaDiseno').style.display = tieneDiseno ? 'flex' : 'none';
+            document.getElementById('filaPrioridad').style.display = tienePrioridad ? 'flex' : 'none';
+            
+            // Actualizar nota de disponibilidad
+            const nota = document.getElementById('disponibilidadNota');
+            if (disponibilidad === 'inmediato') {
+                nota.innerHTML = '✅ PLA disponible inmediatamente';
+                nota.style.color = '#4CAF50';
+            } else {
+                nota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
+                nota.style.color = '#F4A261';
             }
+            
+            console.log("Calculadora actualizada:", elementos);
+        }
 
-            // ===== 2. CONFIGURAR DROPDOWNS =====
-            function setupDropdown(headerId, contentId) {
-                const header = document.getElementById(headerId);
-                const content = document.getElementById(contentId);
-                
-                if (header && content) {
-                    header.addEventListener('click', () => {
-                        header.classList.toggle('active');
-                        content.classList.toggle('show');
-                    });
-                }
-            }
-
-            setupDropdown('dropdownWhy', 'dropdownWhyContent');
-            setupDropdown('dropdownTerms', 'dropdownTermsContent');
-
-            // ===== 3. CONFIGURAR TIME PICKER =====
+        // ===== CONFIGURAR TIME PICKER =====
+        function configurarTimePicker() {
             const tiempoDisplay = document.getElementById('tiempoDisplay');
             const timeDropdown = document.getElementById('timeDropdown');
             const hourScroll = document.getElementById('hourScroll');
@@ -1257,10 +1261,8 @@
             let selectedHour = 2;
             let selectedMinute = 30;
 
-            if (hourScroll) hourScroll.innerHTML = '';
-            if (minuteScroll) minuteScroll.innerHTML = '';
-
-            // Generar horas
+            // Limpiar y generar horas
+            hourScroll.innerHTML = '';
             for (let i = 0; i <= 24; i++) {
                 const option = document.createElement('div');
                 option.className = 'time-option';
@@ -1278,7 +1280,8 @@
                 hourScroll.appendChild(option);
             }
 
-            // Generar minutos
+            // Limpiar y generar minutos
+            minuteScroll.innerHTML = '';
             for (let i = 1; i <= 60; i++) {
                 const option = document.createElement('div');
                 option.className = 'time-option';
@@ -1299,7 +1302,7 @@
             function actualizarTimePicker() {
                 const hourStr = selectedHour.toString().padStart(2, '0');
                 const minuteStr = selectedMinute.toString().padStart(2, '0');
-                if (tiempoDisplay) tiempoDisplay.value = `${hourStr}:${minuteStr}`;
+                tiempoDisplay.value = `${hourStr}:${minuteStr}`;
                 
                 if (selectedMinute === 60) {
                     horasDecimal.value = (selectedHour + 1).toFixed(2);
@@ -1308,125 +1311,105 @@
                     horasDecimal.value = decimal.toFixed(2);
                 }
                 
-                if (timeDropdown) timeDropdown.classList.remove('show');
+                timeDropdown.classList.remove('show');
                 actualizarCalculadora();
             }
 
+            // Mostrar tiempo inicial
             actualizarTimePicker();
 
-            if (tiempoDisplay) {
-                tiempoDisplay.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    timeDropdown.classList.toggle('show');
-                });
-            }
+            // Eventos del time picker
+            tiempoDisplay.addEventListener('click', (e) => {
+                e.stopPropagation();
+                timeDropdown.classList.toggle('show');
+            });
 
             document.addEventListener('click', (e) => {
-                if (timeDropdown && !tiempoDisplay?.contains(e.target) && !timeDropdown.contains(e.target)) {
+                if (!tiempoDisplay.contains(e.target) && !timeDropdown.contains(e.target)) {
                     timeDropdown.classList.remove('show');
                 }
             });
+        }
 
-            // ===== 4. CONFIGURAR CÁLCULOS =====
-            const gramosInput = document.getElementById('gramos');
-            const infillInput = document.getElementById('infill');
-            const ayudaDiseno = document.getElementById('ayudaDiseno');
-            const prioridadExpress = document.getElementById('prioridadExpress');
+        // ===== CONFIGURAR SELECTOR DE MATERIALES =====
+        function configurarSelectorMaterial() {
+            const materialGrid = document.getElementById('materialGrid');
             
-            const materialSeleccionado = document.getElementById('materialSeleccionado');
-            const precioGramo = document.getElementById('precioGramo');
-            const disponibilidadMaterial = document.getElementById('disponibilidadMaterial');
-
-            // Referencias a los elementos de la calculadora
-            const materialDisplay = document.getElementById('materialDisplay');
-            const gramosDisplay = document.getElementById('gramosDisplay');
-            const precioMaterialDisplay = document.getElementById('precioMaterialDisplay');
-            const costoMaterial = document.getElementById('costoMaterial');
-            const horasDisplay = document.getElementById('horasDisplay');
-            const costoTiempo = document.getElementById('costoTiempo');
-            const filaDiseno = document.getElementById('filaDiseno');
-            const filaPrioridad = document.getElementById('filaPrioridad');
-            const totalEstimado = document.getElementById('totalEstimado');
-            const disponibilidadNota = document.getElementById('disponibilidadNota');
-            const horasDecimalInput = document.getElementById('horasDecimal');
-
-            const ENTREGA = 25;
-            const DISENO = 85;
-            const PRIORIDAD = 45;
-            const COSTO_HORA = 15;
-
-            // Función principal de actualización
-            function actualizarCalculadora() {
-                const gramos = parseFloat(gramosInput?.value) || 0;
-                const horas = parseFloat(horasDecimalInput?.value) || 0;
-                const infill = parseFloat(infillInput?.value) || 0;
+            Object.keys(materiales).forEach(key => {
+                const material = materiales[key];
+                const badgeClass = material.disponibilidad === 'inmediato' ? 'badge-disponible' : 'badge-pedido';
+                const badgeText = material.disponibilidad === 'inmediato' ? '✅ Inmediato' : `📦 ${material.tiempo}`;
                 
-                const precio = parseFloat(precioGramo?.value) || 0.15;
-                const disponibilidad = disponibilidadMaterial?.value || 'inmediato';
+                const card = document.createElement('div');
+                card.className = `material-card ${key === 'PLA de colores' ? 'selected' : ''}`;
+                card.dataset.material = key;
+                card.dataset.precio = material.precio;
+                card.dataset.disponibilidad = material.disponibilidad;
                 
-                // Actualizar displays
-                if (materialDisplay) materialDisplay.textContent = materialSeleccionado?.value.split(' ')[0] || 'PLA';
-                if (gramosDisplay) gramosDisplay.textContent = gramos ? `${gramos}g` : '0g';
-                if (precioMaterialDisplay) precioMaterialDisplay.textContent = `Q${precio.toFixed(2)}/g`;
+                card.innerHTML = `
+                    <div class="material-card-header">
+                        <span class="material-card-nombre">${key}</span>
+                        <span class="material-card-precio">Q${material.precio.toFixed(2)}/g</span>
+                    </div>
+                    <div class="material-card-desc" style="font-size: 0.85rem; color: var(--gris-texto);">${material.descripcion}</div>
+                    <span class="material-card-badge ${badgeClass}">${badgeText}</span>
+                `;
                 
-                // Calcular costos
-                const costoMat = gramos * precio;
-                const costoT = horas * COSTO_HORA;
-                
-                if (costoMaterial) costoMaterial.textContent = `Q${costoMat.toFixed(2)}`;
-                if (horasDisplay) horasDisplay.textContent = horas ? `${horas.toFixed(2)}h` : '0h';
-                if (costoTiempo) costoTiempo.textContent = `Q${costoT.toFixed(2)}`;
-                
-                // Calcular total
-                let total = ENTREGA + costoMat + costoT;
-                
-                if (ayudaDiseno?.checked) {
-                    total += DISENO;
-                    if (filaDiseno) filaDiseno.style.display = 'flex';
-                } else {
-                    if (filaDiseno) filaDiseno.style.display = 'none';
-                }
-                
-                if (prioridadExpress?.checked) {
-                    total += PRIORIDAD;
-                    if (filaPrioridad) filaPrioridad.style.display = 'flex';
-                } else {
-                    if (filaPrioridad) filaPrioridad.style.display = 'none';
-                }
-                
-                if (totalEstimado) totalEstimado.textContent = `Q${Math.round(total)}.00`;
-                
-                // Actualizar disponibilidad
-                if (disponibilidadNota) {
-                    if (disponibilidad === 'inmediato') {
-                        disponibilidadNota.innerHTML = '✅ PLA disponible inmediatamente';
-                        disponibilidadNota.style.color = '#4CAF50';
-                    } else {
-                        disponibilidadNota.innerHTML = `📦 Material bajo pedido (${disponibilidad})`;
-                        disponibilidadNota.style.color = '#F4A261';
-                    }
-                }
-            }
-
-            // Agregar event listeners a todos los inputs
-            if (gramosInput) gramosInput.addEventListener('input', actualizarCalculadora);
-            if (infillInput) infillInput.addEventListener('input', actualizarCalculadora);
-            if (ayudaDiseno) ayudaDiseno.addEventListener('change', actualizarCalculadora);
-            if (prioridadExpress) prioridadExpress.addEventListener('change', actualizarCalculadora);
-
-            // Inicializar calculadora
-            actualizarCalculadora();
-
-            // Validación de email
-            const emailInput = document.getElementById('email');
-            if (emailInput) {
-                emailInput.addEventListener('input', function() {
-                    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
-                    this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.material-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const materialKey = this.dataset.material;
+                    const materialData = materiales[materialKey];
+                    
+                    document.getElementById('materialSeleccionado').value = materialKey;
+                    document.getElementById('precioGramo').value = materialData.precio;
+                    document.getElementById('disponibilidadMaterial').value = materialData.disponibilidad;
+                    
+                    actualizarCalculadora();
                 });
-            }
+                
+                materialGrid.appendChild(card);
+            });
+        }
 
-            // Archivos
+        // ===== CONFIGURAR DROPDOWNS =====
+        function configurarDropdowns() {
+            const dropdowns = [
+                { header: 'dropdownWhy', content: 'dropdownWhyContent' },
+                { header: 'dropdownTerms', content: 'dropdownTermsContent' }
+            ];
+            
+            dropdowns.forEach(({ header, content }) => {
+                const headerEl = document.getElementById(header);
+                const contentEl = document.getElementById(content);
+                
+                if (headerEl && contentEl) {
+                    headerEl.addEventListener('click', () => {
+                        headerEl.classList.toggle('active');
+                        contentEl.classList.toggle('show');
+                    });
+                }
+            });
+        }
+
+        // ===== CONFIGURAR EVENT LISTENERS =====
+        function configurarEventListeners() {
+            // Inputs numéricos
+            document.getElementById('gramos').addEventListener('input', actualizarCalculadora);
+            document.getElementById('infill').addEventListener('input', actualizarCalculadora);
+            
+            // Checkboxes
+            document.getElementById('ayudaDiseno').addEventListener('change', actualizarCalculadora);
+            document.getElementById('prioridadExpress').addEventListener('change', actualizarCalculadora);
+            
+            // Email validation
+            document.getElementById('email').addEventListener('input', function() {
+                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+                this.style.borderColor = isValid ? 'var(--verde-corporativo)' : 'var(--advertencia)';
+            });
+            
+            // File inputs
             document.querySelectorAll('.area-archivo input[type="file"]').forEach(input => {
                 input.addEventListener('change', function() {
                     const textElement = this.closest('.area-archivo').querySelector('p');
@@ -1435,6 +1418,22 @@
                     }
                 });
             });
+        }
+
+        // ===== INICIALIZAR TODO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Inicializando aplicación...");
+            
+            configurarSelectorMaterial();
+            configurarTimePicker();
+            configurarDropdowns();
+            configurarEventListeners();
+            
+            // Forzar actualización inicial
+            setTimeout(() => {
+                actualizarCalculadora();
+                console.log("Actualización inicial completada");
+            }, 100);
         });
     </script>
 </body>
